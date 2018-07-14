@@ -23,4 +23,9 @@ class Item extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function wishlists()
+    {
+        return $this->belongsToMany('App\Wishlist')->withTimestamps();
+    }
 }

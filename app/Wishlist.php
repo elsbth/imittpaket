@@ -20,4 +20,9 @@ class Wishlist extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function items()
+    {
+        return $this->belongsToMany('App\Item')->withTimestamps();
+    }
 }

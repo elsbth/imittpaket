@@ -39,6 +39,19 @@
             </tr>
         </table>
 
+        @if ($itemsOnList)
+            <h2>{{ __('Items on this list') }}</h2>
+            <ul>
+                @foreach ($itemsOnList as $item)
+                    <li>
+                        <strong>{{ $item->name }}</strong>
+                        <p>{{ $item->description }}</p>
+                        <p>{{ $item->price }} @if ($item->link) <a href="{{ $item->link }}">{{ $item->link }}</a>@endif</p>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+
     @else
         <div class="container">
             <div class="row">

@@ -32,7 +32,9 @@ class WishlistController extends Controller
 
         $currentList = ($id) ? Wishlist::find($id) : null;
 
-        return view('lists', compact('lists', 'currentList'));
+        $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
+
+        return view('lists', compact('lists', 'currentList', 'itemsOnList'));
     }
 
     public function create(Request $request) {

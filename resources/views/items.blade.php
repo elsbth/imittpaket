@@ -47,6 +47,47 @@
             </tr>
         </table>
 
+        <h2>Add to list</h2>
+
+        @if($lists)
+
+            <form action="{{ route('item.addtolist') }}" method="post">
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        Please fix the following errors
+                    </div>
+                @endif
+
+                {!! csrf_field() !!}
+                <ul>
+                    @foreach($lists as $key => $list)
+                        <li>
+                            <input type="checkbox"
+                                   name="wishlist_id[]"
+                                   id="wishlist_id_{{ $list->id }}"
+                                   value="{{ $list->id }}"
+                                   @if ($itemListIds && in_array($list->id, $itemListIds))
+                                       checked
+                                   @endif
+                            />
+                            <label for="wishlist_id_{{ $list->id }}">{{ $list->title }}</label>
+                        </li>
+                    @endforeach
+                </ul>
+
+                @if($errors->has('wishlist_id'))
+                    <span class="help-block">{{ $errors->first('wishlist_id') }}</span>
+                @endif
+
+                <input type="hidden" name="item_id" value="{{ $currentItem->id }}" />
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+
+        @else
+            <p>{{ __('To add items to a list, start with Creating a list') }}</p>
+        @endif
+
     @else
         <div class="container">
             <div class="row">

@@ -27,10 +27,13 @@ class ItemController extends Controller
     {
         $user = Auth::user();
         $items = $user->items;
+        $lists = $user->lists;
 
         $currentItem = ($id) ? Item::find($id) : null;
+        $currentItemOnLists = ($currentItem) ? $currentItem->wishlists()->get(['wishlist_id'])->toArray() : null;
+        $itemListIds = ($currentItemOnLists) ? array_unique(array_column($currentItemOnLists, 'wishlist_id')) : null;
 
-        return view('items', compact('items', 'currentItem'));
+        return view('items', compact('items', 'currentItem', 'lists', 'itemListIds'));
     }
 
     public function create(Request $request) {
@@ -47,5 +50,33 @@ class ItemController extends Controller
         $item = Item::create($data);
 
         return redirect('/items/' . $item->id);
+    }
+
+    public function addToList(Request $request) {
+        $data = $request->validate([
+            'item_id' => 'required',
+            'wishlist_id' => 'required',
+        ]);
+
+        $itemId = $data['item_id'];
+
+        $item = Item::find($itemId);
+
+        $lists = $item->wishlists()->get(['wishlist_id'])->toArray();
+
+//        var_dump($data['wishlist_id']);
+//        var_dump($lists);
+
+//        var_dump($lists);
+//        foreach ($lists as $list) {
+//            var_dump($list);
+//        }
+//        die;
+
+        $item->wishlists()->sync($data['wishlist_id']);
+
+        return redirect('/items/' . $item->id);
+
+        //return redirect()->route('home')->with('success', 'Post has been successfully added!');
     }
 }

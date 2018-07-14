@@ -33,6 +33,7 @@ Route::post('/lists', 'WishlistController@create')->name('lists.create')->middle
 
 Route::get('/items/{id?}', 'ItemController@index')->name('items')->middleware('auth');
 Route::post('/item/add', 'ItemController@create')->name('item.create')->middleware('auth');
+Route::post('/item/addtolist', 'ItemController@addToList')->name('item.addtolist')->middleware('auth');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
