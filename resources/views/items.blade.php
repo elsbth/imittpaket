@@ -66,9 +66,7 @@
                                    name="wishlist_id[]"
                                    id="wishlist_id_{{ $list->id }}"
                                    value="{{ $list->id }}"
-                                   @if ($itemListIds && in_array($list->id, $itemListIds))
-                                       checked
-                                   @endif
+                                   {{ $itemListIds && in_array($list->id, $itemListIds) ? 'checked' : null }}
                             />
                             <label for="wishlist_id_{{ $list->id }}">{{ $list->title }}</label>
                         </li>

@@ -17,7 +17,7 @@ class WishlistController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['view']]);
     }
 
     /**
@@ -31,10 +31,11 @@ class WishlistController extends Controller
         $lists = $user->lists;
 
         $currentList = ($id) ? Wishlist::find($id) : null;
+        $publicLink = ($currentList) ? $currentList->getPublicLink() : null;
 
         $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
 
-        return view('lists', compact('lists', 'currentList', 'itemsOnList'));
+        return view('lists', compact('lists', 'currentList', 'itemsOnList', 'publicLink'));
     }
 
     public function create(Request $request) {
@@ -46,7 +47,22 @@ class WishlistController extends Controller
         $data['user_id'] = Auth::user()->id;
 
         $list = Wishlist::create($data);
+//        $newList = Wishlist::whereId($list->id)->first();
+
+        if ($list) {
+            $list->addPublicHash($list->id, $list->title);
+        }
 
         return redirect('/lists/' . $list->id);
+    }
+
+    public function view($hash) {
+        $currentList = Wishlist::wherePublicHash($hash)->first();
+        $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
+
+        $owner = ($currentList) ? User::whereId($currentList->user_id)->first() : null;
+        $ownerName = ($owner) ? $owner->name : null;
+
+        return view('list.view', compact('currentList', 'itemsOnList', 'ownerName'));
     }
 }

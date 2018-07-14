@@ -10,7 +10,8 @@ class Wishlist extends Model
     protected $fillable = [
         'title',
         'description',
-        'user_id'
+        'user_id',
+        'public_hash'
     ];
 
     /**
@@ -24,5 +25,31 @@ class Wishlist extends Model
     public function items()
     {
         return $this->belongsToMany('App\Item')->withTimestamps();
+    }
+
+    static function generatePublicHash($listId, $title)
+    {
+        $paddedId = str_pad($listId, 10, '0', STR_PAD_LEFT);
+        $salt = config('imittpaket.salt_wishlist');
+
+        $hash = md5($salt . $title . $paddedId);
+
+        return $hash;
+    }
+
+    function addPublicHash($id, $title) {
+        $data['public_hash'] = $this->generatePublicHash($id, $title);;
+        $this->update($data);
+    }
+
+    public function getPublicLink() {
+        $hash = $this->public_hash;
+
+        if (!$hash) {
+            $this->addPublicHash($this->id, $this->title);
+            $hash = $this->public_hash;
+        }
+
+        return ($hash) ? route('list.view', [$hash]) : null;
     }
 }

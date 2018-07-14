@@ -31,6 +31,8 @@ Route::get('/admin/faq/{id}','Admin\FaqController@index')->name('admin.faq.view'
 Route::get('/lists/{id?}', 'WishlistController@index')->name('lists')->middleware('auth');
 Route::post('/lists', 'WishlistController@create')->name('lists.create')->middleware('auth');
 
+Route::get('/list/{hash}', 'WishlistController@view')->name('list.view');
+
 Route::get('/items/{id?}', 'ItemController@index')->name('items')->middleware('auth');
 Route::post('/item/add', 'ItemController@create')->name('item.create')->middleware('auth');
 Route::post('/item/addtolist', 'ItemController@addToList')->name('item.addtolist')->middleware('auth');

@@ -34,6 +34,10 @@
                 <td>{{ $currentList->date }}</td>
             </tr>
             <tr>
+                <td>{{ __('Public link') }}</td>
+                <td><a href="{{ $publicLink }}">{{ $publicLink }}</a></td>
+            </tr>
+            <tr>
                 <td>{{ __('Created') }}</td>
                 <td>{{ $currentList->created_at->format('Y-m-d') }}</td>
             </tr>
