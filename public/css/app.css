@@ -25,8 +25,8 @@ header {
 
 header img {
 	margin-bottom: 20px;
-	width: 300px;
-	height: auto;
+	width: 100px;
+	height: 100px;
 }
 
 .wrapper {
@@ -46,17 +46,50 @@ header img {
 	flex-grow: 1;
 }
 
+header nav {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-gap: 10px;
+}
+
+.nav__container {
+	display: flex;
+}
+
+.nav__container--left {
+	justify-content: flex-end;
+}
+
+.nav__container--right {
+	justify-content: flex-start;
+}
+
 .nav__list {
+	border: 3px solid;
+	border-width: 3px 0;
 	margin: 0;
 	padding: 0;
 }
 
 .nav__list--admin {
-	border: 4px solid #fab;
+	border-color: #fab;
 	display: inline-block;
 	margin-bottom: 10px;
 	padding: 4px 8px;
 	position: relative;
+}
+
+.nav__list--user {
+	border-color: #c09;
+}
+
+.nav__list--general {
+	border-color: #50acc0;
+}
+
+.nav__list--profile {
+	width: 30px;
+	overflow: hidden;
 }
 
 .nav__list--admin:before {
@@ -73,6 +106,13 @@ header img {
 .nav__link--current {
 	font-weight: bold;
 	text-decoration: underline;
+}
+
+.nav__submenu {
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
 }
 
 footer {

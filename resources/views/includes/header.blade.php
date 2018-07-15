@@ -2,17 +2,34 @@
 
 $currentNav = isset($currentNavItem) ? $currentNavItem : '/';
 
-$navItems = array(
-	'/' => __('Start'),
-	'/faq' => __('FAQ'),
-	'/lists' => __('Lists'),
-	'/items' => __('Items'),
+$isAuth = auth()->check();
+
+$leftNavItems = array(
+	route('home') => __('Start'),
 );
 
+$authNavItems = array(
+	route('lists') => __('Lists'),
+	route('items') => __('Items'),
+);
+
+$rightNavItems = array(
+	route('faq') => __('FAQ'),
+);
+
+$friendsNavItems = array(
+	'/friends' => __('[Friends]'),
+);
+
+if ($isAuth) {
+    $leftNavItems = array_merge($leftNavItems, $authNavItems);
+    $rightNavItems = array_merge($friendsNavItems, $rightNavItems);
+}
+
 $adminNavItems = array(
-	'/admin' => __('Dashboard'),
-	'/admin/faq' => __('FAQ'),
-	'/admin/users' => __('Users'),
+	route('admin') => __('Dashboard'),
+	route('admin.faq') => __('FAQ'),
+	route('admin.users') => __('Users'),
 );
 ?>
 
@@ -45,32 +62,52 @@ $adminNavItems = array(
     @endif
 
 	<nav>
-		<ul class="nav__list">
+		<div class="nav__container nav__container--left">
+			<ul class="nav__list nav__list--user">
+				@foreach($leftNavItems as $key => $item)
+					<li class="nav__item">
+						<a href="{{$key}}" class="nav__link {{ ($key == $currentNav) ? 'nav__link--current' : '' }}">
+							{{$item}}
+						</a>
+					</li>
+				@endforeach
 
-			@foreach($navItems as $key => $item)
-				<li class="nav__item">
-					<a href="{{$key}}" class="nav__link {{ ($key == $currentNav) ? 'nav__link--current' : '' }}">
-						{{$item}}
-					</a>
-				</li>
-			@endforeach
+				@if($isAuth)
+					<li class="nav__item nav__item--submenu">
+						<ul class="nav__submenu">
+							<li class="nav__item nav__item--submenu">
+								<a class="nav__link {{ ($currentNav == 'profile') ? 'nav__link--current' : '' }}" href="/profile">{{ __('Profile (:name)', ['name' => Auth::user()->name]) }}</a>
+							</li>
+						</ul>
+					</li>
+				@else
+					<li class="nav__item">
+						<a class="nav__link {{ ($currentNav == 'register') ? 'nav__link--current' : '' }}" href="/register">{{ __('Create account') }}</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link {{ ($currentNav == 'login') ? 'nav__link--current' : '' }}" href="/login">{{ __('Log in') }}</a>
+					</li>
+				@endif
+			</ul>
+		</div>
 
-            @if(auth()->check())
-                <li class="nav__item">
-                    <a class="nav__link {{ ($currentNav == 'profile') ? 'nav__link--current' : '' }}" href="/profile">{{ __('Profile (:name)', ['name' => Auth::user()->name]) }}</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link" href="/logout">{{ __('Log out') }}</a>
-                </li>
-            @else
-                <li class="nav__item">
-                    <a class="nav__link {{ ($currentNav == 'register') ? 'nav__link--current' : '' }}" href="/register">{{ __('Create account') }}</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link {{ ($currentNav == 'login') ? 'nav__link--current' : '' }}" href="/login">{{ __('Log in') }}</a>
-                </li>
-            @endif
-		</ul>
+		<div class="nav__container nav__container--right">
+			<ul class="nav__list nav__list--general">
+				@foreach($rightNavItems as $key => $item)
+					<li class="nav__item">
+						<a href="{{$key}}" class="nav__link {{ ($key == $currentNav) ? 'nav__link--current' : '' }}">
+							{{$item}}
+						</a>
+					</li>
+				@endforeach
+
+				@if($isAuth)
+					<li class="nav__item">
+						<a class="nav__link" href="/logout">{{ __('Log out') }}</a>
+					</li>
+				@endif
+			</ul>
+		</div>
 	</nav>
 
 </header>
