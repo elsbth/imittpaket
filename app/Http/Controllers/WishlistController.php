@@ -43,7 +43,7 @@ class WishlistController extends Controller
         $data = $request->validate([
             'title' => 'required|max:255',
             'description' => 'max:255',
-            'date' => 'date_format:Y-m-d'
+            'date' => 'date_format:Y-m-d|nullable'
         ]);
 
         $data['user_id'] = Auth::user()->id;
