@@ -6,6 +6,7 @@ use App\Wishlist;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Validator;
 
 class WishlistController extends Controller
 {
@@ -58,6 +59,70 @@ class WishlistController extends Controller
         }
 
         return redirect('/lists/' . $list->hid());
+    }
+
+    public function edit($hid)
+    {
+        $id = Wishlist::decodeHid($hid);
+        $currentList = ($id) ? Wishlist::find($id) : null;
+
+        $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
+        $user = Auth::user();
+        $lists = $user->lists;
+
+        return view('list.edit', compact('currentList', 'itemsOnList', 'lists'));
+    }
+
+
+    public function store(Request $request)
+    {
+        $redirectTo = 'list.edit';
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'description' => 'max:255',
+            'date' => 'date_format:Y-m-d|nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator, 'store')
+                ->withInput();
+        }
+
+        $data = $input = $request->all();
+
+        $hid = $data['list_id'];
+        $id = Wishlist::decodeHid($hid);
+
+        $currentList = ($id) ? Wishlist::find($id) : null;
+
+        if ($currentList) {
+            $currentUser = Auth::user();
+
+            if ($currentList->user_id == $currentUser->id) {
+
+                $currentList->fill($data);
+                $changes = $currentList->getDirty();
+
+                if ($changes) {
+                    $currentList->save();
+
+                    $changedFields = array_keys($changes);
+                    $message = 'List updated: ' . join(', ', $changedFields);
+                    $redirectTo = 'lists';
+                } else {
+                    $message = 'No changes detected.';
+                }
+            } else {
+                $message = 'You are not allowed to edit this list.';
+            }
+        } else {
+            $message = 'List could not be found.';
+        }
+
+        return redirect(route($redirectTo, $currentList->hid()))
+            ->with('message', $message);
     }
 
     public function delete($hid) {

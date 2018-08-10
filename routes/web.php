@@ -29,6 +29,8 @@ Route::post('/admin/faq/store/{hid}','Admin\FaqController@store')->name('admin.f
 Route::get('/admin/faq/{hid}','Admin\FaqController@index')->name('admin.faq.view')->middleware('admin');
 
 Route::get('/lists/{hid?}', 'WishlistController@index')->name('lists')->middleware('auth');
+Route::get('/lists/edit/{hid}', 'WishlistController@edit')->name('list.edit')->middleware('auth');
+Route::post('/lists/store/{hid}', 'WishlistController@store')->name('list.store')->middleware('auth');
 Route::get('/lists/{hid}/delete', 'WishlistController@delete')->name('list.delete')->middleware('auth');
 Route::post('/lists', 'WishlistController@create')->name('lists.create')->middleware('auth');
 

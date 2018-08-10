@@ -15,49 +15,41 @@
     @if($currentList)
 
         <h1>List: {{ $currentList->title }}</h1>
+        <p>{{ __('Created') }}: {{ $currentList->created_at->format('Y-m-d') }}</p>
 
-        <table>
-            <tr>
-                <td>{{ __('Id') }}</td>
-                <td>{{ $currentList->hid() }}</td>
-            </tr>
-            <tr>
-                <td>{{ __('Title') }}</td>
-                <td>{{ $currentList->title }}</td>
-            </tr>
-            <tr>
-                <td>{{ __('Description') }}</td>
-                <td>{{ $currentList->description }}</td>
-            </tr>
-            <tr>
-                <td>{{ __('Date') }}</td>
-                <td>{{ $currentList->date }}</td>
-            </tr>
-            <tr>
-                <td>{{ __('Public link') }}</td>
-                <td><a href="{{ $publicLink }}">{{ $publicLink }}</a></td>
-            </tr>
-            <tr>
-                <td>{{ __('Created') }}</td>
-                <td>{{ $currentList->created_at->format('Y-m-d') }}</td>
-            </tr>
-        </table>
+        @if ($currentList->description)
+            <p>{{ $currentList->description }}</p>
+        @endif
+        @if ($currentList->date)
+            <p>{{ __('Date') }}: {{ $currentList->date }}</p>
+        @endif
+
+        <p>{{ __('Public link') }}: <a href="{{ $publicLink }}">{{ $publicLink }}</a></p>
 
         <hr />
         <p>
-            <strong>{{ __('Actions:') }}</strong>
-            <br /><a href="{{ route('list.delete', $currentList->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this list') }}</a>
+            <a href="{{ route('list.edit', $currentList->hid()) }}">{{ __('Edit') }}</a>
         </p>
 
         @if ($itemsOnList)
             <h2>{{ __('Items on this list') }}</h2>
             <ul>
                 @foreach ($itemsOnList as $item)
-                    <li>
-                        <strong>{{ $item->name }}</strong>
-                        <p>{{ $item->description }}</p>
-                        <p>{{ $item->price }} @if ($item->link) <a href="{{ $item->link }}">{{ $item->link }}</a>@endif</p>
-                    </li>
+                    <div class="item item--card">
+                        <h2>{{ $item->name }}</h2>
+                        @if($item->description)
+                            <p>{{ $item->description }}</p>
+                        @endif
+                        @if($item->link)
+                            <p>{{ __('Link:') }} <a href="{{ $item->link }}">{{ $item->link }}</a></p>
+                        @endif
+
+                        <p>
+                            <span>{{ $item->qty ? __('Quantity:') . ' ' . $item->qty : '' }}</span>
+                            <span>{{ $item->price ? __('Price:') . ' ' . $item->price : '' }}</span>
+                        </p>
+                        <p><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></p>
+                    </div>
                 @endforeach
             </ul>
         @endif
@@ -73,7 +65,7 @@
 
                 {!! csrf_field() !!}
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                    <label for="title">Title</label>
+                    <label for="title">Title <em class="required">*</em></label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ old('title') }}">
                     @if($errors->has('title'))
                         <span class="help-block">{{ $errors->first('title') }}</span>
@@ -92,9 +84,6 @@
                     @if($errors->has('date'))
                         <span class="help-block">{{ $errors->first('date') }}</span>
                     @endif
-                </div>
-                <div class="form-group">
-                    [DATE]
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
