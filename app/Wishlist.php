@@ -12,6 +12,7 @@ class Wishlist extends Model
         'title',
         'description',
         'user_id',
+        'date',
         'public_hash'
     ];
 

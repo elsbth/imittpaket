@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Lists'))
-@section('currentNavItem', '/lists')
+@section('currentNavItem', route('lists'))
 
 @push('styles')
 @endpush
@@ -11,6 +11,12 @@
 
 
 @section('content')
+
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
 
     @if($currentList)
 
@@ -42,6 +48,12 @@
                 <td>{{ $currentList->created_at->format('Y-m-d') }}</td>
             </tr>
         </table>
+
+        <hr />
+        <p>
+            <strong>{{ __('Actions:') }}</strong>
+            <br /><a href="{{ route('list.delete', $currentList->hid()) }}" onclick="return confirm('{{ __('Are you sure yu want to delete? This action can not be undone') }}')">{{ __('Delete this list') }}</a>
+        </p>
 
         @if ($itemsOnList)
             <h2>{{ __('Items on this list') }}</h2>
@@ -80,6 +92,13 @@
                         <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description') }}">
                         @if($errors->has('description'))
                             <span class="help-block">{{ $errors->first('description') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                        <label for="date">Date (YYYY-MM-DD)</label>
+                        <input type="text" class="form-control" id="date" name="date" placeholder="Date" value="{{ old('date') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                        @if($errors->has('date'))
+                            <span class="help-block">{{ $errors->first('date') }}</span>
                         @endif
                     </div>
                     <div class="form-group">

@@ -42,7 +42,8 @@ class WishlistController extends Controller
     public function create(Request $request) {
         $data = $request->validate([
             'title' => 'required|max:255',
-            'description' => 'required|max:255'
+            'description' => 'max:255',
+            'date' => 'date_format:Y-m-d'
         ]);
 
         $data['user_id'] = Auth::user()->id;
@@ -57,6 +58,24 @@ class WishlistController extends Controller
         }
 
         return redirect('/lists/' . $list->hid());
+    }
+
+    public function delete($hid) {
+
+        $id = Wishlist::decodeHid($hid);
+        $currentList = ($id) ? Wishlist::find($id) : null;
+
+        if ($currentList) {
+            $title = $currentList->title;
+            $currentList->items()->sync(array());
+            $result = Wishlist::destroy($id);
+
+            $message = $result ? 'The list "' . $title . '" was deleted.' : 'Something went wrong' ;
+        } else {
+            $message = 'List could not be found';
+        }
+
+        return redirect('/lists/')->with('message', $message);
     }
 
     public function view($hash) {

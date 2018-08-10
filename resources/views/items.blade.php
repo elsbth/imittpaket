@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Items'))
-@section('currentNavItem', '/items')
+@section('currentNavItem', route('items'))
 
 @push('styles')
 @endpush
