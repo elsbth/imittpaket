@@ -66,11 +66,17 @@ class WishlistController extends Controller
         $currentList = ($id) ? Wishlist::find($id) : null;
 
         if ($currentList) {
-            $title = $currentList->title;
-            $currentList->items()->sync(array());
-            $result = Wishlist::destroy($id);
+            $currentUser = Auth::user();
 
-            $message = $result ? 'The list "' . $title . '" was deleted.' : 'Something went wrong' ;
+            if ($currentList->user_id == $currentUser->id) {
+                $title = $currentList->title;
+                $currentList->items()->sync(array());
+                $result = Wishlist::destroy($id);
+
+                $message = $result ? 'The list "' . $title . '" was deleted.' : 'Something went wrong' ;
+            } else {
+                $message = 'You do not have permission to delete this list';
+            }
         } else {
             $message = 'List could not be found';
         }

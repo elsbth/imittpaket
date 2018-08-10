@@ -13,7 +13,7 @@
 @section('content')
 
     @if(session()->has('message'))
-        <div class="alert alert-success">
+        <div class="alert alert-info">
             {{ session()->get('message') }}
         </div>
     @endif
@@ -52,7 +52,7 @@
         <hr />
         <p>
             <strong>{{ __('Actions:') }}</strong>
-            <br /><a href="{{ route('list.delete', $currentList->hid()) }}" onclick="return confirm('{{ __('Are you sure yu want to delete? This action can not be undone') }}')">{{ __('Delete this list') }}</a>
+            <br /><a href="{{ route('list.delete', $currentList->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this list') }}</a>
         </p>
 
         @if ($itemsOnList)
@@ -69,45 +69,41 @@
         @endif
 
     @else
-        <div class="container">
-            <div class="row">
-                <h1>Create a list</h1>
-                <form action="/lists" method="post">
-                    @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            Please fix the following errors
-                        </div>
-                    @endif
+            <h1>Create a list</h1>
+            <form action="/lists" method="post">
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        Please fix the following errors
+                    </div>
+                @endif
 
-                    {!! csrf_field() !!}
-                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ old('title') }}">
-                        @if($errors->has('title'))
-                            <span class="help-block">{{ $errors->first('title') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                        <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description') }}">
-                        @if($errors->has('description'))
-                            <span class="help-block">{{ $errors->first('description') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
-                        <label for="date">Date (YYYY-MM-DD)</label>
-                        <input type="text" class="form-control" id="date" name="date" placeholder="Date" value="{{ old('date') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                        @if($errors->has('date'))
-                            <span class="help-block">{{ $errors->first('date') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        [DATE]
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
-        </div>
+                {!! csrf_field() !!}
+                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ old('title') }}">
+                    @if($errors->has('title'))
+                        <span class="help-block">{{ $errors->first('title') }}</span>
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description') }}">
+                    @if($errors->has('description'))
+                        <span class="help-block">{{ $errors->first('description') }}</span>
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                    <label for="date">Date (YYYY-MM-DD)</label>
+                    <input type="text" class="form-control" id="date" name="date" placeholder="Date" value="{{ old('date') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                    @if($errors->has('date'))
+                        <span class="help-block">{{ $errors->first('date') }}</span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    [DATE]
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
     @endif
 @endsection
 
