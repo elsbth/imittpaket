@@ -134,6 +134,17 @@ header nav {
 	padding: 0;
 }
 
+.item--card {
+	background: #fff;
+	border: 1px solid #999;
+	margin-bottom: 15px;
+	padding: 10px 15px;
+}
+
+.item--card:hover {
+	border-color: #000;
+}
+
 footer {
 	background: #eee;
 	border: 1px dashed;

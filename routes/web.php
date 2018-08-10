@@ -35,7 +35,10 @@ Route::post('/lists', 'WishlistController@create')->name('lists.create')->middle
 Route::get('/list/{hash}', 'WishlistController@view')->name('list.view');
 
 Route::get('/items/{hid?}', 'ItemController@index')->name('items')->middleware('auth');
+Route::get('/items/edit/{hid}', 'ItemController@edit')->name('item.edit')->middleware('auth');
+Route::post('/items/store/{hid}', 'ItemController@store')->name('item.store')->middleware('auth');
 Route::get('/items/{hid}/delete', 'ItemController@delete')->name('item.delete')->middleware('auth');
+
 Route::post('/item/add', 'ItemController@create')->name('item.create')->middleware('auth');
 Route::post('/item/addtolist', 'ItemController@addToList')->name('item.addtolist')->middleware('auth');
 

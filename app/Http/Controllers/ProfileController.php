@@ -77,6 +77,7 @@ class ProfileController extends Controller
 
         }
 
+        //TODO: Show error message on proper view instead of just echo and die
         echo 'Doesn\'t validate OR Trying to edit someone else\'s profile.';
         die;
     }

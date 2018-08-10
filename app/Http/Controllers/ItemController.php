@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Validator;
 
 class ItemController extends Controller
 {
@@ -54,7 +56,75 @@ class ItemController extends Controller
         return redirect('/items/' . $item->hid());
     }
 
-    public function delete($hid) {
+    public function edit($hid)
+    {
+        $currentUser = Auth::user();
+        $items = $currentUser->items;
+        $lists = $currentUser->lists;
+
+        $id = Item::decodeHid($hid);
+
+        $currentItem = ($id) ? Item::find($id) : null;
+        $currentItemOnLists = ($currentItem) ? $currentItem->wishlists()->get(['wishlist_id'])->toArray() : null;
+        $itemListIds = ($currentItemOnLists) ? array_unique(array_column($currentItemOnLists, 'wishlist_id')) : null;
+
+        return view('item.edit', compact('items', 'currentItem', 'lists', 'itemListIds'));
+    }
+
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'item_id' => 'required',
+            'name' => 'required|max:255',
+            'description' => 'max:255',
+            'link' => 'max:255',
+            'price' => 'max:50',
+            'qty' => 'integer|nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator, 'store')
+                ->withInput();
+        }
+
+        $data = $input = $request->all();
+
+        $hid = $data['item_id'];
+        $id = Item::decodeHid($hid);
+
+        $currentItem = ($id) ? Item::find($id) : null;
+
+        if ($currentItem) {
+            $currentUser = Auth::user();
+
+            if ($currentItem->user_id == $currentUser->id) {
+
+                $currentItem->fill($data);
+                $changes = $currentItem->getDirty();
+
+                if ($changes) {
+                    $currentItem->save();
+
+                    $changedFields = array_keys($changes);
+                    $message = 'Item updated: ' . join(', ', $changedFields);
+                } else {
+                    $message = 'No changes detected.';
+                }
+            } else {
+                $message = 'You are not allowed to edit this item.';
+            }
+        } else {
+            $message = 'Item could not be found.';
+        }
+
+        return redirect(route('item.edit', $currentItem->hid()))
+            ->with('message', $message);
+    }
+
+    public function delete($hid)
+    {
 
         $id = Item::decodeHid($hid);
         $currentItem = ($id) ? Item::find($id) : null;
@@ -84,7 +154,8 @@ class ItemController extends Controller
             'wishlist_id' => 'required',
         ]);
 
-        $itemId = $data['item_id'];
+        $itemHid = $data['item_id'];
+        $itemId = Item::decodeHid($itemHid);
 
         $item = Item::find($itemId);
 
@@ -93,7 +164,8 @@ class ItemController extends Controller
         //TODO: Mask the wishlist ids to not use the db id
         $item->wishlists()->sync($data['wishlist_id']);
 
-        return redirect('/items/' . $item->hid());
+        return redirect(route('item.edit', $item->hid()))
+            ->withErrors([], 'addToList');
 
         //return redirect()->route('home')->with('success', 'Post has been successfully added!');
     }
