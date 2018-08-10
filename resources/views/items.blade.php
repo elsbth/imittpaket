@@ -32,38 +32,75 @@
             {!! csrf_field() !!}
             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                 <label for="name">Name <em class="required">*</em></label>
-                <input type="text" class="form-control js-toggle-trigger" id="name" name="name" placeholder="Name" value="{{ old('name') }}" maxlength="255" data-toggle-trigger="name">
+                <input type="text"
+                       class="form-control js-toggle-trigger"
+                       id="name"
+                       name="name"
+                       placeholder="Name"
+                       value="{{ old('name') }}"
+                       maxlength="255"
+                       autocomplete="off"
+                       data-toggle-trigger="name" />
                 @if($errors->has('name'))
                     <span class="help-block">{{ $errors->first('name') }}</span>
                 @endif
             </div>
 
             <div class="js-toggle-when-triggered" data-toggle-trigger="name" style="display: none">
-                <button type="button" class="js-toggle-trigger" data-toggle-trigger="name">Close</button>
+
+                <button type="button" class="js-toggle-trigger" data-toggle-trigger="name">{{ __('Close Add item form') }}</button>
+
                 <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description') }}" maxlength="255">
+                    <input type="text"
+                           class="form-control"
+                           id="description"
+                           name="description"
+                           placeholder="Description"
+                           value="{{ old('description') }}"
+                           autocomplete="off"
+                           maxlength="255" />
                     @if($errors->has('description'))
                         <span class="help-block">{{ $errors->first('description') }}</span>
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('qty') ? ' has-error' : '' }}">
                     <label for="qty">Quantity</label>
-                    <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantity" value="{{ old('qty') }}">
+                    <input type="number"
+                           class="form-control"
+                           id="qty"
+                           name="qty"
+                           placeholder="Quantity"
+                           value="{{ old('qty') }}"
+                           autocomplete="off" />
                     @if($errors->has('qty'))
                         <span class="help-block">{{ $errors->first('qty') }}</span>
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('link') ? ' has-error' : '' }}">
                     <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" placeholder="Link" value="{{ old('link') }}" maxlength="255">
+                    <input type="text"
+                           class="form-control"
+                           id="link"
+                           name="link"
+                           placeholder="Link"
+                           value="{{ old('link') }}"
+                           autocomplete="off"
+                           maxlength="255" />
                     @if($errors->has('link'))
                         <span class="help-block">{{ $errors->first('link') }}</span>
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
                     <label for="price">Price</label>
-                    <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="{{ old('price') }}" maxlength="50">
+                    <input type="text"
+                           class="form-control"
+                           id="price"
+                           name="price"
+                           placeholder="Price"
+                           value="{{ old('price') }}"
+                           autocomplete="off"
+                           maxlength="50" />
                     @if($errors->has('price'))
                         <span class="help-block">{{ $errors->first('price') }}</span>
                     @endif

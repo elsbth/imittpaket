@@ -37,35 +37,69 @@
             {!! csrf_field() !!}
             <div class="form-group{{ $errors->store->has('title') ? ' has-error' : '' }}">
                 <label for="name">Name <em class="required">*</em></label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ old('name', $currentItem->name) }}" maxlength="255">
+                <input type="text"
+                       class="form-control"
+                       id="name"
+                       name="name"
+                       placeholder="Name"
+                       value="{{ old('name', $currentItem->name) }}"
+                       autocomplete="off"
+                       maxlength="255" />
                 @if($errors->store->has('name'))
                     <span class="help-block">{{ $errors->store->first('name') }}</span>
                 @endif
             </div>
             <div class="form-group{{ $errors->store->has('description') ? ' has-error' : '' }}">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description', $currentItem->description) }}" maxlength="255">
+                <input type="text"
+                       class="form-control"
+                       id="description"
+                       name="description"
+                       placeholder="Description"
+                       value="{{ old('description', $currentItem->description) }}"
+                       autocomplete="off"
+                       maxlength="255" />
                 @if($errors->store->has('description'))
                     <span class="help-block">{{ $errors->store->first('description') }}</span>
                 @endif
             </div>
             <div class="form-group{{ $errors->store->has('qty') ? ' has-error' : '' }}">
                 <label for="qty">Quantity</label>
-                <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantity" value="{{ old('qty', $currentItem->qty) }}">
+                <input type="number"
+                       class="form-control"
+                       id="qty"
+                       name="qty"
+                       placeholder="Quantity"
+                       value="{{ old('qty', $currentItem->qty) }}"
+                       autocomplete="off" />
                 @if($errors->store->has('qty'))
                     <span class="help-block">{{ $errors->store->first('qty') }}</span>
                 @endif
             </div>
             <div class="form-group{{ $errors->store->has('link') ? ' has-error' : '' }}">
                 <label for="link">Link</label>
-                <input type="text" class="form-control" id="link" name="link" placeholder="Link" value="{{ old('link', $currentItem->link) }}" maxlength="255">
+                <input type="text"
+                       class="form-control"
+                       id="link"
+                       name="link"
+                       placeholder="Link"
+                       value="{{ old('link', $currentItem->link) }}"
+                       autocomplete="off"
+                       maxlength="255" />
                 @if($errors->store->has('link'))
                     <span class="help-block">{{ $errors->store->first('link') }}</span>
                 @endif
             </div>
             <div class="form-group{{ $errors->store->has('price') ? ' has-error' : '' }}">
                 <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="{{ old('price', $currentItem->price) }}" maxlength="50">
+                <input type="text"
+                       class="form-control"
+                       id="price"
+                       name="price"
+                       placeholder="Price"
+                       value="{{ old('price', $currentItem->price) }}"
+                       autocomplete="off"
+                       maxlength="50" />
                 @if($errors->store->has('price'))
                     <span class="help-block">{{ $errors->store->first('price') }}</span>
                 @endif

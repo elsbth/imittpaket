@@ -44,7 +44,12 @@
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
             <div class="col-md-6">
-                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" autofocus>
+                <input type="text"
+                       class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                       id="name"
+                       name="name"
+                       value="{{ old('name') }}"
+                       autocomplete="off" />
                 {{ $currentUser->name }}
 
                 @if ($errors->has('name'))
@@ -59,7 +64,14 @@
             <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
 
             <div class="col-md-6">
-                <input id="birthday" type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" name="birthday" value="{{ old('birthday') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="{{ __('YYYY-MM-DD') }}">
+                <input type="date"
+                       class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
+                       id="birthday"
+                       name="birthday"
+                       value="{{ old('birthday') }}"
+                       autocomplete="off"
+                       pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                       placeholder="{{ __('YYYY-MM-DD') }}" />
                 {{ $currentUser->birthday }}
 
                 @if ($errors->has('birthday'))
@@ -74,7 +86,11 @@
             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
             <div class="col-md-6">
-                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
+                <input type="password"
+                       class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                       id="password"
+                       name="password"
+                       autocomplete="off"/>
 
                 @if ($errors->has('password'))
                     <span class="invalid-feedback">
