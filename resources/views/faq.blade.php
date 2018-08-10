@@ -44,7 +44,7 @@
 		<ul>
 		@foreach($faqs as $key => $faq)
 			<li>
-				<a href="#{{ $faq->id }}">{{ $faq->question }}</a>
+				<a href="#{{ $faq->hid() }}">{{ $faq->question }}</a>
 			</li>
 		@endforeach
 		</ul>
@@ -52,12 +52,12 @@
 		<div class="hr"></div>
 
 		@foreach($faqs as $key => $faq)
-			<div class="faq" id="{{ $faq->id }}">
+			<div class="faq" id="{{ $faq->hid() }}">
 				<h2 class="faqQuestion">{{ $faq->question }}</h2>
 				<div class="faqAnswer">
 					<p>{{ $faq->answer }}</p>
 				</div>
-				<p><a href="{{ route('faq', array($faq->id)) }}">{{ __('Direct link') }}</a></p>
+				<p><a href="{{ route('faq', array($faq->hid())) }}">{{ __('Direct link') }}</a></p>
 			</div>
 		@endforeach
 	@endif

@@ -22,8 +22,9 @@ class FaqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id = null)
+    public function index($hid = null)
     {
+        $id = Faq::decodeHid($hid);
         $faq = ($id) ? Faq::find($id) : null;
         $faqs = Faq::all();
 

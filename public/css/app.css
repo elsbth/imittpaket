@@ -54,6 +54,10 @@ header nav {
 	grid-gap: 10px;
 }
 
+.nav--admin {
+	display: block;
+}
+
 .nav__container {
 	display: flex;
 }

@@ -20,12 +20,12 @@
     <h1>{{ __('Administrate: FAQ') }}</h1>
 
 	@if($faq)
-		<p><a href="{{ route('admin.faq.edit', array($faq->id)) }}">{{ __('Edit FAQ question') }}</a></p>
+		<p><a href="{{ route('admin.faq.edit', array($faq->hid())) }}">{{ __('Edit FAQ question') }}</a></p>
 
 		<table>
 			<tr>
 				<td>{{ __('Id') }}</td>
-				<td>{{ $faq->id }}</td>
+				<td>{{ $faq->hid() }}</td>
 			</tr>
 			<tr>
 				<td>{{ __('Question') }}</td>
@@ -59,7 +59,7 @@
 	<ul>
 		@foreach($faqs as $key => $faq)
 			<li>
-				<a href="/admin/faq/{{$faq->id}}">{{$faq->question}}</a>
+				<a href="/admin/faq/{{$faq->hid()}}">{{$faq->question}}</a>
 			</li>
 		@endforeach
 	</ul>

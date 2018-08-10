@@ -44,8 +44,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
+    public function store($hid)
     {
+        $id = User::decodeHid($hid);
 
         $currentUser = Auth::user();
 

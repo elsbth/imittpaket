@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Wishlist;
 use App\User;
 use Auth;
-use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -30,7 +29,7 @@ class WishlistController extends Controller
     {
         $user = Auth::user();
         $lists = $user->lists;
-        $id = ($hid) ? Hashids::connection('wishlist')->decode($hid)[0] : null;
+        $id = Wishlist::decodeHid($hid);
 
         $currentList = ($id) ? Wishlist::find($id) : null;
         $publicLink = ($currentList) ? $currentList->getPublicLink() : null;
@@ -48,16 +47,16 @@ class WishlistController extends Controller
 
         $data['user_id'] = Auth::user()->id;
 
+        /** @var Wishlist $list */
         $list = Wishlist::create($data);
 //        $newList = Wishlist::whereId($list->id)->first();
 
         if ($list) {
-            $list->hid = Hashids::connection('wishlist')->encode($list->id);
             $list->save();
             $list->addPublicHash($list->id, $list->title);
         }
 
-        return redirect('/lists/' . $list->id);
+        return redirect('/lists/' . $list->hid());
     }
 
     public function view($hash) {

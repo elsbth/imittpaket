@@ -14,12 +14,12 @@
 
     @if($currentItem)
 
-        <h1>List: {{ $currentItem->title }} ({{ $currentItem->id }})</h1>
+        <h1>Item: {{ $currentItem->name }}</h1>
 
         <table>
             <tr>
                 <td>{{ __('Id') }}</td>
-                <td>{{ $currentItem->id }}</td>
+                <td>{{ $currentItem->hid() }}</td>
             </tr>
             <tr>
                 <td>{{ __('Name') }}</td>
@@ -136,7 +136,7 @@
         <ul>
             @foreach($items as $key => $item)
                 <li>
-                    <a href="{{ route('items', array($item->id)) }}">{{ $item->name }}</a>
+                    <a href="{{ route('items', array($item->hid())) }}">{{ $item->name }}</a>
                 </li>
             @endforeach
         </ul>

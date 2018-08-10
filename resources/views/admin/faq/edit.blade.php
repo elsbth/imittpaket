@@ -17,10 +17,10 @@
 
 
 @section('content')
-    <h1>{{ __('Edit :name', ['name' => $faq->name]) }}</h1>
-    <p><a href="{{ route('admin.faq.view', array($faq->id)) }}">{{ __('Back to FAQ') }}</a></p>
+    <h1>{{ __('Edit :name', ['name' => $faq->question]) }}</h1>
+    <p><a href="{{ route('admin.faq.view', array($faq->hid())) }}">{{ __('Back to FAQ') }}</a></p>
 
-    <form method="POST" action="{{ route('admin.faq.store', array($faq->id)) }}">
+    <form method="POST" action="{{ route('admin.faq.store', array($faq->hid())) }}">
         @csrf
 
         <div class="form-group row">

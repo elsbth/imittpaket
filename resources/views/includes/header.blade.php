@@ -48,7 +48,7 @@ $adminNavItems = array(
 
     @if($isAdmin)
 
-    	<nav>
+    	<nav class="nav--admin">
 			<ul class="nav__list nav__list--admin">
 				@foreach($adminNavItems as $key => $item)
 					<li class="nav__item">

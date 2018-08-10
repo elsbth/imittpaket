@@ -24,7 +24,7 @@
 		<table>
 			<tr>
 				<td>{{ __('Id') }}</td>
-				<td>{{ $user->id }}</td>
+				<td>{{ $user->hid() }}</td>
 			</tr>
 			<tr>
 				<td>{{ __('Name') }}</td>
@@ -42,6 +42,10 @@
 				<td>{{ __('Member since') }}</td>
 				<td>{{ $user->created_at->format('Y-m-d') }}</td>
 			</tr>
+			<tr>
+				<td>{{ __('Permission') }}</td>
+				<td>{{ $user->permission }}</td>
+			</tr>
 		</table>
 	@endif
 
@@ -54,13 +58,14 @@
 	@if($user)
 		<p><a href="/admin/users"><< {{ __('Back') }}</a> </p>
 	@else
-	<ul>
-		@foreach($users as $key => $user)
-			<li>
-				<a href="/admin/users/{{$user->id}}">{{$user->name}}</a>
-			</li>
-		@endforeach
-	</ul>
+		<ul>
+			@foreach($users as $key => $user)
+				<li>
+					<a href="/admin/users/{{$user->hid()}}">{{$user->name}}</a> {{ ($user->permission == 'admin') ? '*' : '' }}
+				</li>
+			@endforeach
+		</ul>
+		<p>{{ __('* admin user') }}</p>
 	@endif
 
 @endsection

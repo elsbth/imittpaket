@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Vinkla\Hashids\Facades\Hashids;
 
 class User extends Authenticatable
 {
@@ -42,5 +43,15 @@ class User extends Authenticatable
     public function items()
     {
         return $this->hasMany('App\Item');
+    }
+
+    public function hid() {
+        return Hashids::connection('user')->encode($this->id);
+    }
+
+    public static function decodeHid($hid) {
+        $decoded = $hid ? Hashids::connection('user')->decode($hid) : null;
+
+        return is_array($decoded) && !empty($decoded) ? $decoded[0] : null;
     }
 }

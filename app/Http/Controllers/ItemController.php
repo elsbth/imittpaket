@@ -23,11 +23,13 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id = null)
+    public function index($hid = null)
     {
         $user = Auth::user();
         $items = $user->items;
         $lists = $user->lists;
+
+        $id = Item::decodeHid($hid);
 
         $currentItem = ($id) ? Item::find($id) : null;
         $currentItemOnLists = ($currentItem) ? $currentItem->wishlists()->get(['wishlist_id'])->toArray() : null;
@@ -64,15 +66,7 @@ class ItemController extends Controller
 
         $lists = $item->wishlists()->get(['wishlist_id'])->toArray();
 
-//        var_dump($data['wishlist_id']);
-//        var_dump($lists);
-
-//        var_dump($lists);
-//        foreach ($lists as $list) {
-//            var_dump($list);
-//        }
-//        die;
-
+        //TODO: Mask the wishlist ids to not use the db id
         $item->wishlists()->sync($data['wishlist_id']);
 
         return redirect('/items/' . $item->id);

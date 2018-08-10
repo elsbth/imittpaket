@@ -24,8 +24,9 @@ class FaqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id = null)
+    public function index($hid = null)
     {
+        $id = Faq::decodeHid($hid);
         $faq = ($id) ? Faq::find($id) : null;
         $faqs = Faq::all();
 
@@ -57,7 +58,7 @@ class FaqController extends Controller
         ]);
 
         $faq = Faq::create($data);
-        return redirect('/admin/faq/' . $faq->id);
+        return redirect('/admin/faq/' . $faq->hid());
     }
 
     /**
@@ -65,8 +66,9 @@ class FaqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($hid)
     {
+        $id = Faq::decodeHid($hid);
         $faq = Faq::find($id);
 
         return view('admin/faq/edit', compact('faq'));
@@ -78,8 +80,9 @@ class FaqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
+    public function store($hid)
     {
+        $id = Faq::decodeHid($hid);
         $faq = Faq::find($id);
 
         $validates = $this->validate(request(), [
@@ -103,7 +106,7 @@ class FaqController extends Controller
 
             $faq->update($newData);
 
-            return redirect('/admin/faq/' . $id);
+            return redirect('/admin/faq/' . $hid);
 
         }
 

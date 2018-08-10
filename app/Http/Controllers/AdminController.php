@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\User;
-use Illuminate\Foundation\Auth\User;
+use App\User;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminController extends Controller
 {
@@ -33,8 +33,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function users($userId = null)
+    public function users($hid = null)
     {
+        $userId = User::decodeHid($hid);
         $users = User::all();
         $user = ($userId) ? User::find($userId) : null;
 

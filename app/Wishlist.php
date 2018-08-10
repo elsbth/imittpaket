@@ -54,7 +54,13 @@ class Wishlist extends Model
         return ($hash) ? route('list.view', [$hash]) : null;
     }
 
-    public function getHid() {
+    public function hid() {
         return Hashids::connection('wishlist')->encode($this->id);
+    }
+
+    public static function decodeHid($hid) {
+        $decoded = $hid ? Hashids::connection('wishlist')->decode($hid) : null;
+
+        return is_array($decoded) && !empty($decoded) ? $decoded[0] : null;
     }
 }

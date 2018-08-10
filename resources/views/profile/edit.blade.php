@@ -37,7 +37,7 @@
     	</tr>
     </table>
 
-    <form method="POST" action="{{ route('profile.store', $currentUser->id) }}">
+    <form method="POST" action="{{ route('profile.store', $currentUser->hid()) }}">
         @csrf
 
         <div class="form-group row">

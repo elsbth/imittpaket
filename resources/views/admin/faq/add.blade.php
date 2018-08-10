@@ -72,7 +72,7 @@
 	<ul>
 		@foreach($faqs as $key => $faq)
 			<li>
-				<a href="/admin/faq/{{$faq->id}}">{{$faq->question}}</a>
+				<a href="/admin/faq/{{$faq->hid()}}">{{$faq->question}}</a>
 			</li>
 		@endforeach
 	</ul>

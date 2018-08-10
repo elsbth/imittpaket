@@ -14,12 +14,12 @@
 
     @if($currentList)
 
-        <h1>List: {{ $currentList->title }} ({{ $currentList->id }})</h1>
+        <h1>List: {{ $currentList->title }}</h1>
 
         <table>
             <tr>
                 <td>{{ __('Id') }}</td>
-                <td>{{ $currentList->getHid() }}</td>
+                <td>{{ $currentList->hid() }}</td>
             </tr>
             <tr>
                 <td>{{ __('Title') }}</td>
@@ -104,7 +104,7 @@
         <ul>
             @foreach($lists as $key => $list)
                 <li>
-                    <a href="{{ route('lists', array($list->getHid())) }}">{{ $list->title }}</a>
+                    <a href="{{ route('lists', array($list->hid())) }}">{{ $list->title }}</a>
                 </li>
             @endforeach
         </ul>
