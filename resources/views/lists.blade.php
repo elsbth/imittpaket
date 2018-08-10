@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <td>{{ __('Id') }}</td>
-                <td>{{ $currentList->id }}</td>
+                <td>{{ $currentList->getHid() }}</td>
             </tr>
             <tr>
                 <td>{{ __('Title') }}</td>
@@ -104,7 +104,7 @@
         <ul>
             @foreach($lists as $key => $list)
                 <li>
-                    <a href="{{ route('lists', array($list->id)) }}">{{ $list->title }}</a>
+                    <a href="{{ route('lists', array($list->getHid())) }}">{{ $list->title }}</a>
                 </li>
             @endforeach
         </ul>

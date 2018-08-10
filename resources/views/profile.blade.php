@@ -18,7 +18,7 @@
 @section('content')
     [ LOCALE: {{ App::getLocale() }} ]
     <h1>{{ __(':name, this is your profile', ['name' => $currentUser->name]) }}</h1>
-    <p><a href="/profile/edit">{{ __('Edit profile') }}</a></p>
+    <p><a href="{{ route('profile.edit') }}">{{ __('Edit profile') }}</a></p>
     <table>
     	<tr>
     		<td>{{ __('Name') }}</td>

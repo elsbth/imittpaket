@@ -16,7 +16,6 @@
 
 
 @section('content')
-    <pre>{{$currentUser}}</pre>
     <h1>{{ __('Edit :name', ['name' => $currentUser->name]) }}</h1>
     <p><a href="{{ route('profile') }}">{{ __('Back to profile') }}</a></p>
     <table>

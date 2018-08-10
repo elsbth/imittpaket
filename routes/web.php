@@ -28,7 +28,7 @@ Route::get('/admin/faq/edit/{id}','Admin\FaqController@edit')->name('admin.faq.e
 Route::post('/admin/faq/store/{id}','Admin\FaqController@store')->name('admin.faq.store')->middleware('admin');
 Route::get('/admin/faq/{id}','Admin\FaqController@index')->name('admin.faq.view')->middleware('admin');
 
-Route::get('/lists/{id?}', 'WishlistController@index')->name('lists')->middleware('auth');
+Route::get('/lists/{hid?}', 'WishlistController@index')->name('lists')->middleware('auth');
 Route::post('/lists', 'WishlistController@create')->name('lists.create')->middleware('auth');
 
 Route::get('/list/{hash}', 'WishlistController@view')->name('list.view');
@@ -46,5 +46,9 @@ Route::get('/faq/{id?}', 'FaqController@index')->name('faq');
 Route::get('/sign-up', function () {
     return view('user.create');
 });
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

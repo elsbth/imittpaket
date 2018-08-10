@@ -15,6 +15,7 @@ $authNavItems = array(
 
 $rightNavItems = array(
 	route('faq') => __('FAQ'),
+	route('about') => __('About'),
 );
 
 $friendsNavItems = array(
@@ -43,7 +44,7 @@ $adminNavItems = array(
 
 <header>
 
-	<img src="{{ asset('images/logo-tmp.png') }}" alt="i mitt Paket" />
+	<img src="{{ asset('images/imittpaket_beta_logo_square.png') }}" alt="i mitt Paket" />
 
     @if($isAdmin)
 
@@ -73,12 +74,8 @@ $adminNavItems = array(
 				@endforeach
 
 				@if($isAuth)
-					<li class="nav__item nav__item--submenu">
-						<ul class="nav__submenu">
-							<li class="nav__item nav__item--submenu">
-								<a class="nav__link {{ ($currentNav == 'profile') ? 'nav__link--current' : '' }}" href="/profile">{{ __('Profile (:name)', ['name' => Auth::user()->name]) }}</a>
-							</li>
-						</ul>
+					<li class="nav__item">
+						<a class="nav__link {{ ($currentNav == 'profile') ? 'nav__link--current' : '' }}" href="{{ route('profile') }}">{{ __('Profile') }}</a>
 					</li>
 				@else
 					<li class="nav__item">
@@ -102,7 +99,7 @@ $adminNavItems = array(
 				@endforeach
 
 				@if($isAuth)
-					<li class="nav__item">
+					<li class="nav__item nav__item--logout">
 						<a class="nav__link" href="/logout">{{ __('Log out') }}</a>
 					</li>
 				@endif

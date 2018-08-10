@@ -26,12 +26,13 @@ header {
 header img {
 	margin-bottom: 20px;
 	width: 100px;
-	height: 100px;
+	height: auto;
 }
 
 .wrapper {
 	padding: 10px 20px;
 	display: flex;
+	justify-content: center;
 }
 
 .sidebar {
@@ -39,11 +40,12 @@ header img {
 	margin-right: 10px;
 	padding: 10px;
 	width: 20%;
-	max-width: 300px;
+	max-width: 200px;
 }
 
 .content {
 	flex-grow: 1;
+	max-width: 600px;
 }
 
 header nav {
@@ -68,7 +70,7 @@ header nav {
 	border: 3px solid;
 	border-width: 3px 0;
 	margin: 0;
-	padding: 0;
+	padding: 0 10px;
 }
 
 .nav__list--admin {
@@ -79,12 +81,21 @@ header nav {
 	position: relative;
 }
 
+.nav__list--user,
+.nav__list--general {
+	min-width: 320px
+}
+
 .nav__list--user {
-	border-color: #c09;
+	-webkit-border-image: linear-gradient(to left, #c09 70%, transparent 100%);
+	border-image-slice: 1;
+	text-align: right;
 }
 
 .nav__list--general {
-	border-color: #50acc0;
+	-webkit-border-image: linear-gradient(to right, #50acc0 70%, transparent 100%);
+	border-image-slice: 1;
+	text-align: left;
 }
 
 .nav__list--profile {
@@ -101,6 +112,10 @@ header nav {
 .nav__item {
 	display: inline-block;
 	margin: 0 10px;
+}
+
+.nav__item--logout {
+	float: right;
 }
 
 .nav__link--current {

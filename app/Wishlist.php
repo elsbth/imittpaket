@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Database\Eloquent\Model;
 
 class Wishlist extends Model
@@ -51,5 +52,9 @@ class Wishlist extends Model
         }
 
         return ($hash) ? route('list.view', [$hash]) : null;
+    }
+
+    public function getHid() {
+        return Hashids::connection('wishlist')->encode($this->id);
     }
 }
