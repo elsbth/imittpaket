@@ -44,14 +44,38 @@ class ItemController extends Controller
             'description' => 'max:255',
             'link' => 'max:255',
             'price' => 'max:50',
-            'qty' => 'integer'
+            'qty' => 'integer|nullable'
         ]);
 
         $data['user_id'] = Auth::user()->id;
 
         $item = Item::create($data);
 
-        return redirect('/items/' . $item->id);
+        return redirect('/items/' . $item->hid());
+    }
+
+    public function delete($hid) {
+
+        $id = Item::decodeHid($hid);
+        $currentItem = ($id) ? Item::find($id) : null;
+
+        if ($currentItem) {
+            $currentUser = Auth::user();
+
+            if ($currentItem->user_id == $currentUser->id) {
+                $name = $currentItem->name;
+                $currentItem->wishlists()->sync(array());
+                $result = Item::destroy($id);
+
+                $message = $result ? 'The item "' . $name . '" was deleted.' : 'Something went wrong' ;
+            } else {
+                $message = 'You do not have permission to delete this item';
+            }
+        } else {
+            $message = 'Item could not be found';
+        }
+
+        return redirect('/items')->with('message', $message);
     }
 
     public function addToList(Request $request) {
@@ -69,7 +93,7 @@ class ItemController extends Controller
         //TODO: Mask the wishlist ids to not use the db id
         $item->wishlists()->sync($data['wishlist_id']);
 
-        return redirect('/items/' . $item->id);
+        return redirect('/items/' . $item->hid());
 
         //return redirect()->route('home')->with('success', 'Post has been successfully added!');
     }

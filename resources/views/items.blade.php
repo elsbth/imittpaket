@@ -46,6 +46,11 @@
                 <td>{{ $currentItem->created_at->format('Y-m-d') }}</td>
             </tr>
         </table>
+        <hr />
+        <p>
+            <strong>{{ __('Actions:') }}</strong>
+            <br /><a href="{{ route('item.delete', $currentItem->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this item') }}</a>
+        </p>
 
         <h2>Add to list</h2>
 
@@ -87,40 +92,52 @@
         @endif
 
     @else
-        <div class="container">
-            <div class="row">
-                <h1>Create an item</h1>
-                <form action="{{ route('item.create') }}" method="post">
-                    @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            Please fix the following errors
-                        </div>
-                    @endif
+        <h1>Create an item</h1>
+        <form action="{{ route('item.create') }}" method="post">
+            @if ($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    Please fix the following errors
+                </div>
+            @endif
 
-                    {!! csrf_field() !!}
-                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Title" value="{{ old('name') }}">
-                        @if($errors->has('name'))
-                            <span class="help-block">{{ $errors->first('name') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                        <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description') }}">
-                        @if($errors->has('description'))
-                            <span class="help-block">{{ $errors->first('description') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        [LINK]
-                        <br />[QTY]
-                        <br />[PRICE]
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+            {!! csrf_field() !!}
+            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                <label for="name">Name <em class="required">*</em></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ old('name') }}" maxlength="255">
+                @if($errors->has('name'))
+                    <span class="help-block">{{ $errors->first('name') }}</span>
+                @endif
             </div>
-        </div>
+            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="{{ old('description') }}" maxlength="255">
+                @if($errors->has('description'))
+                    <span class="help-block">{{ $errors->first('description') }}</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('qty') ? ' has-error' : '' }}">
+                <label for="qty">Quantity</label>
+                <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantity" value="{{ old('qty') }}">
+                @if($errors->has('qty'))
+                    <span class="help-block">{{ $errors->first('qty') }}</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('link') ? ' has-error' : '' }}">
+                <label for="link">Link</label>
+                <input type="text" class="form-control" id="link" name="link" placeholder="Link" value="{{ old('link') }}" maxlength="255">
+                @if($errors->has('link'))
+                    <span class="help-block">{{ $errors->first('link') }}</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="{{ old('price') }}" maxlength="50">
+                @if($errors->has('price'))
+                    <span class="help-block">{{ $errors->first('price') }}</span>
+                @endif
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     @endif
 @endsection
 
