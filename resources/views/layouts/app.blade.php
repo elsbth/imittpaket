@@ -28,6 +28,13 @@
             </div>
         @endif
         <div class="content">
+
+            @if(session()->has('message'))
+                <div class="alert alert-info">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+
             @yield('content')
         </div>
     </div>

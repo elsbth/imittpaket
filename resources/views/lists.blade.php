@@ -12,12 +12,6 @@
 
 @section('content')
 
-    @if(session()->has('message'))
-        <div class="alert alert-info">
-            {{ session()->get('message') }}
-        </div>
-    @endif
-
     @if($currentList)
 
         <h1>List: {{ $currentList->title }}</h1>
