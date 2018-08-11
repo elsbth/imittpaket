@@ -28,6 +28,9 @@ Route::get('/admin/faq/edit/{hid}','Admin\FaqController@edit')->name('admin.faq.
 Route::post('/admin/faq/store/{hid}','Admin\FaqController@store')->name('admin.faq.store')->middleware('admin');
 Route::get('/admin/faq/{hid}','Admin\FaqController@index')->name('admin.faq.view')->middleware('admin');
 
+Route::get('/admin/invites/{hid?}','Admin\InviteController@index')->name('admin.invites')->middleware('admin');
+Route::post('/admin/invites','Admin\InviteController@create')->name('admin.invites.create')->middleware('admin');
+
 Route::get('/lists/{hid?}', 'WishlistController@index')->name('lists')->middleware('auth');
 Route::get('/lists/edit/{hid}', 'WishlistController@edit')->name('list.edit')->middleware('auth');
 Route::post('/lists/store/{hid}', 'WishlistController@store')->name('list.store')->middleware('auth');

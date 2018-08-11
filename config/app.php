@@ -160,6 +160,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * imittpaket Service provicrs
+         */
+        App\Providers\InviteModelServiceProvider::class,
+
         // Other Service Providers
         Vinkla\Hashids\HashidsServiceProvider::class,
 

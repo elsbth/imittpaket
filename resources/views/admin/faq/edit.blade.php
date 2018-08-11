@@ -27,13 +27,13 @@
             <label for="question" class="col-md-4 col-form-label text-md-right">{{ __('Question') }}</label>
 
             <div class="col-md-6">
-                <textarea id="question" class="form-control{{ $errors->has('question') ? ' is-invalid' : '' }}" name="question"
-                >{{ old('question') }}</textarea>
-                {{ $faq->question }}
-
-                @if ($errors->has('question'))
+                <textarea id="question"
+                          class="form-control{{ $errors->store->has('question') ? ' is-invalid' : '' }}"
+                          name="question"
+                >{{ old('question', $faq->question) }}</textarea>
+                @if ($errors->store->has('question'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('question') }}</strong>
+                        <strong>{{ $errors->store->first('question') }}</strong>
                     </span>
                 @endif
             </div>
@@ -43,13 +43,13 @@
             <label for="answer" class="col-md-4 col-form-label text-md-right">{{ __('Answer') }}</label>
 
             <div class="col-md-6">
-                <textarea id="answer" class="form-control{{ $errors->has('answer') ? ' is-invalid' : '' }}" name="answer"
-                >{{ old('answer') }}</textarea>
-                {{ $faq->answer }}
-
-                @if ($errors->has('answer'))
+                <textarea id="answer"
+                          class="form-control{{ $errors->store->has('answer') ? ' is-invalid' : '' }}"
+                          name="answer"
+                >{{ old('answer', $faq->answer) }}</textarea>
+                @if ($errors->store->has('answer'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('answer') }}</strong>
+                        <strong>{{ $errors->store->first('answer') }}</strong>
                     </span>
                 @endif
             </div>
@@ -59,12 +59,14 @@
             <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Position') }}</label>
 
             <div class="col-md-6">
-                <input id="position" type="number" class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}" name="position" value="{{ old('position') }}">
-                {{ $faq->position }}
-
-                @if ($errors->has('position'))
+                <input type="number"
+                       id="position"
+                       class="form-control{{ $errors->store->has('position') ? ' is-invalid' : '' }}"
+                       name="position"
+                       value="{{ old('position', $faq->position) }}">
+                @if ($errors->store->has('position'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('position') }}</strong>
+                        <strong>{{ $errors->store->first('position') }}</strong>
                     </span>
                 @endif
             </div>

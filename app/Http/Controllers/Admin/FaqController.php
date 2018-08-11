@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Faq;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Validator;
 
 class FaqController extends Controller
 {
@@ -75,12 +76,58 @@ class FaqController extends Controller
     }
 
 
+
+    public function store(Request $request, $hid)
+    {
+        $redirectTo = 'admin.faq.edit';
+
+        $validator = Validator::make($request->all(), [
+            'question' => 'string',
+            'answer' => 'string',
+            'position' => 'numeric|nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator, 'store')
+                ->withInput();
+        }
+
+        $data = $input = $request->all();
+
+//        $hid = $data['list_id'];
+        $id = Faq::decodeHid($hid);
+
+        $currentFaq = ($id) ? Faq::find($id) : null;
+
+        if ($currentFaq) {
+
+            $currentFaq->fill($data);
+            $changes = $currentFaq->getDirty();
+
+            if ($changes) {
+                $currentFaq->save();
+
+                $changedFields = array_keys($changes);
+                $message = 'Faq updated: ' . join(', ', $changedFields);
+                $redirectTo = 'admin.faq.view';
+            } else {
+                $message = 'No changes detected.';
+            }
+        } else {
+            $message = 'Faq could not be found.';
+        }
+
+        return redirect(route($redirectTo, $currentFaq->hid()))->with('message', $message);
+    }
+
     /**
      * Save updated user data
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($hid)
+    public function storeOLD($hid)
     {
         $id = Faq::decodeHid($hid);
         $faq = Faq::find($id);
