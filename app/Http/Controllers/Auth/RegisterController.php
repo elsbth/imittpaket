@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Invite;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    public $lockRegistration;
 
     /**
      * Where to redirect users after registration.
@@ -37,7 +39,25 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //TODO: Make this a setting in admin
+        $this->lockRegistration = true;
+
+        if ($this->lockRegistration) {
+            $this->middleware('registration.invite');
+        } else {
+            $this->middleware('guest');
+        }
+    }
+
+    public function showRegistrationForm($token = null)
+    {
+        $invite = null;
+        $lockRegistration = $this->lockRegistration;
+
+        if ($token && $invite = Invite::where('token' , '=', $token)->first()) {
+        }
+
+        return view('auth.register', compact('invite', 'lockRegistration'));
     }
 
     /**
