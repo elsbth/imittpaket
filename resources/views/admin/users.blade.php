@@ -46,6 +46,13 @@
 				<td>{{ __('Permission') }}</td>
 				<td>{{ $user->permission }}</td>
 			</tr>
+
+			@if ($user->invite())
+				<tr>
+					<td>{{ __('Invite') }}</td>
+					<td><a href="{{ route('admin.invites', $user->invite()) }}">{{ __('Go to invite') }}</a></td>
+				</tr>
+			@endif
 		</table>
 	@endif
 

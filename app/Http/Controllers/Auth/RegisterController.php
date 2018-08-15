@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Invite;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -23,6 +25,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
     public $lockRegistration;
 
     /**
@@ -68,13 +71,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $validation = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'nullable|date_format:Y-m-d',
             'password' => 'required|string|min:6|confirmed',
-        ]);
+        ];
+
+        if (!$this->lockRegistration) {
+            $validation['email'] = 'required|string|email|max:255|unique:users';
+        }
+
+        return Validator::make($data, $validation);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -84,6 +93,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $token = array_key_exists('control', $data) ? $data['control'] : null;
+
+        if ($token && $invite = Invite::where('token' , '=', $token)->first()) {
+            $data['email'] = $invite->email;
+        }
 
         return User::create([
             'name' => $data['name'],

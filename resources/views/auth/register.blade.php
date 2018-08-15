@@ -10,13 +10,12 @@
         <div class="col-md-8">
             <div class="card">
                 @if ($lockRegistration)
-                    @if ($invite)
-
-                        <p>Welcome {{ $invite->name }}</p>
-                    @else
+                    <h1>{{ __('Register with invite') }}</h1>
+                    @if (!$invite)
                         <p>No access</p>
                     @endif
-
+                @else
+                    <h1>{{ __('Register') }}</h1>
                 @endif
 
                 @if (($lockRegistration && $invite) || (!$lockRegistration))
@@ -28,7 +27,7 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $invite ? old('name', $invite->name) : old('name') }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback">
@@ -56,12 +55,16 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                    @if ($invite)
+                                        <input id="email" type="email" readonly disabled class="form-control" name="email" value="{{ $invite->maskedEmail() }}">
+                                    @else
+                                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                    @endif
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -90,6 +93,9 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
+                                    @if ($lockRegistration && $invite)
+                                        <input type="hidden" name="control" value="{{ $invite->token }}" required>
+                                    @endif
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Register') }}
                                     </button>

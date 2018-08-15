@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -16,14 +17,46 @@ class Invite extends Model
         'accepted_at',
     ];
 
-    public function hid() {
+    protected $dates = [
+        'accepted_at'
+    ];
+
+    public function hid()
+    {
         return Hashids::connection('invite')->encode($this->id);
     }
 
-    public static function decodeHid($hid) {
+    public static function decodeHid($hid)
+    {
         $decoded = $hid ? Hashids::connection('invite')->decode($hid) : null;
 
         return is_array($decoded) && !empty($decoded) ? $decoded[0] : null;
+    }
+
+    public function maskedEmail()
+    {
+        $emailParts = explode('@', $this->email);
+
+        $first = substr_replace($emailParts[0], str_repeat('*', strlen($emailParts[0]) - 4), 2, strlen($emailParts[0]) - 4);
+        $last = substr_replace($emailParts[1], str_repeat('*', strrpos($emailParts[1], '.') - 1), 1, strrpos($emailParts[1], '.') - 1);
+
+        return $first . '@' . $last;
+    }
+
+    public function accept()
+    {
+        $this->accepted = 1;
+        $this->accepted_at = date('Y-m-d H:i:s');
+        $this->save();
+    }
+
+    public function getRelatedUserHid()
+    {
+        if ($this->accepted && $user = User::where('email' , '=', $this->email)->first()) {
+            return $user->hid();
+        }
+
+        return null;
     }
 
     /**
@@ -73,6 +106,8 @@ class Invite extends Model
      */
     public function processInvited($request)
     {
+        //TODO: Remove?? Don't think this is used
+
         $invited = $this->with('roles')->where('email', $request->email)->first();
         if($invited) {
             $invited->update(['accpeted' => 1, 'accpeted_at' => \Carbon\Carbon::now()->toDateTimeString()]);

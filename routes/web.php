@@ -48,6 +48,7 @@ Route::get('/admin/faq/{hid}','Admin\FaqController@index')->name('admin.faq.view
 
 Route::get('/admin/invites/{hid?}','Admin\InviteController@index')->name('admin.invites')->middleware('admin');
 Route::post('/admin/invites','Admin\InviteController@create')->name('admin.invites.create')->middleware('admin');
+Route::get('/admin/invites/{hid}/delete', 'Admin\InviteController@delete')->name('admin.invite.delete')->middleware('admin');
 
 Route::get('/lists/{hid?}', 'WishlistController@index')->name('lists')->middleware('auth');
 Route::get('/lists/edit/{hid}', 'WishlistController@edit')->name('list.edit')->middleware('auth');

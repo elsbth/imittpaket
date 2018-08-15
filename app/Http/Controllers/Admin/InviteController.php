@@ -59,4 +59,22 @@ class InviteController extends Controller
 
         return redirect()->route('account.show', $user);
     }
+
+
+    public function delete($hid) {
+
+        $id = Invite::decodeHid($hid);
+        $currentInvite = ($id) ? Invite::find($id) : null;
+
+        if ($currentInvite) {
+            $email = $currentInvite->email;
+            $result = $currentInvite->delete();
+
+            $message = $result ? 'The invite for "' . $email . '" was deleted.' : 'Something went wrong' ;
+        } else {
+            $message = 'Invite could not be found';
+        }
+
+        return redirect(route('admin.invites.create'))->with('message', $message);
+    }
 }

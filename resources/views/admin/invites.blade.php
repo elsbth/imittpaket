@@ -39,6 +39,8 @@
 				<td>{{ $currentInvite->created_at->format('Y-m-d') }}</td>
 			</tr>
 		</table>
+
+		<a href="{{ route('admin.invite.delete', $currentInvite->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this invite') }}</a>
 	@else
 
 		<h2>{{ __('Add invite') }}</h2>
@@ -83,7 +85,7 @@
 			<div class="form-group row mb-0">
 				<div class="col-md-6 offset-md-4">
 					<button type="submit" class="btn btn-primary">
-						{{ __('Save changes') }}
+						{{ __('Add invite') }}
 					</button>
 				</div>
 			</div>
@@ -97,14 +99,23 @@
 				<tr>
 					<th>{{ __('Name') }}</th>
 					<th>{{ __('Email') }}</th>
-					<th>{{ __('Accepted') }}</th>
+					<th>{{ __('Accepted') }} ({{ config('app.timezone') }})</th>
 					<th>{{ __('More') }}</th>
 				</tr>
 				@foreach($invites as $key => $invite)
 					<tr>
-						<td>{{ $invite->name }}</td>
+						<td>
+							@if ($invite->accepted && $invite->getRelatedUserHid())
+								<a href="{{ route('admin.users.userid', $invite->getRelatedUserHid()) }}">
+							@endif
+							{{ $invite->name }}
+
+							@if ($invite->accepted && $invite->getRelatedUserHid())
+								</a>
+							@endif
+						</td>
 						<td>{{ $invite->email }}</td>
-						<td>{{ $invite->accepted ? $invite->accepted_at->format('Y-m-d') : 'No' }}</td>
+						<td>{{ $invite->accepted ? $invite->accepted_at->format('Y-m-d H:i') : 'No' }}</td>
 						<td>
 							<a href="{{ route('admin.invites', $invite->hid()) }}">{{ __('View') }}</a>
 						</td>

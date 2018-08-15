@@ -164,6 +164,7 @@ return [
          * imittpaket Service provicrs
          */
         App\Providers\InviteModelServiceProvider::class,
+        App\Providers\UserModelServiceProvider::class,
 
         // Other Service Providers
         Vinkla\Hashids\HashidsServiceProvider::class,

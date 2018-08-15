@@ -29,7 +29,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         $currentUser = Auth::user();
 
         return $currentUser->permission == 'admin';
@@ -45,13 +46,24 @@ class User extends Authenticatable
         return $this->hasMany('App\Item');
     }
 
-    public function hid() {
+    public function hid()
+    {
         return Hashids::connection('user')->encode($this->id);
     }
 
-    public static function decodeHid($hid) {
+    public static function decodeHid($hid)
+    {
         $decoded = $hid ? Hashids::connection('user')->decode($hid) : null;
 
         return is_array($decoded) && !empty($decoded) ? $decoded[0] : null;
+    }
+
+    public function invite()
+    {
+        if ($invite = Invite::where('email' , '=', $this->email)->first()) {
+            return $invite->hid();
+        }
+
+        return null;
     }
 }

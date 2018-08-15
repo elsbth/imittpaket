@@ -17,14 +17,16 @@ class CheckRegistrationInvite
      */
     public function handle($request, Closure $next)
     {
-        $token = $request->token;
+        $token = ($request->token) ? $request->token : $request->control;
 
         //Must not be logged in, use a token, match token with an invite
         if (!Auth::user() && $token && $invite = Invite::where('token' , '=', $token)->first()) {
-            return $next($request);
+
+            if ($invite->accepted != 1) {
+                return $next($request);
+            }
         }
 
         return redirect(route('home'));
-
     }
 }
