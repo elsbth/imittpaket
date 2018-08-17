@@ -1,23 +1,85 @@
+<?php
+$isAuth = auth()->check();
+?>
+
 @extends('layouts.app')
 
-@section('title', '')
-@section('currentNavItem', '/')
+@section('title', __('Welcome'))
+@section('currentNavItem', route('home'))
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                </div>
-            </div>
+
+    @auth
+        <div class="dashboard-links__wrapper">
+            <a href="{{ route('lists') }}" class="dashboard-link">
+                <i class="fas fa-list dashboard-link__icon"></i>
+                <span class="dashboard-link__label">{{ __('Lists') }}</span>
+            </a>
+            <a href="{{ route('items') }}" class="dashboard-link">
+                <i class="fas fa-marker dashboard-link__icon"></i>
+                <span class="dashboard-link__label">{{ __('Items') }}</span>
+            </a>
+            <a href="{{ route('faq') }}" class="dashboard-link">
+                <i class="fas fa-question dashboard-link__icon"></i>
+                <span class="dashboard-link__label">{{ __('FAQ') }}</span>
+            </a>
+            <a href="{{ route('profile') }}" class="dashboard-link">
+                <i class="fas fa-user-cog dashboard-link__icon"></i>
+                <span class="dashboard-link__label">{{ __('Profile') }}</span>
+            </a>
         </div>
-    </div>
-</div>
+    @endauth
+
+    @guest
+        <h1>{{ __('Welcome to i mitt Paket!') }}</h1>
+
+        <p style="font-style: italic">{{ __('Sorry about the mess... I\'m building from scratch!') }}</p>
+
+        <p>{{ __('Access is currently only VIP. Curious? Sign up to the invite list below and you will get updates and, if you\'re lucky, an invite.') }}</p>
+        <p>{{ __('There is also a Facebook page: ') }}<a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
+
+        <hr />
+
+        <!-- Begin MailChimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+            /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+               We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+        </style>
+        <div id="mc_embed_signup">
+            <form action="https://imittpaket.us19.list-manage.com/subscribe/post?u=c0253123be7b46b4bf8f7c8bb&amp;id=e42289ea51" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+
+                    <div class="indicates-required"><span class="asterisk">*</span> Obligatoriskt f&auml;lt</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Epostadress  <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                    </div>
+                    <div class="mc-field-group">
+                        <label for="mce-FNAME">Namn  <span class="asterisk">*</span>
+                        </label>
+                        <input type="text" value="" name="FNAME" class="required" id="mce-FNAME">
+                    </div>
+                    <div class="mc-field-group size1of2">
+                        <label for="mce-BIRTHDAY-month">Födelsedag </label>
+                        <div class="datefield">
+                            <span class="subfield monthfield"><input class="birthday " type="text" pattern="[0-9]*" value="" placeholder="MM" size="2" maxlength="2" name="BIRTHDAY[month]" id="mce-BIRTHDAY-month"></span> /
+                            <span class="subfield dayfield"><input class="birthday " type="text" pattern="[0-9]*" value="" placeholder="DD" size="2" maxlength="2" name="BIRTHDAY[day]" id="mce-BIRTHDAY-day"></span>
+                            <span class="small-meta nowrap">( mm / dd )</span>
+                        </div>
+                    </div>	<div id="mce-responses" style="clear:both;">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_c0253123be7b46b4bf8f7c8bb_e42289ea51" tabindex="-1" value=""></div>
+                    <div style="clear:both;"><input type="submit" value="Skicka" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+        <!--End mc_embed_signup-->
+
+    @endguest
 @endsection

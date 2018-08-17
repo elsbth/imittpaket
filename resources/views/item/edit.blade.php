@@ -27,7 +27,7 @@
 
         <h2 id="edit">{{ __('Edit') }}</h2>
 
-        <form action="{{ route('item.store', $currentItem->hid()) }}" method="post">
+        <form action="{{ route('item.store', $currentItem->hid()) }}" method="post" class="form">
             @if ($errors->store->any())
                 <div class="alert alert-danger" role="alert">
                     Please fix the following errors
@@ -35,7 +35,7 @@
             @endif
 
             {!! csrf_field() !!}
-            <div class="form-group{{ $errors->store->has('title') ? ' has-error' : '' }}">
+            <div class="form__field {{ $errors->store->has('title') ? ' has-error' : '' }}">
                 <label for="name">Name <em class="required">*</em></label>
                 <input type="text"
                        class="form-control"
@@ -49,7 +49,7 @@
                     <span class="help-block">{{ $errors->store->first('name') }}</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->store->has('description') ? ' has-error' : '' }}">
+            <div class="form__field {{ $errors->store->has('description') ? ' has-error' : '' }}">
                 <label for="description">Description</label>
                 <input type="text"
                        class="form-control"
@@ -63,7 +63,7 @@
                     <span class="help-block">{{ $errors->store->first('description') }}</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->store->has('qty') ? ' has-error' : '' }}">
+            <div class="form__field {{ $errors->store->has('qty') ? ' has-error' : '' }}">
                 <label for="qty">Quantity</label>
                 <input type="number"
                        class="form-control"
@@ -76,7 +76,7 @@
                     <span class="help-block">{{ $errors->store->first('qty') }}</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->store->has('link') ? ' has-error' : '' }}">
+            <div class="form__field {{ $errors->store->has('link') ? ' has-error' : '' }}">
                 <label for="link">Link</label>
                 <input type="text"
                        class="form-control"
@@ -90,7 +90,7 @@
                     <span class="help-block">{{ $errors->store->first('link') }}</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->store->has('price') ? ' has-error' : '' }}">
+            <div class="form__field {{ $errors->store->has('price') ? ' has-error' : '' }}">
                 <label for="price">Price</label>
                 <input type="text"
                        class="form-control"
@@ -106,13 +106,13 @@
             </div>
 
             <input type="hidden" name="item_id" value="{{ $currentItem->hid() }}" />
-            <button type="submit" class="btn btn-default">{{ __('Save changes') }}</button>
+            <button type="submit" class="btn btn--primary">{{ __('Save changes') }}</button>
         </form>
 
         <hr />
 
         <h2 id="inlists">{{ __('Item in lists') }}</h2>
-        <p>{{ __('Select a list to add the item to it. Unselect to remove the item from that list.') }}</p>
+        <p>{{ __('Select a list to add the item to it. Unselect to remove.') }}</p>
 
         @if($lists)
 
@@ -143,7 +143,7 @@
                 @endif
 
                 <input type="hidden" name="item_id" value="{{ $currentItem->hid() }}" />
-                <button type="submit" class="btn btn-default">{{ __('Add to/Remove from lists') }}</button>
+                <button type="submit" class="btn btn--primary">{{ __('Add to/Remove from lists') }}</button>
             </form>
 
         @else

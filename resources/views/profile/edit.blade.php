@@ -18,102 +18,74 @@
 @section('content')
     <h1>{{ __('Edit :name', ['name' => $currentUser->name]) }}</h1>
     <p><a href="{{ route('profile') }}">{{ __('Back to profile') }}</a></p>
-    <table>
-    	<tr>
-    		<td>{{ __('Name') }}</td>
-    		<td>{{ $currentUser->name }}</td>
-    	</tr>
-    	<tr>
-    		<td>{{ __('Email') }}</td>
-    		<td>{{ $currentUser->email }} ({{ __('Email can\'t be updated at the moment') }})</td>
-    	</tr>
-    	<tr>
-    		<td>{{ __('Birthday') }}</td>
-    		<td>{{ $currentUser->birthday }}</td>
-    	</tr>
-    	<tr>
-    		<td>{{ __('Member since') }}</td>
-    		<td>{{ $currentUser->created_at->format('Y-m-d') }}</td>
-    	</tr>
-    </table>
+    <p>{{ __('Email can\'t be updated at the moment') }}</p>
 
-    <form method="POST" action="{{ route('profile.store', $currentUser->hid()) }}">
+    <form method="POST" action="{{ route('profile.store', $currentUser->hid()) }}" class="form">
         @csrf
 
-        <div class="form-group row">
-            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+        <div class="form__field">
+            <label for="name">{{ __('Name') }}</label>
 
-            <div class="col-md-6">
-                <input type="text"
-                       class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                       id="name"
-                       name="name"
-                       value="{{ old('name') }}"
-                       autocomplete="off" />
-                {{ $currentUser->name }}
+            <input type="text"
+                   class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                   id="name"
+                   name="name"
+                   value="{{ old('name', $currentUser->name) }}"
+                   autocomplete="off"
+                   required />
 
-                @if ($errors->has('name'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('name') }}</strong>
-                    </span>
-                @endif
-            </div>
+            @if ($errors->has('name'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('name') }}</strong>
+                </span>
+            @endif
         </div>
 
-        <div class="form-group row">
-            <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
+        <div class="form__field">
+            <label for="birthday">{{ __('Birthday') }}</label>
 
-            <div class="col-md-6">
-                <input type="date"
-                       class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
-                       id="birthday"
-                       name="birthday"
-                       value="{{ old('birthday') }}"
-                       autocomplete="off"
-                       pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                       placeholder="{{ __('YYYY-MM-DD') }}" />
-                {{ $currentUser->birthday }}
+            <input type="date"
+                   class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
+                   id="birthday"
+                   name="birthday"
+                   value="{{ old('birthday', $currentUser->birthday) }}"
+                   autocomplete="off"
+                   pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                   placeholder="{{ __('YYYY-MM-DD') }}" />
 
-                @if ($errors->has('birthday'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('birthday') }}</strong>
-                    </span>
-                @endif
-            </div>
+            @if ($errors->has('birthday'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('birthday') }}</strong>
+                </span>
+            @endif
         </div>
 
-        <div class="form-group row">
-            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+        <div class="form__field">
+            <label for="password">{{ __('Password') }}</label>
 
-            <div class="col-md-6">
-                <input type="password"
-                       class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                       id="password"
-                       name="password"
-                       autocomplete="off"/>
+            <input type="password"
+                   class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                   id="password"
+                   name="password"
+                   autocomplete="off"/>
 
-                @if ($errors->has('password'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                @endif
-            </div>
+            @if ($errors->has('password'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
         </div>
 
-        <div class="form-group row">
-            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+        <div class="form__field">
+            <label for="password-confirm">{{ __('Confirm Password') }}</label>
 
-            <div class="col-md-6">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-            </div>
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
         </div>
 
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Save changes') }}
-                </button>
-            </div>
+        <div class="form__actions">
+            <button type="submit" class="btn btn--primary">
+                {{ __('Save changes') }}
+            </button>
         </div>
     </form>
 

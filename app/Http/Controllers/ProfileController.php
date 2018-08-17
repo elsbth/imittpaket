@@ -51,7 +51,7 @@ class ProfileController extends Controller
         $currentUser = Auth::user();
 
         $validates = $this->validate(request(), [
-            'name' => 'nullable|string|max:255',
+            'name' => 'required|nullable|string|max:255',
             'birthday' => 'nullable|date_format:Y-m-d',
         ]);
 

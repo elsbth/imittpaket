@@ -1,3 +1,19 @@
-body {
-	background: #cda;
+.faq__card {
+    position: relative;
+    margin-bottom: 30px;
+    padding-top: 30px;
+}
+
+.faq__card::before {
+    content: '';
+    width: 80%;
+    height: 1px;
+    background: #ccc;
+    position: absolute;
+    top: 0;
+    left: 10%;
+}
+
+.faq__card--no-border::before {
+    display: none;
 }

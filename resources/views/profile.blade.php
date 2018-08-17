@@ -16,7 +16,6 @@
 
 
 @section('content')
-    [ LOCALE: {{ App::getLocale() }} ]
     <h1>{{ __(':name, this is your profile', ['name' => $currentUser->name]) }}</h1>
     <p><a href="{{ route('profile.edit') }}">{{ __('Edit profile') }}</a></p>
     <table>
@@ -33,7 +32,7 @@
     		<td>{{ $currentUser->birthday }}</td>
     	</tr>
     	<tr>
-    		<td>{{ __('Member since') }}</td>
+    		<td>{{ __('User since') }}</td>
     		<td>{{ $currentUser->created_at->format('Y-m-d') }}</td>
     	</tr>
     </table>

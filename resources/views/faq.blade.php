@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('title', __('FAQ'))
-@section('currentNavItem', '/faq')
+@section('currentNavItem', route('faq'))
 
 @push('styles')
     <link href="{{ asset('css/faq.css') }}" rel="stylesheet">
@@ -16,30 +16,20 @@
 <!-- build page content -->
 
 @section('content')
-	<h1>{{ __('FAQ') }}</h1>
 
 
 	@if($faq)
-		<table>
-			<tr>
-				<td>{{ __('Question') }}</td>
-				<td>{{ $faq->question }}</td>
-			</tr>
-			<tr>
-				<td>{{ __('Answer') }}</td>
-				<td>{{ $faq->answer }}</td>
-			</tr>
-			<tr>
-				<td>{{ __('Position') }}</td>
-				<td>{{ $faq->position }}</td>
-			</tr>
-			<tr>
-				<td>{{ __('Votes') }}</td>
-				<td>{{ $faq->votes}}</td>
-			</tr>
-		</table>
+		<div class="faq" id="{{ $faq->hid() }}">
+			<h1 class="faq__question">{{ $faq->question }}</h1>
+			<div class="faq__question">
+				<p>{{ $faq->answer }}</p>
+			</div>
+		</div>
+		<hr />
+		<p><a href="{{ route('faq') }}">&laquo; {{ __('Back to FAQ') }}</a></p>
 
 	@else
+		<h1>{{ __('FAQ') }}</h1>
 
 		<ul>
 		@foreach($faqs as $key => $faq)
@@ -49,15 +39,14 @@
 		@endforeach
 		</ul>
 
-		<div class="hr"></div>
+		<p>&nbsp;</p>
 
 		@foreach($faqs as $key => $faq)
-			<div class="faq" id="{{ $faq->hid() }}">
-				<h2 class="faqQuestion">{{ $faq->question }}</h2>
-				<div class="faqAnswer">
+			<div class="faq__card {{ $loop->iteration == 1 ? 'faq__card--no-border' : '' }}" id="{{ $faq->hid() }}">
+				<h2 class="faq__question">{{ $faq->question }}</h2>
+				<div class="faq__question">
 					<p>{{ $faq->answer }}</p>
 				</div>
-				<p><a href="{{ route('faq', array($faq->hid())) }}">{{ __('Direct link') }}</a></p>
 			</div>
 		@endforeach
 	@endif
@@ -66,10 +55,5 @@
 
 
 @section('sidebar.left')
-	<p>{{ __('FAQs:') }}</p>
-
-	@if($faq)
-		<p><a href="/faq"><< {{ __('Back') }}</a> </p>
-	@endif
 
 @endsection

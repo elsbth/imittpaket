@@ -18,11 +18,12 @@
 	<h1>{{ __('About') }}</h1>
 
 	<p>Developed by elsbth after an idea by Wowbagger.</p>
-	<ul>
-		<li>2008 - Idea pops up and the first version is up by Christmas, only one user and list</li>
-		<li>2010 - As the last project of the Webdeveloper education, elsbth takes it up a notch</li>
-		<li>2018 - elsbth started from scratch to build a better site that is easier to maintain and extend</li>
-	</ul>
+	<p><strong>2008</strong>
+		<br />Idea pops up and the first version is up by Christmas. Only one user and one list.</p>
+	<p><strong>2010</strong>
+		<br />As the last project of the Web developer education, elsbth takes it up a notch.</p>
+	<p><strong>2018</strong>
+		<br />elsbth started from scratch to build a better site that is easier to maintain and extend.</p>
 
 @endsection
 

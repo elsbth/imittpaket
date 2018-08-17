@@ -3,6 +3,8 @@
 $currentNav = isset($currentNavItem) ? $currentNavItem : '/';
 
 $isAuth = auth()->check();
+$lockRegistration = true;
+$debug = false;
 
 $leftNavItems = array(
 	route('home') => __('Start'),
@@ -19,7 +21,7 @@ $rightNavItems = array(
 );
 
 $friendsNavItems = array(
-	'/friends' => __('[Friends]'),
+//	'/friends' => __('[Friends]'),
 );
 
 if ($isAuth) {
@@ -35,13 +37,15 @@ $adminNavItems = array(
 );
 ?>
 
-<div style="position:fixed; top: 0; right: 0; padding: 3px 5px;">
-	[ LOCALE: {{ App::getLocale() }} ]
-	[ URL: {{ $currentNav }} ]
-	[ {{ $isAdmin }} ]
-	[ PERMISSION:  {{ $permission }} ]
+@if ($debug)
+	<div style="position:fixed; top: 0; right: 0; padding: 3px 5px;">
+		[ LOCALE: {{ App::getLocale() }} ]
+		[ URL: {{ $currentNav }} ]
+		[ {{ $isAdmin }} ]
+		[ PERMISSION:  {{ $permission }} ]
 
-</div>
+	</div>
+@endif
 
 <header>
 
@@ -52,8 +56,9 @@ $adminNavItems = array(
     	<nav class="nav--admin">
 			<ul class="nav__list nav__list--admin">
 				@foreach($adminNavItems as $key => $item)
-					<li class="nav__item">
-						<a href="{{$key}}" class="nav__link {{ ($key == $currentNav) ? 'nav__link--current' : '' }}">
+					<?php $current = $key == $currentNav ?>
+					<li class="nav__item {{ ($current) ? 'nav__item--current' : '' }}">
+						<a href="{{$key}}" class="nav__link {{ ($current) ? 'nav__link--current' : '' }}">
 							{{$item}}
 						</a>
 				</li>
@@ -67,23 +72,26 @@ $adminNavItems = array(
 		<div class="nav__container nav__container--left">
 			<ul class="nav__list nav__list--user">
 				@foreach($leftNavItems as $key => $item)
-					<li class="nav__item">
-						<a href="{{$key}}" class="nav__link {{ ($key == $currentNav) ? 'nav__link--current' : '' }}">
+                    <?php $current = $key == $currentNav ?>
+					<li class="nav__item {{ ($current) ? 'nav__item--current' : '' }}">
+						<a href="{{$key}}" class="nav__link {{ ($current) ? 'nav__link--current' : '' }}">
 							{{$item}}
 						</a>
 					</li>
 				@endforeach
 
 				@if($isAuth)
-					<li class="nav__item">
+					<li class="nav__item {{ ($currentNav == 'profile') ? 'nav__item--current' : '' }}">
 						<a class="nav__link {{ ($currentNav == 'profile') ? 'nav__link--current' : '' }}" href="{{ route('profile') }}">{{ __('Profile') }}</a>
 					</li>
 				@else
-					<li class="nav__item">
-						<a class="nav__link {{ ($currentNav == 'register') ? 'nav__link--current' : '' }}" href="/register">{{ __('Create account') }}</a>
-					</li>
-					<li class="nav__item">
-						<a class="nav__link {{ ($currentNav == 'login') ? 'nav__link--current' : '' }}" href="/login">{{ __('Log in') }}</a>
+					@if (!$lockRegistration)
+						<li class="nav__item {{ ($currentNav == 'register') ? 'nav__item--current' : '' }}">
+							<a class="nav__link {{ ($currentNav == 'register') ? 'nav__link--current' : '' }}" href="{{ route('register') }}">{{ __('Create account') }}</a>
+						</li>
+					@endif
+					<li class="nav__item {{ ($currentNav == 'login') ? 'nav__item--current' : '' }}">
+						<a class="nav__link {{ ($currentNav == 'login') ? 'nav__link--current' : '' }}" href="{{ route('login') }}">{{ __('Log in') }}</a>
 					</li>
 				@endif
 			</ul>

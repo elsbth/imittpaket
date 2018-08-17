@@ -53,7 +53,7 @@ class ItemController extends Controller
 
         $item = Item::create($data);
 
-        return redirect('/items/' . $item->hid());
+        return redirect(route('item.edit') . $item->hid());
     }
 
     public function edit($hid)

@@ -21,8 +21,8 @@
 
     @else
         <h1>{{ __('Items') }}</h1>
-        <h2>{{ __('Add item') }}</h2>
-        <form action="{{ route('item.create') }}" method="post">
+        <h2>{{ __('Add new item') }}</h2>
+        <form action="{{ route('item.create') }}" method="post" class="form">
             @if ($errors->any())
                 <div class="alert alert-danger" role="alert">
                     Please fix the following errors
@@ -30,7 +30,7 @@
             @endif
 
             {!! csrf_field() !!}
-            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+            <div class="form__field {{ $errors->has('name') ? ' has-error' : '' }}">
                 <label for="name">Name <em class="required">*</em></label>
                 <input type="text"
                        class="form-control js-toggle-trigger"
@@ -38,7 +38,7 @@
                        name="name"
                        placeholder="Name"
                        value="{{ old('name') }}"
-                       maxlength="255"
+                       maxlength="100"
                        autocomplete="off"
                        data-toggle-trigger="name" />
                 @if($errors->has('name'))
@@ -46,11 +46,10 @@
                 @endif
             </div>
 
-            <div class="js-toggle-when-triggered" data-toggle-trigger="name" style="display: none">
+            <div class="js-toggle-when-triggered" data-toggle-trigger="name" style="{{ $errors->any() ? '' : 'display: none' }}">
+                <button type="button" class="btn btn--secondary btn--toggle-close js-toggle-trigger" data-toggle-trigger="name">{{ __('Close Add new item form') }}</button>
 
-                <button type="button" class="js-toggle-trigger" data-toggle-trigger="name">{{ __('Close Add item form') }}</button>
-
-                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                <div class="form__field {{ $errors->has('description') ? ' has-error' : '' }}">
                     <label for="description">Description</label>
                     <input type="text"
                            class="form-control"
@@ -64,7 +63,7 @@
                         <span class="help-block">{{ $errors->first('description') }}</span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('qty') ? ' has-error' : '' }}">
+                <div class="form__field {{ $errors->has('qty') ? ' has-error' : '' }}">
                     <label for="qty">Quantity</label>
                     <input type="number"
                            class="form-control"
@@ -77,7 +76,7 @@
                         <span class="help-block">{{ $errors->first('qty') }}</span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('link') ? ' has-error' : '' }}">
+                <div class="form__field{{ $errors->has('link') ? ' has-error' : '' }}">
                     <label for="link">Link</label>
                     <input type="text"
                            class="form-control"
@@ -91,7 +90,7 @@
                         <span class="help-block">{{ $errors->first('link') }}</span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                <div class="form__field {{ $errors->has('price') ? ' has-error' : '' }}">
                     <label for="price">Price</label>
                     <input type="text"
                            class="form-control"
@@ -105,29 +104,38 @@
                         <span class="help-block">{{ $errors->first('price') }}</span>
                     @endif
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn--primary">{{ __('Add item') }}</button>
             </div>
         </form>
 
 
         @if($items)
             <hr />
+            <h2>{{ __('Your items') }}</h2>
             <div>
                 @foreach($items as $key => $item)
                     <div class="item item--card">
                         <h2>{{ $item->name }}</h2>
+
+                        @if ($item->qty || $item->price)
+                            <div class="item__details space-children">
+                                @if ($item->qty)
+                                    <span class="item__detail">{{ $item->qty ? __('Quantity:') . ' ' . $item->qty : '' }}</span>
+                                @endif
+                                @if ($item->price)
+                                    <span class="item__detail">{{ $item->price ? __('Price:') . ' ' . $item->price : '' }}</span>
+                                @endif
+                            </div>
+                        @endif
+
                         @if($item->description)
                             <p>{{ $item->description }}</p>
                         @endif
-                        @if($item->link)
-                            <p>{{ __('Link:') }} <a href="{{ $item->link }}">{{ $item->link }}</a></p>
-                        @endif
 
-                        <p>
-                            <span>{{ $item->qty ? __('Quantity:') . ' ' . $item->qty : '' }}</span>
-                            <span>{{ $item->price ? __('Price:') . ' ' . $item->price : '' }}</span>
-                        </p>
-                        <p><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></p>
+                        @if($item->link)
+                            <p class="item__link"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
+                        @endif
+                        <div class="item__actions"><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></div>
                     </div>
                 @endforeach
             </div>
@@ -137,20 +145,5 @@
 
 
 @section('sidebar.left')
-    <p>{{ __('Items:') }}</p>
-
-    @if($currentItem)
-        <p><a href="{{ route('items') }}"><< {{ __('Back') }}</a> </p>
-    @endif
-
-    @if($items)
-        <ul>
-            @foreach($items as $key => $item)
-                <li>
-                    <a href="{{ route('item.edit', array($item->hid())) }}">{{ $item->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    @endif
 
 @endsection
