@@ -20,7 +20,7 @@
         </p>
 
     @else
-        <h1>{{ __('Items') }}</h1>
+        <h1><i class="fas fa-gift"></i> {{ __('Items') }}</h1>
         <h2>{{ __('Add new item') }}</h2>
         <form action="{{ route('item.create') }}" method="post" class="form">
             @if ($errors->any())

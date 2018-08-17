@@ -17,13 +17,16 @@
 @section('content')
 	<h1>{{ __('About') }}</h1>
 
-	<p>Developed by elsbth after an idea by Wowbagger.</p>
+	<p>Developed by elsbth after an idea by Wowbagger <i class="fas fa-heart" style="color: #c09"></i></p>
 	<p><strong>2008</strong>
 		<br />Idea pops up and the first version is up by Christmas. Only one user and one list.</p>
 	<p><strong>2010</strong>
 		<br />As the last project of the Web developer education, elsbth takes it up a notch.</p>
 	<p><strong>2018</strong>
 		<br />elsbth started from scratch to build a better site that is easier to maintain and extend.</p>
+
+	<hr />
+	<p>See what's happening with the site in the <a href="{{ route('changelog') }}">changelog</a>.</p>
 
 @endsection
 

@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
@@ -74,8 +75,5 @@ Route::get('/faq/{hid?}', 'FaqController@index')->name('faq');
 
 //Route::get('/sign-up', function () { return view('user.create'); });
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/about', function () { return view('about'); })->name('about');
+Route::get('/changelog', function () { return view('changelog'); })->name('changelog');

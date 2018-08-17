@@ -8,6 +8,7 @@
     <title>@yield('title') - i mitt Paket</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/global.css') }}" rel="stylesheet">
 
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -25,6 +26,12 @@
 	?>
 
 	@include('includes.header', ['currentNavItem' => $currentNavItem])
+
+    @hasSection('breadcrumbs')
+        <div class="breadcrumbs">
+            @yield('breadcrumbs')
+        </div>
+    @endif
 
     <div class="wrapper">
 

@@ -11,19 +11,19 @@ $isAuth = auth()->check();
 
     @auth
         <div class="dashboard-links__wrapper">
-            <a href="{{ route('lists') }}" class="dashboard-link">
+            <a href="{{ route('lists') }}" class="dashboard-link" title="{{ __('Create your own wishlists') }}">
                 <i class="fas fa-list dashboard-link__icon"></i>
                 <span class="dashboard-link__label">{{ __('Lists') }}</span>
             </a>
-            <a href="{{ route('items') }}" class="dashboard-link">
-                <i class="fas fa-marker dashboard-link__icon"></i>
+            <a href="{{ route('items') }}" class="dashboard-link" title="{{ __('Create items and add them to your lists') }}">
+                <i class="fas fa-gift dashboard-link__icon"></i>
                 <span class="dashboard-link__label">{{ __('Items') }}</span>
             </a>
-            <a href="{{ route('faq') }}" class="dashboard-link">
-                <i class="fas fa-question dashboard-link__icon"></i>
+            <a href="{{ route('faq') }}" class="dashboard-link" title="{{ __('Have a question about how the site is working?') }}">
+                <i class="fas fa-life-ring dashboard-link__icon"></i>
                 <span class="dashboard-link__label">{{ __('FAQ') }}</span>
             </a>
-            <a href="{{ route('profile') }}" class="dashboard-link">
+            <a href="{{ route('profile') }}" class="dashboard-link" title="{{ __('Edit your profile') }}">
                 <i class="fas fa-user-cog dashboard-link__icon"></i>
                 <span class="dashboard-link__label">{{ __('Profile') }}</span>
             </a>
@@ -35,7 +35,7 @@ $isAuth = auth()->check();
 
         <p style="font-style: italic">{{ __('Sorry about the mess... I\'m building from scratch!') }}</p>
 
-        <p>{{ __('Access is currently only VIP. Curious? Sign up to the invite list below and you will get updates and, if you\'re lucky, an invite.') }}</p>
+        <p>{!! __('Access is currently <b>VIP invites only</b>. Curious? <b>Sign up</b> to the invite list below and you will get updates and, if you\'re lucky, an invite.') !!}</p>
         <p>{{ __('There is also a Facebook page: ') }}<a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
 
         <hr />
@@ -47,7 +47,7 @@ $isAuth = auth()->check();
             /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
                We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
         </style>
-        <div id="mc_embed_signup">
+        <div id="mc_embed_signup" class="form--narrow" style="margin: 0 auto;">
             <form action="https://imittpaket.us19.list-manage.com/subscribe/post?u=c0253123be7b46b4bf8f7c8bb&amp;id=e42289ea51" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                 <div id="mc_embed_signup_scroll">
 
@@ -80,6 +80,8 @@ $isAuth = auth()->check();
         </div>
         <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
         <!--End mc_embed_signup-->
-
     @endguest
+
+    <hr />
+    <p>{{ __('The work with building the site is ongoing. To start with there are only a few features available. See what new things have been added recently and what has changed in the') }} <a href="{{ route('changelog') }}">{{ __('changelog') }}</a></p>
 @endsection

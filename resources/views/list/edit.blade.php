@@ -14,15 +14,14 @@
 
     @if($currentList)
 
-        <h1>{{ $currentList->title }}</h1>
+        <h1><i class="fas fa-list"></i> {{ $currentList->title }}</h1>
         <p>{{ __('Created') }}: {{ $currentList->created_at->format('Y-m-d') }}</p>
 
-        <ul>
-            <li><a href="{{ route('lists', $currentList->hid()) }}">{{ __('Back to list view') }}</a></li>
-            <li><a href="#edit">{{ __('Edit') }} &gt;</a></li>
-            <li><a href="#items">{{ __('Items in list') }} &gt;</a></li>
-            <li><a href="{{ route('list.delete', $currentList->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this list') }}</a></li>
-        </ul>
+        <hr />
+        <p class="space-children">
+            <a href="{{ route('lists', $currentList->hid()) }}">&laquo; {{ __('Back to list view') }}</a>
+            <a href="{{ route('list.delete', $currentList->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this list') }}</a>
+        </p>
 
         <hr />
 
@@ -79,23 +78,8 @@
             </div>
 
             <input type="hidden" name="list_id" value="{{ $currentList->hid() }}" />
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn--primary">{{ __('Save changes') }}</button>
         </form>
-
-        <hr />
-
-        @if (count($itemsOnList))
-            <h2 id="items">{{ __('Items on this list') }}</h2>
-            <ul>
-                @foreach ($itemsOnList as $item)
-                    <li>
-                        <strong>{{ $item->name }}</strong>
-                        <p>{{ $item->description }}</p>
-                        <p>{{ $item->price }} @if ($item->link) <a href="{{ $item->link }}">{{ $item->link }}</a>@endif</p>
-                    </li>
-                @endforeach
-            </ul>
-        @endif
 
     @else
         <p>{{ __('Cannot view list') }}</p>
@@ -104,20 +88,5 @@
 
 
 @section('sidebar.left')
-    <p>{{ __('Lists:') }}</p>
-
-    @if($currentList)
-        <p><a href="{{ route('lists') }}"><< {{ __('Back') }}</a> </p>
-    @endif
-
-    @if($lists)
-        <ul>
-            @foreach($lists as $key => $list)
-                <li>
-                    <a href="{{ route('lists', array($list->hid())) }}">{{ $list->title }}</a>
-                </li>
-            @endforeach
-        </ul>
-    @endif
 
 @endsection

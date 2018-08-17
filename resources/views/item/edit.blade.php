@@ -14,18 +14,19 @@
 
     @if($currentItem)
 
-        <h1>{{ $currentItem->name }}</h1>
+        <h1><i class="fas fa-gift"></i> {{ $currentItem->name }}</h1>
         <p>{{ __('Created') }}: {{ $currentItem->created_at->format('Y-m-d') }}</p>
 
-        <ul>
-            <li><a href="#edit">{{ __('Edit') }} &gt;</a></li>
-            <li><a href="#inlists">{{ __('Item in list') }} &gt;</a></li>
-            <li><a href="{{ route('item.delete', $currentItem->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this item') }}</a></li>
-        </ul>
+        <hr />
+        <p> {{ __('Scroll down to select which list(s) the item should be added to.') }}</p>
+        <p class="space-children">
+            <a href="{{ route('items') }}">&laquo; {{ __('Back to items') }}</a>
+            <a href="{{ route('item.delete', $currentItem->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this item') }}</a>
+        </p>
 
         <hr />
 
-        <h2 id="edit">{{ __('Edit') }}</h2>
+        <h2 id="edit">{{ __('Edit details') }}</h2>
 
         <form action="{{ route('item.store', $currentItem->hid()) }}" method="post" class="form">
             @if ($errors->store->any())
@@ -124,19 +125,17 @@
                 @endif
 
                 {!! csrf_field() !!}
-                <ul>
-                    @foreach($lists as $key => $list)
-                        <li>
-                            <input type="checkbox"
-                                   name="wishlist_id[]"
-                                   id="wishlist_id_{{ $list->id }}"
-                                   value="{{ $list->id }}"
-                                   {{ $itemListIds && in_array($list->id, $itemListIds) ? 'checked' : null }}
-                            />
-                            <label for="wishlist_id_{{ $list->id }}">{{ $list->title }}</label>
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach($lists as $key => $list)
+                    <div class="form__field form__field--checkbox">
+                        <input type="checkbox"
+                               name="wishlist_id[]"
+                               id="wishlist_id_{{ $list->id }}"
+                               value="{{ $list->id }}"
+                               {{ $itemListIds && in_array($list->id, $itemListIds) ? 'checked' : null }}
+                        />
+                        <label for="wishlist_id_{{ $list->id }}">{{ $list->title }}</label>
+                    </div>
+                @endforeach
 
                 @if($errors->addToList->has('wishlist_id'))
                     <span class="help-block">{{ $errors->addToList->first('wishlist_id') }}</span>
@@ -157,20 +156,5 @@
 
 
 @section('sidebar.left')
-    <p>{{ __('Items:') }}</p>
-
-    @if($currentItem)
-        <p><a href="{{ route('items') }}"><< {{ __('Back') }}</a> </p>
-    @endif
-
-    @if($items)
-        <ul>
-            @foreach($items as $key => $item)
-                <li>
-                    <a href="{{ route('item.edit', array($item->hid())) }}">{{ $item->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    @endif
 
 @endsection

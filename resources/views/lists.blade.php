@@ -13,20 +13,30 @@
 @section('content')
 
     @if($currentList)
+        <?php $itemCount = $currentList->items->count(); ?>
 
-        <h1>{{ $currentList->title }}</h1>
-        <p>{{ __('Created') }}: {{ $currentList->created_at->format('Y-m-d') }}
-        <br />{{ __('Public link') }}: <a href="{{ $publicLink }}">{{ $publicLink }}</a></p>
+        <h1><i class="fas fa-list"></i> {{ $currentList->title }}</h1>
+
+
+        <div class="list__details space-children">
+            @if ($currentList->date)
+                <span class="list__detail">{{ $currentList->date }}</span>
+            @endif
+
+            @if ($itemCount)
+                <span class="list__detail">{{ $itemCount }} {{ $itemCount == 1 ? __('item') : __('items') }}</span>
+            @endif
+        </div>
 
         @if ($currentList->description)
             <p>{{ $currentList->description }}</p>
         @endif
-        @if ($currentList->date)
-            <p>{{ __('Date') }}: {{ $currentList->date }}</p>
-        @endif
-
 
         <hr />
+        <p>
+            {{ __('Created') }}: {{ $currentList->created_at->format('Y-m-d') }}
+            <br />{{ __('Public link') }}: <a href="{{ $publicLink }}">{{ $publicLink }}</a>
+        </p>
         <div class="space-children">
             <a href="{{ route('lists') }}">&laquo; {{ __('Back to lists') }}</a>
             <a href="{{ route('list.edit', $currentList->hid()) }}">{{ __('Edit list details') }}</a>
@@ -63,7 +73,7 @@
         @endif
 
     @else
-        <h1>{{ __('Lists') }}</h1>
+        <h1><i class="fas fa-list"></i> {{ __('Lists') }}</h1>
         <h2>{{ __('Create list') }}</h2>
         <form action="{{ route('lists.create') }}" method="post">
             @if ($errors->any())
@@ -90,7 +100,7 @@
             </div>
 
             <div class="js-toggle-when-triggered" data-toggle-trigger="title" style="{{ $errors->any() ? '' : 'display: none' }}">
-                <button type="button" class="btn btn--secondary btn--toggle-close js-toggle-trigger" data-toggle-trigger="name">{{ __('Close Create list form') }}</button>
+                <button type="button" class="btn btn--secondary btn--toggle-close js-toggle-trigger" data-toggle-trigger="title">{{ __('Close Create list form') }}</button>
 
                 <div class="form__field {{ $errors->has('description') ? ' has-error' : '' }}">
                     <label for="description">Description</label>
@@ -125,23 +135,46 @@
                 <button type="submit" class="btn btn--primary">Submit</button>
             </div>
         </form>
+
+        <hr />
+
+        <h2>{{ __('My lists') }}</h2>
+        @if ($lists)
+            @foreach ($lists as $key => $list)
+                <?php $itemCount = $list->items->count(); ?>
+                <div class="list list--card">
+                    <h2>{{ $list->title }}</h2>
+
+                    <div class="list__details space-children">
+                        @if ($list->date)
+                            <span class="list__detail">{{ $list->date }}</span>
+                        @endif
+
+                        @if ($itemCount)
+                            <span class="list__detail">{{ $itemCount }} {{ $itemCount == 1 ? __('item') : __('items') }}</span>
+                        @endif
+
+                    </div>
+
+
+                    @if($list->description)
+                        <p>{{ $list->description }}</p>
+                    @endif
+
+                    @if($list->link)
+                        <p class="item__link"><a href="{{ $list->link }}">{{ $list->link }}</a></p>
+                    @endif
+                    <div class="list__actions space-children">
+                        <a href="{{ route('lists', array($list->hid())) }}">{{ __('View list') }}</a>
+                        <a href="{{ route('list.edit', array($list->hid())) }}">{{ __('Edit') }}</a>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     @endif
 @endsection
 
 
 @section('sidebar.left')
-    @if(!$currentList)
-        <p>{{ __('Your lists:') }}</p>
-
-        @if($lists)
-            <ul>
-                @foreach($lists as $key => $list)
-                    <li>
-                        <a href="{{ route('lists', array($list->hid())) }}">{{ $list->title }}</a>
-                    </li>
-                @endforeach
-            </ul>
-        @endif
-    @endif
 
 @endsection

@@ -30,7 +30,7 @@ if ($isAuth) {
 }
 
 $adminNavItems = array(
-	route('admin') => __('Dashboard'),
+	route('admin') => __('Admin:'),
 	route('admin.faq') => __('FAQ'),
 	route('admin.users') => __('Users'),
 	route('admin.invites') => __('Invites'),
@@ -47,9 +47,11 @@ $adminNavItems = array(
 	</div>
 @endif
 
-<header>
+<header class="{{ $isAdmin ? 'header--admin'  :'' }}">
 
-	<img src="{{ asset('images/imittpaket_beta_logo_square.png') }}" alt="i mitt Paket" />
+	<a href="{{ route('home') }}" class="link--logo-header">
+		<img src="{{ asset('images/imittpaket_beta_logo_square.png') }}" alt="i mitt Paket" class="logo--header" />
+	</a>
 
     @if($isAdmin)
 
@@ -106,12 +108,6 @@ $adminNavItems = array(
 						</a>
 					</li>
 				@endforeach
-
-				@if($isAuth)
-					<li class="nav__item nav__item--logout">
-						<a class="nav__link" href="/logout">{{ __('Log out') }}</a>
-					</li>
-				@endif
 			</ul>
 		</div>
 	</nav>

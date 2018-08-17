@@ -29,7 +29,7 @@
 		<p><a href="{{ route('faq') }}">&laquo; {{ __('Back to FAQ') }}</a></p>
 
 	@else
-		<h1>{{ __('FAQ') }}</h1>
+		<h1><i class="fas fa-life-ring"></i> {{ __('FAQ') }}</h1>
 
 		<ul>
 		@foreach($faqs as $key => $faq)

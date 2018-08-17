@@ -59,12 +59,17 @@ class ItemController extends Controller
     public function edit($hid)
     {
         $currentUser = Auth::user();
+        $id = Item::decodeHid($hid);
+        $currentItem = ($id) ? Item::find($id) : null;
+
+        if ($currentUser->id != $currentItem->user_id) {
+            return redirect(route('home'));
+        }
+
         $items = $currentUser->items;
         $lists = $currentUser->lists;
 
-        $id = Item::decodeHid($hid);
 
-        $currentItem = ($id) ? Item::find($id) : null;
         $currentItemOnLists = ($currentItem) ? $currentItem->wishlists()->get(['wishlist_id'])->toArray() : null;
         $itemListIds = ($currentItemOnLists) ? array_unique(array_column($currentItemOnLists, 'wishlist_id')) : null;
 

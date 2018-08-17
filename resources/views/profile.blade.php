@@ -16,26 +16,20 @@
 
 
 @section('content')
-    <h1>{{ __(':name, this is your profile', ['name' => $currentUser->name]) }}</h1>
-    <p><a href="{{ route('profile.edit') }}">{{ __('Edit profile') }}</a></p>
-    <table>
-    	<tr>
-    		<td>{{ __('Name') }}</td>
-    		<td>{{ $currentUser->name }}</td>
-    	</tr>
-    	<tr>
-    		<td>{{ __('Email') }}</td>
-    		<td>{{ $currentUser->email }}</td>
-    	</tr>
-    	<tr>
-    		<td>{{ __('Birthday') }}</td>
-    		<td>{{ $currentUser->birthday }}</td>
-    	</tr>
-    	<tr>
-    		<td>{{ __('User since') }}</td>
-    		<td>{{ $currentUser->created_at->format('Y-m-d') }}</td>
-    	</tr>
-    </table>
+    <h1><i class="fas fa-user-cog"></i> {{ __('Profile') }}</h1>
+    <p class="space-children">
+		<a href="{{ route('profile.edit') }}">{{ __('Edit profile') }}</a>
+		@auth
+			<a class="nav__link" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> {{ __('Log out') }}</a>
+		@endauth
+	</p>
+
+	<p>
+		{{ __('Name') }}: {{ $currentUser->name }}
+		<br />{{ __('Email') }}: {{ $currentUser->email }}
+		<br />{{ __('Birthday') }}: {{ $currentUser->birthday }}
+		<br />{{ __('User since') }}: {{ $currentUser->created_at->format('Y-m-d') }}
+	</p>
 @endsection
 
 @section('sidebar.left')
