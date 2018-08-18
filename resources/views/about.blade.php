@@ -26,7 +26,7 @@
 		<br />elsbth started from scratch to build a better site that is easier to maintain and extend.</p>
 
 	<hr />
-	<p>See what's happening with the site in the <a href="{{ route('changelog') }}">changelog</a>.</p>
+	<p>{{ __('See updates to the site in the') }} <a href="{{ route('changelog') }}">{{ __('changelog') }}</a>.</p>
 
 @endsection
 

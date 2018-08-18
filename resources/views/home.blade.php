@@ -35,10 +35,11 @@ $isAuth = auth()->check();
 
         <p style="font-style: italic">{{ __('Sorry about the mess... I\'m building from scratch!') }}</p>
 
-        <p>{!! __('Access is currently <b>VIP invites only</b>. Curious? <b>Sign up</b> to the invite list below and you will get updates and, if you\'re lucky, an invite.') !!}</p>
-        <p>{{ __('There is also a Facebook page: ') }}<a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
+        <p>{!! __('Access is currently <b>invites only</b>. <b>Sign up</b> below and to get updates and, eventually, an invite.') !!}</p>
+        <p>{{ __('Follow') }} <a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
 
         <hr />
+        <h2>{{ __('Invite sign up') }}</h2>
 
         <!-- Begin MailChimp Signup Form -->
         <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
@@ -51,19 +52,19 @@ $isAuth = auth()->check();
             <form action="https://imittpaket.us19.list-manage.com/subscribe/post?u=c0253123be7b46b4bf8f7c8bb&amp;id=e42289ea51" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                 <div id="mc_embed_signup_scroll">
 
-                    <div class="indicates-required"><span class="asterisk">*</span> Obligatoriskt f&auml;lt</div>
+                    <div class="indicates-required"><span class="asterisk">*</span> Required field</div>
                     <div class="mc-field-group">
-                        <label for="mce-EMAIL">Epostadress  <span class="asterisk">*</span>
+                        <label for="mce-EMAIL">Email address  <span class="asterisk">*</span>
                         </label>
                         <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
                     </div>
                     <div class="mc-field-group">
-                        <label for="mce-FNAME">Namn  <span class="asterisk">*</span>
+                        <label for="mce-FNAME">Name  <span class="asterisk">*</span>
                         </label>
                         <input type="text" value="" name="FNAME" class="required" id="mce-FNAME">
                     </div>
                     <div class="mc-field-group size1of2">
-                        <label for="mce-BIRTHDAY-month">Födelsedag </label>
+                        <label for="mce-BIRTHDAY-month">Birthday </label>
                         <div class="datefield">
                             <span class="subfield monthfield"><input class="birthday " type="text" pattern="[0-9]*" value="" placeholder="MM" size="2" maxlength="2" name="BIRTHDAY[month]" id="mce-BIRTHDAY-month"></span> /
                             <span class="subfield dayfield"><input class="birthday " type="text" pattern="[0-9]*" value="" placeholder="DD" size="2" maxlength="2" name="BIRTHDAY[day]" id="mce-BIRTHDAY-day"></span>
@@ -74,7 +75,7 @@ $isAuth = auth()->check();
                         <div class="response" id="mce-success-response" style="display:none"></div>
                     </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                     <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_c0253123be7b46b4bf8f7c8bb_e42289ea51" tabindex="-1" value=""></div>
-                    <div style="clear:both;"><input type="submit" value="Skicka" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                    <div style="clear:both;"><input type="submit" value="Sign up" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
                 </div>
             </form>
         </div>
@@ -83,5 +84,5 @@ $isAuth = auth()->check();
     @endguest
 
     <hr />
-    <p>{{ __('The work with building the site is ongoing. To start with there are only a few features available. See what new things have been added recently and what has changed in the') }} <a href="{{ route('changelog') }}">{{ __('changelog') }}</a></p>
+    <p>{{ __('See updates to the site in the') }} <a href="{{ route('changelog') }}">{{ __('changelog') }}</a>.</p>
 @endsection
