@@ -5,7 +5,7 @@
 
 @section('content')
     <h1>{{ __('Login') }}</h1>
-    <p>{{ __('Currently the users are VIP invites only.') }}
+    <p>{{ __('Currently the users are invites only.') }}
     <br />{{ __('If you\'re interested, use the signup form on the ') }}<a href="{{ route('home') }}">{{ __('startpage') }}</a>.</p>
 
     <hr />

@@ -11,8 +11,18 @@ pre {
 	padding: 10px 15px;
 }
 
+th,
+td {
+	padding: 1px 5px;
+}
+
 h1 .fas {
 	font-size: .75em;
+}
+
+h2,
+.h2 {
+	font-size: 1.6rem;
 }
 
 a { color: #50acc0; }

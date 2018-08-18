@@ -1,7 +1,19 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-19382374-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-19382374-1');
+    </script>
+
     <meta charset="utf-8">
+    <meta name="description" content="{{ __('Add the items you wish for to your list. Share the list with your friends.') }}">
+    <meta name="author" content="elsbth.se">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 

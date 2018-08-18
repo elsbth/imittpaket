@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('link')->nullable();
+            $table->string('link', 400)->nullable();
             $table->string('price', 50)->nullable();
             $table->unsignedSmallInteger('qty')->nullable();
             $table->timestamps();

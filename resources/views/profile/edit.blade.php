@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('title', __('Edit :name', ['name' => $currentUser->name]))
-@section('currentNavItem', 'profile')
+@section('currentNavItem', route('profile'))
 
 @push('styles')
 @endpush
@@ -16,9 +16,8 @@
 
 
 @section('content')
-    <h1>{{ __('Edit :name', ['name' => $currentUser->name]) }}</h1>
-    <p><a href="{{ route('profile') }}">{{ __('Back to profile') }}</a></p>
-    <p>{{ __('Email can\'t be updated at the moment') }}</p>
+    <h1><i class="fas fa-user-cog"></i> {{ __('Edit account') }}</h1>
+    <p><a href="{{ route('profile') }}">&laquo; {{ __('Back to account') }}</a></p>
 
     <form method="POST" action="{{ route('profile.store', $currentUser->hid()) }}" class="form">
         @csrf
@@ -42,6 +41,18 @@
         </div>
 
         <div class="form__field">
+            <label for="email">{{ __('E-mail address') }} ({{ __('can\'t be changed yet') }})</label>
+
+            <input id="email" type="email" readonly disabled class="form-control" name="email" value="{{ $currentUser->email }}">
+
+            @if ($errors->has('email'))
+                <span class="invalid-feedback">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="form__field">
             <label for="birthday">{{ __('Birthday') }}</label>
 
             <input type="date"
@@ -60,29 +71,11 @@
             @endif
         </div>
 
-        <div class="form__field">
-            <label for="password">{{ __('Password') }}</label>
-
-            <input type="password"
-                   class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                   id="password"
-                   name="password"
-                   autocomplete="off"/>
-
-            @if ($errors->has('password'))
-                <span class="invalid-feedback">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
-        </div>
-
-        <div class="form__field">
-            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-        </div>
+        <p>{{ __('Password') }}
+            <br />{{ __('Changing password is not implemented yet.') }}</p>
 
         <div class="form__actions">
+            <input type="hidden" name="user_id" value="{{ $currentUser->hid() }}" />
             <button type="submit" class="btn btn--primary">
                 {{ __('Save changes') }}
             </button>

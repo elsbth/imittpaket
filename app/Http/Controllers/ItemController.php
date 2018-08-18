@@ -44,7 +44,7 @@ class ItemController extends Controller
         $data = $request->validate([
             'name' => 'required|max:255',
             'description' => 'max:255',
-            'link' => 'max:255',
+            'link' => 'url|max:400|nullable',
             'price' => 'max:50',
             'qty' => 'integer|nullable'
         ]);
@@ -83,7 +83,7 @@ class ItemController extends Controller
             'item_id' => 'required',
             'name' => 'required|max:255',
             'description' => 'max:255',
-            'link' => 'max:255',
+            'link' => 'url|max:400|nullable',
             'price' => 'max:50',
             'qty' => 'integer|nullable'
         ]);
@@ -159,6 +159,8 @@ class ItemController extends Controller
             'wishlist_id' => 'required',
         ]);
 
+        $message = '';
+
         $itemHid = $data['item_id'];
         $itemId = Item::decodeHid($itemHid);
 
@@ -167,11 +169,21 @@ class ItemController extends Controller
         $lists = $item->wishlists()->get(['wishlist_id'])->toArray();
 
         //TODO: Mask the wishlist ids to not use the db id
-        $item->wishlists()->sync($data['wishlist_id']);
+        $result = $item->wishlists()->sync($data['wishlist_id']);
+        $addedCount = count($result['attached']);
+        $removedCount = count($result['detached']);
+
+        if ($addedCount) {
+            $wording = ($addedCount > 1) ? 'lists' : 'list';
+            $message .= 'Added to ' . $addedCount . ' ' . $wording . '. ';
+        }
+        if ($removedCount) {
+            $wording = ($removedCount > 1) ? 'lists' : 'list';
+            $message .= 'Removed from ' . $removedCount . ' ' . $wording . '. ';
+        }
 
         return redirect(route('item.edit', $item->hid()))
+            ->with('message', $message)
             ->withErrors([], 'addToList');
-
-        //return redirect()->route('home')->with('success', 'Post has been successfully added!');
     }
 }

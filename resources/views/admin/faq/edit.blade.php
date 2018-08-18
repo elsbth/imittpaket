@@ -17,8 +17,8 @@
 
 
 @section('content')
-    <h1>{{ __('Edit :name', ['name' => $faq->question]) }}</h1>
-    <p><a href="{{ route('admin.faq.view', array($faq->hid())) }}">{{ __('Back to FAQ') }}</a></p>
+    <h1><i class="fas fa-life-ring"></i> {{ __('Edit :name', ['name' => $faq->question]) }}</h1>
+    <p><a href="{{ route('admin.faq') }}">&laquo; {{ __('Back to FAQs') }}</a></p>
 
     <form method="POST" action="{{ route('admin.faq.store', array($faq->hid())) }}">
         @csrf

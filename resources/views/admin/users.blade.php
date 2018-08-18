@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('title', __('Admin - Users'))
-@section('currentNavItem', '/admin/users')
+@section('currentNavItem', route('admin.users'))
 
 @push('styles')
 	<link href="{{ asset('css/admin.css') }}" rel="stylesheet">
@@ -17,10 +17,10 @@
 
 
 @section('content')
-    <h1>{{ __('Administrate: Users') }}</h1>
 
 
 	@if($user)
+		<h1><i class="fas fa-users"></i> {{ __('User: :name', ['name' => $user->name]) }}</h1>
 		<table>
 			<tr>
 				<td>{{ __('Id') }}</td>
@@ -54,25 +54,26 @@
 				</tr>
 			@endif
 		</table>
+
+		<hr />
+
+		<div class="space-children">
+			<a href="{{ route('admin.users') }}">&laquo; {{ __('Back to users') }}</a>
+		</div>
+	@else
+		<h1><i class="fas fa-users"></i> {{ __('Users') }}</h1>
+
+		<p>{{ __('* admin user') }}</p>
+		@foreach($users as $key => $user)
+			<p>
+				<a href="/admin/users/{{$user->hid()}}">{{$user->name}}</a> {{ ($user->permission == 'admin') ? '*' : '' }}
+				- {{ $user->email }}
+			</p>
+		@endforeach
 	@endif
 
 
 @endsection
 
 @section('sidebar.left')
-	<p>{{ __('Users:') }}</p>
-
-	@if($user)
-		<p><a href="/admin/users"><< {{ __('Back') }}</a> </p>
-	@else
-		<ul>
-			@foreach($users as $key => $user)
-				<li>
-					<a href="/admin/users/{{$user->hid()}}">{{$user->name}}</a> {{ ($user->permission == 'admin') ? '*' : '' }}
-				</li>
-			@endforeach
-		</ul>
-		<p>{{ __('* admin user') }}</p>
-	@endif
-
 @endsection

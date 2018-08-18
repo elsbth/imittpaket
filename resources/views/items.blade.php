@@ -31,12 +31,12 @@
 
             {!! csrf_field() !!}
             <div class="form__field {{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name">Name <em class="required">*</em></label>
+                <label for="name">{{ __('Name') }} <em class="required">*</em></label>
                 <input type="text"
                        class="form-control js-toggle-trigger"
                        id="name"
                        name="name"
-                       placeholder="Name"
+                       placeholder="{{ __('Name') }}"
                        value="{{ old('name') }}"
                        maxlength="100"
                        autocomplete="off"
@@ -47,15 +47,13 @@
             </div>
 
             <div class="js-toggle-when-triggered" data-toggle-trigger="name" style="{{ $errors->any() ? '' : 'display: none' }}">
-                <button type="button" class="btn btn--secondary btn--toggle-close js-toggle-trigger" data-toggle-trigger="name">{{ __('Close Add new item form') }}</button>
-
                 <div class="form__field {{ $errors->has('description') ? ' has-error' : '' }}">
-                    <label for="description">Description</label>
+                    <label for="description">{{ __('Description') }}</label>
                     <input type="text"
                            class="form-control"
                            id="description"
                            name="description"
-                           placeholder="Description"
+                           placeholder="{{ __('Description') }}"
                            value="{{ old('description') }}"
                            autocomplete="off"
                            maxlength="255" />
@@ -64,12 +62,12 @@
                     @endif
                 </div>
                 <div class="form__field {{ $errors->has('qty') ? ' has-error' : '' }}">
-                    <label for="qty">Quantity</label>
+                    <label for="qty">{{ __('Quantity') }}</label>
                     <input type="number"
                            class="form-control"
                            id="qty"
                            name="qty"
-                           placeholder="Quantity"
+                           placeholder="{{ __('Quantity') }}"
                            value="{{ old('qty') }}"
                            autocomplete="off" />
                     @if($errors->has('qty'))
@@ -77,26 +75,26 @@
                     @endif
                 </div>
                 <div class="form__field{{ $errors->has('link') ? ' has-error' : '' }}">
-                    <label for="link">Link</label>
+                    <label for="link">{{ __('Link (include http://') }}</label>
                     <input type="text"
                            class="form-control"
                            id="link"
                            name="link"
-                           placeholder="Link"
+                           placeholder="{{ __('Link') }}"
                            value="{{ old('link') }}"
                            autocomplete="off"
-                           maxlength="255" />
+                           maxlength="400" />
                     @if($errors->has('link'))
                         <span class="help-block">{{ $errors->first('link') }}</span>
                     @endif
                 </div>
                 <div class="form__field {{ $errors->has('price') ? ' has-error' : '' }}">
-                    <label for="price">Price</label>
+                    <label for="price">{{ __('Price') }}</label>
                     <input type="text"
                            class="form-control"
                            id="price"
                            name="price"
-                           placeholder="Price"
+                           placeholder="{{ __('Price') }}"
                            value="{{ old('price') }}"
                            autocomplete="off"
                            maxlength="50" />

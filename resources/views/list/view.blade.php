@@ -30,7 +30,9 @@
             @endif
         </div>
 
-        <p>{{ __('Description') }}</p>
+        @if ($currentList->description)
+            <p>{{ $currentList->description  }}</p>
+        @endif
 
         @if ($itemsOnList)
             <h2>{{ __('Items on this list') }}</h2>

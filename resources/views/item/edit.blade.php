@@ -86,7 +86,7 @@
                        placeholder="Link"
                        value="{{ old('link', $currentItem->link) }}"
                        autocomplete="off"
-                       maxlength="255" />
+                       maxlength="400" />
                 @if($errors->store->has('link'))
                     <span class="help-block">{{ $errors->store->first('link') }}</span>
                 @endif

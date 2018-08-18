@@ -18,12 +18,22 @@
 
 @section('content')
     <h1>{{ __('Administration') }}</h1>
+
+	<div class="dashboard-links__wrapper">
+		<a href="{{ route('admin.invites') }}" class="dashboard-link">
+			<i class="fas fa-envelope dashboard-link__icon"></i>
+			<span class="dashboard-link__label">{{ __('Invites') }}</span>
+		</a>
+		<a href="{{ route('admin.users') }}" class="dashboard-link">
+			<i class="fas fa-users dashboard-link__icon"></i>
+			<span class="dashboard-link__label">{{ __('Users') }}</span>
+		</a>
+		<a href="{{ route('admin.faq') }}" class="dashboard-link">
+			<i class="fas fa-life-ring dashboard-link__icon"></i>
+			<span class="dashboard-link__label">{{ __('FAQ') }}</span>
+		</a>
+	</div>
 @endsection
 
 @section('sidebar.left')
-    <ul>
-    	<li>[ LINK 1 ]</li>
-    	<li>[ LINK 2 ]</li>
-    	<li>[ LINK 3 ]</li>
-    </ul>
 @endsection

@@ -83,8 +83,8 @@ $adminNavItems = array(
 				@endforeach
 
 				@if($isAuth)
-					<li class="nav__item {{ ($currentNav == 'profile') ? 'nav__item--current' : '' }}">
-						<a class="nav__link {{ ($currentNav == 'profile') ? 'nav__link--current' : '' }}" href="{{ route('profile') }}">{{ __('Profile') }}</a>
+					<li class="nav__item {{ ($currentNav == route('profile')) ? 'nav__item--current' : '' }}">
+						<a class="nav__link {{ ($currentNav == route('profile')) ? 'nav__link--current' : '' }}" href="{{ route('profile') }}">{{ __('Account') }}</a>
 					</li>
 				@else
 					@if (!$lockRegistration)

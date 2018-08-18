@@ -12,6 +12,9 @@
 */
 use Illuminate\Http\Request;
 
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
 //Auth::routes();
 
 // Instead of Auth:routes() --- start
@@ -67,9 +70,9 @@ Route::get('/items/{hid}/delete', 'ItemController@delete')->name('item.delete')-
 Route::post('/item/add', 'ItemController@create')->name('item.create')->middleware('auth');
 Route::post('/item/addtolist', 'ItemController@addToList')->name('item.addtolist')->middleware('auth');
 
-Route::get('/profile', 'ProfileController@index')->name('profile');
-Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
-Route::post('/profile/store/{hid}', 'ProfileController@store')->name('profile.store');
+Route::get('/account', 'ProfileController@index')->name('profile');
+Route::get('/account/edit', 'ProfileController@edit')->name('profile.edit');
+Route::post('/account/store/{hid}', 'ProfileController@store')->name('profile.store');
 
 Route::get('/faq/{hid?}', 'FaqController@index')->name('faq');
 

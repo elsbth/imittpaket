@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('title', $currentUser->name)
-@section('currentNavItem', 'profile')
+@section('currentNavItem', route('profile'))
 
 @push('styles')
 @endpush
@@ -16,9 +16,9 @@
 
 
 @section('content')
-    <h1><i class="fas fa-user-cog"></i> {{ __('Profile') }}</h1>
+    <h1><i class="fas fa-user-cog"></i> {{ __('Account') }}</h1>
     <p class="space-children">
-		<a href="{{ route('profile.edit') }}">{{ __('Edit profile') }}</a>
+		<a href="{{ route('profile.edit') }}">{{ __('Edit account details') }}</a>
 		@auth
 			<a class="nav__link" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> {{ __('Log out') }}</a>
 		@endauth

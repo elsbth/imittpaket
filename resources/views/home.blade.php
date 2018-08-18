@@ -23,9 +23,9 @@ $isAuth = auth()->check();
                 <i class="fas fa-life-ring dashboard-link__icon"></i>
                 <span class="dashboard-link__label">{{ __('FAQ') }}</span>
             </a>
-            <a href="{{ route('profile') }}" class="dashboard-link" title="{{ __('Edit your profile') }}">
+            <a href="{{ route('profile') }}" class="dashboard-link" title="{{ __('Edit your account details') }}">
                 <i class="fas fa-user-cog dashboard-link__icon"></i>
-                <span class="dashboard-link__label">{{ __('Profile') }}</span>
+                <span class="dashboard-link__label">{{ __('Account') }}</span>
             </a>
         </div>
     @endauth
@@ -36,7 +36,7 @@ $isAuth = auth()->check();
         <p style="font-style: italic">{{ __('Sorry about the mess... I\'m building from scratch!') }}</p>
 
         <p>{!! __('Access is currently <b>invites only</b>. <b>Sign up</b> below and to get updates and, eventually, an invite.') !!}</p>
-        <p>{{ __('Follow') }} <a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
+        <p>{{ __('Please follow') }} <a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
 
         <hr />
         <h2>{{ __('Invite sign up') }}</h2>

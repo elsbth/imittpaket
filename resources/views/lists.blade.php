@@ -100,8 +100,6 @@
             </div>
 
             <div class="js-toggle-when-triggered" data-toggle-trigger="title" style="{{ $errors->any() ? '' : 'display: none' }}">
-                <button type="button" class="btn btn--secondary btn--toggle-close js-toggle-trigger" data-toggle-trigger="title">{{ __('Close Create list form') }}</button>
-
                 <div class="form__field {{ $errors->has('description') ? ' has-error' : '' }}">
                     <label for="description">Description</label>
                     <input type="text"

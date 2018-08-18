@@ -3,9 +3,10 @@
 @extends('layouts.app')
 
 @section('title', __('Admin - FAQ'))
-@section('currentNavItem', '/admin/faq')
+@section('currentNavItem', route('admin.faq'))
 
 @push('styles')
+	<link href="{{ asset('css/faq.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 @endpush
 
@@ -17,10 +18,15 @@
 
 
 @section('content')
-    <h1>{{ __('Administrate: FAQ') }}</h1>
+    <h1><i class="fas fa-life-ring"></i> {{ __('FAQ') }}</h1>
+	<p><a href="{{ route('admin.faq.add') }}">{{ __('Add FAQ') }}</a> </p>
+	<hr />
 
 	@if($faq)
-		<p><a href="{{ route('admin.faq.edit', array($faq->hid())) }}">{{ __('Edit FAQ question') }}</a></p>
+		<p class="space-children">
+			<a href="{{ route('admin.faq') }}">&laquo; {{ __('Back to FAQs') }}</a>
+			<a href="{{ route('admin.faq.edit', array($faq->hid())) }}">{{ __('Edit') }}</a>
+		</p>
 
 		<table>
 			<tr>
@@ -44,25 +50,23 @@
 				<td>{{ $faq->votes}}</td>
 			</tr>
 		</table>
+	@else
+		@if ($faqs)
+			@foreach($faqs as $key => $faq)
+				<div class="faq__card {{ $loop->iteration == 1 ? 'faq__card--no-border' : '' }}" id="{{ $faq->hid() }}">
+					<h2 class="faq__question">{{ $faq->question }}</h2>
+					<div class="faq__question">
+						<p>{{ $faq->answer }}</p>
+					</div>
+					<a href="{{ route('admin.faq.edit', $faq->hid()) }}">{{ __('Edit') }}</a>
+				</div>
+			@endforeach
+		@endif
 	@endif
 
 
 @endsection
 
 @section('sidebar.left')
-	<p>{{ __('FAQs:') }}</p>
-	<p><a href="/admin/faq/add">{{ __('Add FAQ') }}</a> </p>
-
-	@if($faq)
-		<p><a href="/admin/faq"><< {{ __('Back') }}</a> </p>
-	@else
-	<ul>
-		@foreach($faqs as $key => $faq)
-			<li>
-				<a href="/admin/faq/{{$faq->hid()}}">{{$faq->question}}</a>
-			</li>
-		@endforeach
-	</ul>
-	@endif
 
 @endsection

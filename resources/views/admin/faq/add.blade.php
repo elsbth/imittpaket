@@ -17,7 +17,11 @@
 
 
 @section('content')
-    <h1>{{ __('Administrate: FAQ - Add') }}</h1>
+    <h1><i class="fas fa-life-ring"></i> {{ __('Add FAQ') }}</h1>
+
+	<p>
+		<a href="{{ route('admin.faq') }}">&laquo; {{ __('Back to FAQs') }}</a>
+	</p>
 
 	<form method="POST" action="{{ route('admin.faq.create') }}">
 		@csrf
@@ -56,7 +60,7 @@
 
 		<div class="form-group row mb-0">
 			<div class="col-md-6 offset-md-4">
-				<button type="submit" class="btn btn-primary">
+				<button type="submit" class="btn btn--primary">
 					{{ __('Add FAQ') }}
 				</button>
 			</div>
@@ -66,15 +70,5 @@
 @endsection
 
 @section('sidebar.left')
-	<p>{{ __('FAQs:') }}</p>
-
-	<p><a href="/admin/faq"><< {{ __('Back') }}</a> </p>
-	<ul>
-		@foreach($faqs as $key => $faq)
-			<li>
-				<a href="/admin/faq/{{$faq->hid()}}">{{$faq->question}}</a>
-			</li>
-		@endforeach
-	</ul>
 
 @endsection
