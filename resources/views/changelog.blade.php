@@ -19,9 +19,11 @@
 
 	<p style="font-style: italic">Re-building the site from scratch with Laravel to make it easier to maintain the code. Read all about the changes released to the site in this changelog.</p>
 
-	<h2>0.1.0 <span class="h6">2018-08-XX</span></h2>
-	<p>
-		MVP (minimum viable product) release. Features include creating lists, creating items and adding them to lists. All lists are public.</p>
+	<h2>0.1.1 <span class="h6">2018-08-20</span></h2>
+	<p>Fixed mobile styilng.</p>
+
+	<h2>0.1.0 <span class="h6">2018-08-19</span></h2>
+	<p>MVP (minimum viable product) release. Features include creating lists, creating items and adding them to lists. All lists are public.</p>
 
 @endsection
 

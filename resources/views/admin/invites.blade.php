@@ -17,38 +17,26 @@
 
 
 @section('content')
-    <h1><i class="fas fa-envelope"></i> {{ __('Invites') }}</h1>
 
 
 	@if($currentInvite)
-		<table>
-			<tr>
-				<td>{{ __('Registration link') }}</td>
-				<td><a href="{{ route('register', $currentInvite->token) }}">{{ route('register', $currentInvite->token) }}</a></td>
-			</tr>
-			<tr>
-				<td>{{ __('Name') }}</td>
-				<td>{{ $currentInvite->name }}</td>
-			</tr>
-			<tr>
-				<td>{{ __('Email') }}</td>
-				<td>{{ $currentInvite->email }}</td>
-			</tr>
-			<tr>
-				<td>{{ __('Created') }}</td>
-				<td>{{ $currentInvite->created_at->format('Y-m-d') }}</td>
-			</tr>
-			<tr>
-				<td>{{ __('Related user') }}</td>
-				<td>
-				@if ($currentInvite->accepted && $currentInvite->getRelatedUserHid())
-					<a href="{{ route('admin.users.userid', $currentInvite->getRelatedUserHid()) }}">{{ __('Go to user') }}</a>
-				@else
-					-
-				@endif
-				</td>
-			</tr>
-		</table>
+		<h1><i class="fas fa-envelope"></i> {{ __('Invite') }}</h1>
+
+		<h2>{{ $currentInvite->name }}</h2>
+		<p>
+			{{ $currentInvite->email }}
+		</p>
+		<p>{{ __('Invite created') }}: {{ $currentInvite->created_at->format('Y-m-d') }}</p>
+
+		@if ($currentInvite->accepted && $currentInvite->getRelatedUserHid())
+			<p><i class="fas fa-check"></i> {{ __('Invite accepted') }} -
+				<a href="{{ route('admin.users.userid', $currentInvite->getRelatedUserHid()) }}">{{ __('Go to user') }}</a>
+			</p>
+		@else
+			<p><i class="fas fa-clock"></i> {{ __('Invite not accepted yet') }}
+				<br /><span class="link--long">{{ __('Registration link') }}: <a href="{{ route('register', $currentInvite->token) }}">{{ route('register', $currentInvite->token) }}</a></span>
+			</p>
+		@endif
 
 		<hr />
 
@@ -57,6 +45,7 @@
 			<a href="{{ route('admin.invite.delete', $currentInvite->hid()) }}" onclick="return confirm('{{ __('Are you sure you want to delete? This action can not be undone') }}')">{{ __('Delete this invite') }}</a>
 		</div>
 	@else
+		<h1><i class="fas fa-envelope"></i> {{ __('Invites') }}</h1>
 
 		<h2>{{ __('Add invite') }}</h2>
 
@@ -105,34 +94,28 @@
 		<h2>{{ __('Invites') }}</h2>
 
 		@if ($invites)
+			@foreach ($invites as $key => $invite)
+				<div class="invite--card">
+					<strong>{{ $invite->name }}</strong>
+					- {{ $invite->email }}
+					<br />
 
-			<table>
-				<tr>
-					<th>{{ __('Name') }}</th>
-					<th>{{ __('Email') }}</th>
-					<th>{{ __('Accepted') }} ({{ config('app.timezone') }})</th>
-					<th>{{ __('More') }}</th>
-				</tr>
-				@foreach($invites as $key => $invite)
-					<tr>
-						<td>
-							@if ($invite->accepted && $invite->getRelatedUserHid())
-								<a href="{{ route('admin.users.userid', $invite->getRelatedUserHid()) }}">
-							@endif
-							{{ $invite->name }}
+					@if ($invite->accepted && $invite->getRelatedUserHid())
+						<i class="fas fa-check"></i> {{ __('Invite accepted') }} {{ $invite->accepted_at->format('Y-m-d H:i') }}
+					@else
+						<i class="fas fa-clock"></i> {{ __('Invite not accepted yet') }}
+					@endif
 
-							@if ($invite->accepted && $invite->getRelatedUserHid())
-								</a>
-							@endif
-						</td>
-						<td>{{ $invite->email }}</td>
-						<td>{{ $invite->accepted ? $invite->accepted_at->format('Y-m-d H:i') : 'No' }}</td>
-						<td>
-							<a href="{{ route('admin.invites', $invite->hid()) }}">{{ __('View') }}</a>
-						</td>
-					</tr>
-				@endforeach
-			</table>
+					<p class="space-children">
+						<a href="{{ route('admin.invites', $invite->hid()) }}">{{ __('View invite') }}</a>
+						@if ($invite->accepted && $invite->getRelatedUserHid())
+							<a href="{{ route('admin.users.userid', $invite->getRelatedUserHid()) }}">{{ __('View user') }}</a>
+						@endif
+					</p>
+				</div>
+			@endforeach
+		@else
+			<p>{{ __('No invites') }}</p>
 		@endif
 	@endif
 

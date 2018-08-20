@@ -30,6 +30,14 @@ a { color: #50acc0; }
 a:hover, a:focus
 .nav__list--user a:hover, .nav__list--user a:focus { color: #000; }
 
+.link--long {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	white-space: nowrap;
+	width: 100%;
+}
+
 .btn--primary {
 	background-color: #fffcff;
 	border-color: #f2bfe4;
@@ -120,8 +128,6 @@ header {
 
 .wrapper {
 	padding: 10px 20px;
-	display: flex;
-	justify-content: center;
 }
 
 .sidebar {
@@ -133,8 +139,6 @@ header {
 }
 
 .content {
-	flex-grow: 1;
-	max-width: 600px;
 }
 
 .nav--admin {
@@ -187,7 +191,7 @@ header {
 .nav__item {
 	display: inline-block;
 	font-size: 1.1rem;
-	margin: 0 5px;
+	margin: 0 3px;
 	padding: 4px 5px;
 }
 
@@ -215,6 +219,13 @@ header {
 .form__field--checkbox {
 	margin-bottom: 0;
 	margin-left: 15px;
+}
+
+.invite--card {
+	background: #fff;
+	border-top: 1px solid #999;
+	margin-bottom: 15px;
+	padding-top: 15px;
 }
 
 .item--card,
@@ -330,6 +341,17 @@ footer:hover {
 		grid-template-columns: 50% 50%;
 	}
 
+	.wrapper {
+		padding: 10px 20px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.content {
+		flex-grow: 1;
+		max-width: 600px;
+	}
+
 	.nav--admin {
 		border: none;
 	}
@@ -373,6 +395,8 @@ footer:hover {
 	}
 	.nav__item {
 		font-size: .9rem;
+		margin-left: 5px;
+		margin-right: 5px;
 		padding-top: 0;
 		padding-bottom: 0;
 	}

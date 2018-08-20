@@ -17,7 +17,7 @@
 
 
 @section('content')
-    <h1>{{ __('Administration') }}</h1>
+    <h1><i class="fas fa-user-circle"></i> {{ __('Administration') }}</h1>
 
 	<div class="dashboard-links__wrapper">
 		<a href="{{ route('admin.invites') }}" class="dashboard-link">

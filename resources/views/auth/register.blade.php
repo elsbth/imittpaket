@@ -7,7 +7,7 @@
 @section('content')
     @if ($lockRegistration)
         <h1>{{ __('Register with invite') }}</h1>
-        <p>{{ __('Hi :name! You\'re a VIP.', ['name' => $invite->name]) }}
+        <p>{{ __('Hi :name!', ['name' => $invite->name]) }}
         <br />{{ __('Please complete the registration below to create your account.') }}</p>
         @if (!$invite)
             <p>{{ __('No access') }}</p>

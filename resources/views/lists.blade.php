@@ -35,7 +35,7 @@
         <hr />
         <p>
             {{ __('Created') }}: {{ $currentList->created_at->format('Y-m-d') }}
-            <br />{{ __('Public link') }}: <a href="{{ $publicLink }}">{{ $publicLink }}</a>
+            <br /><span class="link--long">{{ __('Public link') }}: <a href="{{ $publicLink }}">{{ $publicLink }}</a></span>
         </p>
         <div class="space-children">
             <a href="{{ route('lists') }}">&laquo; {{ __('Back to lists') }}</a>
@@ -65,7 +65,7 @@
                     @endif
 
                     @if($item->link)
-                        <p class="item__link"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
+                        <p class="item__link link--long"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
                     @endif
                     <div class="item__actions"><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></div>
                 </div>
@@ -160,7 +160,7 @@
                     @endif
 
                     @if($list->link)
-                        <p class="item__link"><a href="{{ $list->link }}">{{ $list->link }}</a></p>
+                        <p class="item__link link--long"><a href="{{ $list->link }}">{{ $list->link }}</a></p>
                     @endif
                     <div class="list__actions space-children">
                         <a href="{{ route('lists', array($list->hid())) }}">{{ __('View list') }}</a>

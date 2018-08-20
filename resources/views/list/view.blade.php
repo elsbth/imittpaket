@@ -56,7 +56,7 @@
                     @endif
 
                     @if($item->link)
-                        <p class="item__link"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
+                        <p class="item__link link--long"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
                     @endif
 
                     @if ($isOwner)

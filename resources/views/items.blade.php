@@ -131,7 +131,7 @@
                         @endif
 
                         @if($item->link)
-                            <p class="item__link"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
+                            <p class="item__link link--long"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
                         @endif
                         <div class="item__actions"><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></div>
                     </div>
