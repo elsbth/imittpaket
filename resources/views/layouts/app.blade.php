@@ -37,6 +37,8 @@
 	//var_dump($session);
 	?>
 
+    @include('cookieConsent::index')
+
 	@include('includes.header', ['currentNavItem' => $currentNavItem])
 
     @hasSection('breadcrumbs')

@@ -80,3 +80,4 @@ Route::get('/faq/{hid?}', 'FaqController@index')->name('faq');
 
 Route::get('/about', function () { return view('about'); })->name('about');
 Route::get('/changelog', function () { return view('changelog'); })->name('changelog');
+Route::get('/cookies', function () { return view('cookies'); })->name('cookies');

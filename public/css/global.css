@@ -57,7 +57,8 @@ a:hover, a:focus
 	text-shadow: -1px -1px 0 rgba(0,0,0,0.15);
 }
 
-.btn--secondary {
+.btn--secondary,
+.cookie-consent__agree {
 	background-color: #f1f1f1;
 	border-color: #999;
 	box-shadow: 0 0 4px 0 inset #999;
@@ -66,13 +67,16 @@ a:hover, a:focus
 }
 
 .btn--secondary:hover,
-.btn--secondary:focus {
+.btn--secondary:focus,
+.cookie-consent__agree:hover,
+.cookie-consent__agree:focus {
 	border-color: #666;
 	box-shadow: 0 0 4px 0 inset #999;
 	outline: none;
 }
 
-.btn--secondary:active {
+.btn--secondary:active,
+.cookie-consent__agree:active {
 	box-shadow: 0 0 4px 0 #999;
 	outline: none;
 	text-shadow: -1px -1px 0 rgba(0,0,0,0.15);
@@ -97,6 +101,31 @@ a:hover, a:focus
 
 .space-children:last-child {
 	margin-right: 0;
+}
+
+.cookie-consent {
+	background: #f5f5f5;
+	line-height: 1.2rem;
+	margin-bottom: -10px;
+	text-align: center;
+	padding: 5px 20px;
+}
+
+.cookie-consent__agree {
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	line-height: 1.4;
+	border-radius: .25rem;
+	display: block;
+	margin: 5px auto 0;
 }
 
 header {
