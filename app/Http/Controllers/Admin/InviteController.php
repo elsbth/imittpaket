@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Invite;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
@@ -14,11 +15,6 @@ class InviteController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($hid = null)
     {
         $id = Invite::decodeHid($hid);
@@ -35,31 +31,27 @@ class InviteController extends Controller
             'email' => 'required|max:255',
         ]);
 
-//        TODO: Check if email already exists
-//        $existingInvite = Invite::find($data['email'])
+        $existingInvite = Invite::whereEmail($data['email'])->first();
+        $existingUser = User::whereEmail($data['email'])->first();
+
+        if ($existingInvite || $existingUser) {
+            $existing = [];
+            if ($existingInvite) {
+                $existing[] = 'Invite';
+            }
+            if ($existingUser) {
+                $existing[] = 'User';
+            }
+
+            $msg = join(' and ', $existing) . ' with that email address already exist.';
+
+            return redirect()->back()->with('message', $msg);
+        }
 
         $invite = Invite::create($data);
 
-        if ($invite) {
-            $invite->save();
-        }
-
         return redirect(route('admin.invites', $invite->hid()));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(InvitedForm $request, Invite $invite)
-    {
-        $user = $invite->addNew($request);
-
-        return redirect()->route('account.show', $user);
-    }
-
 
     public function delete($hid) {
 

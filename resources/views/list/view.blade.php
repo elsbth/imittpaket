@@ -45,54 +45,78 @@
             @if ($currentList->description)
                 <p>{{ $currentList->description  }}</p>
             @endif
+        </div>
 
-            <i class="fas fa-hand-holding give-icon__hand"><i class="fas fa-gift give-icon__gift"></i></i>
-            @if ($isOwner)
-                {{ __('Owner can\'t mark items as "Give" on their own lists') }}
-            @endif
+        <div class="giver-actions">
+            <div class="giver-actions__notice">
+                <i class="fas fa-hand-holding give-icon__hand"><i class="fas fa-gift give-icon__gift"></i></i>
+                @if ($isOwner)
+                    {{ __('Owner can\'t mark items as "Give" on their own lists') }}
+                @endif
 
-            @if ($giver)
-                Give mode unlocked for {{ $giver->email }}
-            @endif
+                @if ($giver)
+                    Give mode unlocked for {{ $giver->email }}
+                    <br /><a href="{{ $currentList->getPublicLink() }}">Leave give mode</a>
+                @endif
+
+                @if (!$isOwner && !$giver)
+                    <button type="button"
+                            class="btn btn--primary"
+                            data-toggle="modal"
+                            data-target="#give-instructions">
+                        {{ __('I want to give an item on this list!') }}
+                    </button>
+                @endif
+            </div>
 
             @if (!$isOwner && !$giver)
-                <button type="button"
-                        class="btn btn--primary"
-                        data-toggle="modal"
-                        data-target="#give-instructions">
-                    {{ __('I want to give an item on this list!') }}
-                </button>
-
                 <div class="modal fade" id="give-instructions"
                      tabindex="-1" role="dialog"
                      aria-labelledby="give-instructions-label">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h2 id="give-instructions-label">{{ __('Unlock give mode') }}</h2>
+                                <h2 id="give-instructions-label">{{ __('Give items') }}</h2>
                                 <button type="button" class="close"
                                         data-dismiss="modal"
                                         aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>To unlock the give mode, enter your email address below</p>
+                                <p>Register as a giver to be able to mark items on this list as "Giving"</p>
 
                                 <form method="POST" action="{{ route('list.giver.create') }}" class="form--narrow">
                                     @csrf
 
                                     <div class="form__field">
-                                        <label for="email">{{ __('Email') }}</label>
+                                        <label for="email">{{ __('E-mail address') }}</label>
 
                                         <input type="text"
                                                id="email"
                                                class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                                name="email"
-                                               value="{{ old('email') }}">
+                                               value="{{ old('email') }}"
+                                               required />
                                         @if ($errors->store->has('email'))
                                             <span class="invalid-feedback">
-                                                <strong>{{ $errors->store->first('email') }}</strong>
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="form__field">
+                                        <label for="accepted">
+
+                                            <input type="checkbox"
+                                                   id="accepted"
+                                                   class="{{ $errors->has('accepted') ? ' is-invalid' : '' }}"
+                                                   name="accepted"
+                                                   value="1"
+                                                   required />
+                                            {{ __('I accept') }}</label> {{ __('the') }} <a href="{{ route('terms') }}" target="_blank">{{ __('terms and conditions') }}</a>
+                                        @if ($errors->store->has('accepted'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('accepted') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -104,11 +128,6 @@
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button"
-                                        class="btn btn--secondary"
-                                        data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

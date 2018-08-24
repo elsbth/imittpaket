@@ -78,6 +78,23 @@
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
             </div>
 
+            <div class="form__field">
+                <label for="accepted">
+
+                    <input type="checkbox"
+                           id="accepted"
+                           class="{{ $errors->has('accepted') ? ' is-invalid' : '' }}"
+                           name="accepted"
+                           value="1"
+                           required />
+                    {{ __('I accept') }}</label> {{ __('the') }} <a href="{{ route('terms') }}" target="_blank">{{ __('terms and conditions') }}</a>
+                @if ($errors->store->has('accepted'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('accepted') }}</strong>
+                    </span>
+                @endif
+            </div>
+
             <div class="form__actions">
                 @if ($lockRegistration && $invite)
                     <input type="hidden" name="control" value="{{ $invite->token }}" required>

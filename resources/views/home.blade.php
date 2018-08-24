@@ -35,7 +35,7 @@ $isAuth = auth()->check();
 
         <p style="font-style: italic">{{ __('Sorry about the mess... I\'m building from scratch!') }}</p>
 
-        <p>{!! __('Access is currently <b>invites only</b>. <b>Sign up</b> below and to get updates and, eventually, an invite.') !!}</p>
+        <p>{!! __('Access is currently <b>invites only</b>. <b>Sign up</b> below to get updates and, eventually, an invite.') !!}</p>
         <p>{{ __('Please follow') }} <a href="http://www.facebook.com/apps/application.php?id=156385977730812">{{ __('i mitt Paket on Facebook') }}</a></p>
 
         <hr />

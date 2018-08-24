@@ -85,3 +85,4 @@ Route::get('/about', function () { return view('about'); })->name('about');
 Route::get('/changelog', function () { return view('changelog'); })->name('changelog');
 Route::get('/cookies', function () { return view('cookies'); })->name('cookies');
 Route::get('/privacy-policy', function () { return view('privacypolicy'); })->name('privacy-policy');
+Route::get('/terms-conditions', function () { return view('terms-conditions'); })->name('terms');

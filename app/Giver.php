@@ -10,6 +10,7 @@ class Giver extends Model
     protected $fillable = [
         'token',
         'email',
+        'accepted'
     ];
 
     public function hid()

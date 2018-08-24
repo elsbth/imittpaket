@@ -99,6 +99,19 @@ a:hover, a:focus
 	padding-right: 10px;
 }
 
+.modal-header {
+	padding-bottom: 10px;
+}
+
+.modal-header > h2 {
+	margin-bottom: 0;
+}
+
+.modal-header .close {
+	min-width: 40px;
+	padding-bottom: 5px;
+}
+
 .cookie-consent {
 	background: #f5f5f5;
 	line-height: 1.2rem;
@@ -386,6 +399,11 @@ footer:hover {
 	left: .3em;
 	top: 0em;
 	color: #c09;
+}
+
+.giver-actions__notice {
+	margin-bottom: 15px;
+	text-align: center;
 }
 
 @media screen and (min-width: 992px) {

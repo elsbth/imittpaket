@@ -58,6 +58,9 @@ class RegisterController extends Controller
         $lockRegistration = $this->lockRegistration;
 
         if ($token && $invite = Invite::where('token' , '=', $token)->first()) {
+            if ($user = User::whereEmail($invite->email)->first()) {
+                return redirect(route('home'))->with('message', 'There is already a user registered with that email address.');
+            }
         }
 
         return view('auth.register', compact('invite', 'lockRegistration'));
@@ -75,11 +78,14 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'birthday' => 'nullable|date_format:Y-m-d',
             'password' => 'required|string|min:6|confirmed',
+            'accepted' => 'required'
         ];
 
         if (!$this->lockRegistration) {
             $validation['email'] = 'required|string|email|max:255|unique:users';
         }
+
+        dd($validation);
 
         return Validator::make($data, $validation);
     }

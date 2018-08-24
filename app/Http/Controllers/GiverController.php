@@ -55,7 +55,8 @@ class GiverController extends Controller
     public function create(Request $request) {
         $data = $request->validate([
             'email' => 'required|max:255|email',
-            'list' => 'required'
+            'list' => 'required',
+            'accepted' => 'required'
         ]);
 
         $listToken = $data['list'];
