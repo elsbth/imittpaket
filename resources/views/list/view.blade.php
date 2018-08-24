@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 @section('title', __('List'))
-@section('currentNavItem', '/list')
 
 @push('styles')
 @endpush
@@ -15,27 +14,46 @@
     @if($currentList)
         <?php $itemCount = $currentList->items->count(); ?>
 
-        <h1>{{ $currentList->title }}</h1>
+        @auth
+            <div class="list__actions list__actions--public space-children">
+                    <a href="{{ route('lists') }}">&laquo; {{ __('My lists') }}</a>
+                    <a href="{{ route('items') }}">&laquo; {{ __('My items') }}</a>
 
+                @if ($isOwner)
+                    <a href="{{ route('list.edit', $currentList->hid()) }}">{{ __('Edit this list') }}</a>
+                @endif
 
-        <div class="list__details space-children">
-            <span class="list__detail">{{ __('by') }}: {{ $ownerName }}</span>
+            </div>
+        @endauth
 
-            @if ($currentList->date)
-                <span class="list__detail">{{ $currentList->date }}</span>
+        <div class="list-details--public">
+            <h1 class="h1--public">{{ $currentList->title }}</h1>
+
+            <div class="list__details space-children">
+                <span class="list__detail">{{ __('by') }}: {{ $ownerName }}</span>
+
+                @if ($currentList->date)
+                    <span class="list__detail">{{ $currentList->date }}</span>
+                @endif
+
+                @if ($itemCount)
+                    <span class="list__detail">{{ $itemCount }} {{ $itemCount == 1 ? __('item') : __('items') }}</span>
+                @endif
+            </div>
+
+            @if ($currentList->description)
+                <p>{{ $currentList->description  }}</p>
             @endif
 
-            @if ($itemCount)
-                <span class="list__detail">{{ $itemCount }} {{ $itemCount == 1 ? __('item') : __('items') }}</span>
+            @if (false)
+            <button type="button" class="btn btn--primary" onclick="alert('Oh, how nice of you :)')">
+                <i class="fas fa-hand-holding" style="font-size: 2rem"><i class="fas fa-gift"></i></i>
+                <br />{{ __('I want to give an item on this list!') }}
+            </button>
             @endif
         </div>
 
-        @if ($currentList->description)
-            <p>{{ $currentList->description  }}</p>
-        @endif
-
         @if ($itemsOnList)
-            <h2>{{ __('Items on this list') }}</h2>
             @foreach ($itemsOnList as $item)
                 <div class="item item--card">
                     <h2>{{ $item->name }}</h2>
@@ -67,7 +85,10 @@
         @endif
 
     @else
-        <p>{{ __('No list for this link') }}</p>
+        <div class="list-details--public">
+            <p>{{ __('No list here.') }}</p>
+            <p><a href="{{ route('home') }}">{{ __('Go to the startpage') }}</a></p>
+        </div>
     @endif
 @endsection
 

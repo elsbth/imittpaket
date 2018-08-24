@@ -50,7 +50,7 @@ $adminNavItems = array(
 <header class="{{ $isAdmin ? 'header--admin'  :'' }}">
 
 	<a href="{{ route('home') }}" class="link--logo-header">
-		<img src="{{ asset('images/imittpaket_beta_logo_square.png') }}" alt="i mitt Paket" class="logo--header" />
+		<img src="{{ asset('images/logo-test-2rows.png') }}" alt="i mitt Paket" class="logo--header" />
 	</a>
 
     @if($isAdmin)

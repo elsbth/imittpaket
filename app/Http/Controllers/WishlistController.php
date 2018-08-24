@@ -153,7 +153,7 @@ class WishlistController extends Controller
         $currentList = Wishlist::wherePublicHash($hash)->first();
         $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
         $currentUser = Auth::user();
-        $ownerUserId = $currentList->user_id;
+        $ownerUserId = ($currentList) ? $currentList->user_id : null;
 
         $owner = ($currentList) ? User::whereId($ownerUserId)->first() : null;
         $ownerName = ($owner) ? $owner->name : null;
