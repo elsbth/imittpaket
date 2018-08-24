@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -163,6 +164,7 @@ return [
         /*
          * imittpaket Service provicrs
          */
+        App\Providers\GiverModelServiceProvider::class,
         App\Providers\InviteModelServiceProvider::class,
         App\Providers\UserModelServiceProvider::class,
 
@@ -201,6 +203,7 @@ return [
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+        'HTML' => Collective\Html\HtmlFacade::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,

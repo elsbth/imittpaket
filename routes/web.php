@@ -60,6 +60,9 @@ Route::post('/lists/store/{hid}', 'WishlistController@store')->name('list.store'
 Route::get('/lists/{hid}/delete', 'WishlistController@delete')->name('list.delete')->middleware('auth');
 Route::post('/lists', 'WishlistController@create')->name('lists.create')->middleware('auth');
 
+Route::get('/list/give/{list_token}/{giver_token?}', 'GiverController@index')->name('list.giver');
+Route::post('/list/give/add','GiverController@create')->name('list.giver.create');
+
 Route::get('/list/{hash}', 'WishlistController@view')->name('list.view');
 
 Route::get('/items/{hid?}', 'ItemController@index')->name('items')->middleware('auth');
@@ -81,3 +84,4 @@ Route::get('/faq/{hid?}', 'FaqController@index')->name('faq');
 Route::get('/about', function () { return view('about'); })->name('about');
 Route::get('/changelog', function () { return view('changelog'); })->name('changelog');
 Route::get('/cookies', function () { return view('cookies'); })->name('cookies');
+Route::get('/privacy-policy', function () { return view('privacypolicy'); })->name('privacy-policy');

@@ -40,7 +40,7 @@ class Wishlist extends Model
     }
 
     function addPublicHash($id, $title) {
-        $data['public_hash'] = $this->generatePublicHash($id, $title);;
+        $data['public_hash'] = $this->generatePublicHash($id, $title);
         $this->update($data);
     }
 

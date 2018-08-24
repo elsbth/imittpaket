@@ -374,11 +374,13 @@ footer:hover {
 	text-align: center;
 }
 
-.fa-hand-holding {
+.give-icon__hand {
+	font-size: 2rem;
 	position: relative;
+	bottom: -.4rem;
 }
 
-.fa-hand-holding .fa-gift {
+.give-icon__gift {
 	position: absolute;
 	font-size: 0.65em;
 	left: .3em;

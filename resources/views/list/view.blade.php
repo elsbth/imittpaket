@@ -12,6 +12,7 @@
 @section('content')
 
     @if($currentList)
+        <?php $giver = (isset($giver)) ? $giver : false; ?>
         <?php $itemCount = $currentList->items->count(); ?>
 
         @auth
@@ -45,11 +46,73 @@
                 <p>{{ $currentList->description  }}</p>
             @endif
 
-            @if (false)
-            <button type="button" class="btn btn--primary" onclick="alert('Oh, how nice of you :)')">
-                <i class="fas fa-hand-holding" style="font-size: 2rem"><i class="fas fa-gift"></i></i>
-                <br />{{ __('I want to give an item on this list!') }}
-            </button>
+            <i class="fas fa-hand-holding give-icon__hand"><i class="fas fa-gift give-icon__gift"></i></i>
+            @if ($isOwner)
+                {{ __('Owner can\'t mark items as "Give" on their own lists') }}
+            @endif
+
+            @if ($giver)
+                Give mode unlocked for {{ $giver->email }}
+            @endif
+
+            @if (!$isOwner && !$giver)
+                <button type="button"
+                        class="btn btn--primary"
+                        data-toggle="modal"
+                        data-target="#give-instructions">
+                    {{ __('I want to give an item on this list!') }}
+                </button>
+
+                <div class="modal fade" id="give-instructions"
+                     tabindex="-1" role="dialog"
+                     aria-labelledby="give-instructions-label">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 id="give-instructions-label">{{ __('Unlock give mode') }}</h2>
+                                <button type="button" class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>To unlock the give mode, enter your email address below</p>
+
+                                <form method="POST" action="{{ route('list.giver.create') }}" class="form--narrow">
+                                    @csrf
+
+                                    <div class="form__field">
+                                        <label for="email">{{ __('Email') }}</label>
+
+                                        <input type="text"
+                                               id="email"
+                                               class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                               name="email"
+                                               value="{{ old('email') }}">
+                                        @if ($errors->store->has('email'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->store->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form__actions">
+                                        <input type="hidden" name="list" value="{{ $currentList->public_hash }}" />
+                                        <button type="submit" class="btn btn--primary">
+                                            {{ __('Submit') }}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn--secondary"
+                                        data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
         </div>
 

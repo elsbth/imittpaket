@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Observers;
-use App\Invite;
+use App\Giver;
 
-class InviteObserver
+class GiverObserver
 {
-    public function creating(Invite $invite)
+    public function creating(Giver $giver)
     {
-        $invite->token = $this->generateToken();
+        $giver->token = $this->generateToken();
     }
 
     /**
@@ -18,7 +18,7 @@ class InviteObserver
     protected function generateToken()
     {
         $token = str_random(20);
-        if (Invite::where('token', $token)->first()) {
+        if (Giver::where('token', $token)->first()) {
             $this->generateToken();
         }
         return $token;
