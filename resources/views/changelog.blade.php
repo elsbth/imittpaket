@@ -21,16 +21,19 @@
 
 	<h2>0.2.0 <span class="h6">2018-08-26</span> </h2>
 	<p>Cookie notice.</p>
-	<p>Terms &amp; conditions when registering for an account and as a giver</p>
 	<p>Public list view has new styling.</p>
 	<p>You can register as a Giver for a public list. As a giver you can select the items that you intend to give and see what others have already selected.</p>
+	<p>Terms &amp; conditions when registering for an account and as a giver.</p>
 
+	<hr />
 	<h2>0.1.2 <span class="h6">2018-08-23</span></h2>
 	<p>New logo saying this is a test site.</p>
 
+	<hr />
 	<h2>0.1.1 <span class="h6">2018-08-20</span></h2>
 	<p>Fixed mobile styilng.</p>
 
+	<hr />
 	<h2>0.1.0 <span class="h6">2018-08-19</span></h2>
 	<p>MVP (minimum viable product) release. Features include creating lists, creating items and adding them to lists. All lists are public.</p>
 

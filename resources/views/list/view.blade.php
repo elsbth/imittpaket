@@ -180,7 +180,7 @@
                                             <form method="POST" action="{{ route('item.mark') }}" class="form--give">
                                                 @csrf
 
-                                                <input type="number" name="marked_qty" value="{{ $qtyByGiver }}" max="{{ $qtyByGiver }}" />
+                                                <input type="number" name="marked_qty" value="{{ $qtyByGiver }}" min="0" max="{{ $qtyByGiver }}" />
                                                 <input type="hidden" name="item" value="{{ $item->hid() }}" />
                                                 <input type="hidden" name="giver" value="{{ $giver->token }}" />
                                                 <button type="submit" class="btn btn--secondary">
@@ -222,7 +222,7 @@
                                         @csrf
 
                                         @if ($item->qty)
-                                            <input type="number" name="marked_qty" value="{{ $giveStartValue }}" max="{{ $item->qty - (int)$allMarked + $qtyByGiver }}" />
+                                            <input type="number" name="marked_qty" value="{{ $giveStartValue }}" min="0" max="{{ $item->qty - (int)$allMarked + $qtyByGiver }}" />
                                         @endif
 
                                         <input type="hidden" name="item" value="{{ $item->hid() }}" />
