@@ -14,4 +14,9 @@ class MarkedItem extends Model
         'giver_id',
         'marked_qty',
     ];
+
+    public function giver()
+    {
+        return $this->belongsTo('App\Giver');
+    }
 }

@@ -33,6 +33,7 @@ $adminNavItems = array(
 	route('admin') => __('Admin:'),
 	route('admin.faq') => __('FAQ'),
 	route('admin.users') => __('Users'),
+	route('admin.givers') => __('Givers'),
 	route('admin.invites') => __('Invites'),
 );
 ?>

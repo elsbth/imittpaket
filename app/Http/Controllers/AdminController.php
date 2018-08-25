@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Giver;
 use App\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -53,5 +54,11 @@ class AdminController extends Controller
         $users = User::all();
 
         return view('admin/users', compact('users'));
+    }
+
+    public function givers() {
+        $givers = Giver::all();
+
+        return view('admin/givers', compact('givers'));
     }
 }

@@ -173,8 +173,13 @@ a:hover, a:focus
 header {
 	border-top: 2px solid #c09;
 	border-bottom: 2px solid #50acc0;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
 	justify-content: space-between;
 	margin: 10px auto 20px;
 	text-align: center;
@@ -224,9 +229,6 @@ header {
 	max-width: 200px;
 }
 
-.content {
-}
-
 .nav--admin {
 	border-top: 2px solid #fab;
 	border-bottom: 2px solid #c09;
@@ -261,7 +263,9 @@ header {
 	position: relative;
 }
 
-.nav__list--user {
+.nav__list--public {
+	border: none;
+	margin: -4px 0;
 }
 
 .nav__list--general {
@@ -319,7 +323,7 @@ header {
 	background: #fff;
 	border: 1px solid #999;
 	margin-bottom: 15px;
-	padding: 10px 15px;
+	padding: 10px 15px 0;
 }
 
 .item--card:hover,
@@ -354,7 +358,7 @@ header {
 .item__actions,
 .list__actions {
 	border-top: 1px solid #e5e5e5;
-	padding-top: 5px;
+	padding: 5px 0;
 	overflow: auto;
 }
 
@@ -461,24 +465,40 @@ footer:hover {
 	}
 
 	.link--logo-header-public {
+		-ms-flex-item-align: center;
+		-ms-grid-row-align: center;
 		align-self: center;
+		-ms-flex-positive: 1;
+		flex-grow: 1;
 		display: inline-block;
 	}
 
 	header nav {
+		display: -ms-grid;
 		display: grid;
+		-ms-grid-columns: 50% 50%;
 		grid-template-columns: 50% 50%;
 	}
 
 	.wrapper {
 		padding: 10px 20px;
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
 		justify-content: center;
 	}
 
 	.content {
+		-webkit-box-flex: 1;
+		-ms-flex-positive: 1;
 		flex-grow: 1;
 		max-width: 600px;
+	}
+
+	.nav--public {
+		display: inline-block;
 	}
 
 	.nav--admin {
@@ -486,15 +506,23 @@ footer:hover {
 	}
 
 	.nav__container {
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
+		-ms-flex-positive: 1;
+		flex-grow: 1;
 		margin: 0 7px;
 	}
 
 	.nav__container--left {
+		-webkit-box-pack: end;
+		-ms-flex-pack: end;
 		justify-content: flex-end;
 	}
 
 	.nav__container--right {
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
 		justify-content: flex-start;
 	}
 

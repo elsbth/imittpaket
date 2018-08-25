@@ -40,9 +40,6 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
 
-Route::get('/admin/users','AdminController@users')->name('admin.users')->middleware('admin');
-Route::get('/admin/users/{hid}','AdminController@users')->name('admin.users.userid')->middleware('admin');
-
 Route::get('/admin/faq','Admin\FaqController@index')->name('admin.faq')->middleware('admin');
 Route::get('/admin/faq/add','Admin\FaqController@add')->name('admin.faq.add')->middleware('admin');
 Route::post('/admin/faq/add','Admin\FaqController@create')->name('admin.faq.create')->middleware('admin');
@@ -50,9 +47,14 @@ Route::get('/admin/faq/edit/{hid}','Admin\FaqController@edit')->name('admin.faq.
 Route::post('/admin/faq/store/{hid}','Admin\FaqController@store')->name('admin.faq.store')->middleware('admin');
 Route::get('/admin/faq/{hid}','Admin\FaqController@index')->name('admin.faq.view')->middleware('admin');
 
+Route::get('/admin/givers','AdminController@givers')->name('admin.givers')->middleware('admin');
+
 Route::get('/admin/invites/{hid?}','Admin\InviteController@index')->name('admin.invites')->middleware('admin');
 Route::post('/admin/invites','Admin\InviteController@create')->name('admin.invites.create')->middleware('admin');
 Route::get('/admin/invites/{hid}/delete', 'Admin\InviteController@delete')->name('admin.invite.delete')->middleware('admin');
+
+Route::get('/admin/users','AdminController@users')->name('admin.users')->middleware('admin');
+Route::get('/admin/users/{hid}','AdminController@users')->name('admin.users.userid')->middleware('admin');
 
 Route::get('/lists/{hid?}', 'WishlistController@index')->name('lists')->middleware('auth');
 Route::get('/lists/edit/{hid}', 'WishlistController@edit')->name('list.edit')->middleware('auth');

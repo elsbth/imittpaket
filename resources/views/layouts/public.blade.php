@@ -35,8 +35,12 @@
 <body>
 	<?php
 	$currentNavItem = $__env->yieldContent('currentNavItem');
+    $currentNav = isset($currentNavItem) ? $currentNavItem : '/';
 
-	//var_dump($session);
+    $rightNavItems = array(
+        route('faq') => __('FAQ'),
+        route('about') => __('About'),
+    );
 	?>
 
     @include('cookieConsent::index')
@@ -46,7 +50,19 @@
         <a href="{{ route('home') }}" class="link--logo-header-public">
             <img src="{{ asset('images/logo-test-1row.png') }}" alt="i mitt Paket" class="logo--1row" />
         </a>
-
+        <nav class="nav--public">
+            <div class="nav__container nav__container--public">
+                <ul class="nav__list nav__list--public">
+                    @foreach($rightNavItems as $key => $item)
+                        <li class="nav__item">
+                            <a href="{{$key}}" class="nav__link {{ ($key == $currentNav) ? 'nav__link--current' : '' }}">
+                                {{$item}}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <div class="wrapper">

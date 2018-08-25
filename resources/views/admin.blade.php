@@ -28,6 +28,10 @@
 			<i class="fas fa-users dashboard-link__icon"></i>
 			<span class="dashboard-link__label">{{ __('Users') }}</span>
 		</a>
+		<a href="{{ route('admin.givers') }}" class="dashboard-link">
+			<i class="fas fa-hand-holding dashboard-link__icon"></i>
+			<span class="dashboard-link__label">{{ __('Givers') }}</span>
+		</a>
 		<a href="{{ route('admin.faq') }}" class="dashboard-link">
 			<i class="fas fa-life-ring dashboard-link__icon"></i>
 			<span class="dashboard-link__label">{{ __('FAQ') }}</span>

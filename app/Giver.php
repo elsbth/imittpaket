@@ -13,6 +13,11 @@ class Giver extends Model
         'accepted'
     ];
 
+    public function markedItems()
+    {
+        return $this->hasMany('App\MarkedItem');
+    }
+
     public function hid()
     {
         return Hashids::connection('giver')->encode($this->id);

@@ -46,8 +46,9 @@ class GiverController extends Controller
 
         $owner = User::whereId($ownerUserId)->first();
         $ownerName = $owner->name;
+        $currentUser = Auth::user();
 
-        $isOwner = ($giver->email == $owner->email);
+        $isOwner = ($giver->email == $owner->email || ($currentUser && $ownerUserId == $currentUser->id));
 
         return view('list.view', compact('currentList', 'itemsOnList', 'ownerName', 'isOwner', 'giver'));
     }

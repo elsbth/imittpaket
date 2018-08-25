@@ -68,6 +68,7 @@
 			<p>
 				<a href="/admin/users/{{$user->hid()}}">{{$user->name}}</a> {{ ($user->permission == 'admin') ? '*' : '' }}
 				- {{ $user->email }}
+				<br />User since {{ $user->created_at->format('Y-m-d') }}. {{ $user->lists->count() }} lists, {{ $user->items->count() }} items
 			</p>
 		@endforeach
 	@endif
