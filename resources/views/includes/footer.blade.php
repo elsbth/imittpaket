@@ -1,3 +1,5 @@
 <footer>
-	<p class="footer__copyright"><a href="//elsbth.se">elsbth.se</a></p>
+	<p class="footer__copyright">
+		&copy; 2018 <a href="//imittpaket.se">imittpaket.se</a> by <a href="//elsbth.se">elsbth.se</a>
+	</p>
 </footer>

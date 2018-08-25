@@ -43,7 +43,7 @@ a:hover, a:focus
 }
 
 .btn--primary {
-	background-color: #fffcff;
+	background-color: #f9eef8;
 	border-color: #f2bfe4;
 	box-shadow: inset 0 0 4px #c09;
 }
@@ -61,11 +61,20 @@ a:hover, a:focus
 	text-shadow: -1px -1px 0 rgba(0,0,0,0.15);
 }
 
+.btn--cancel {
+	background-color: #ffeaef;
+	border-color: darkred;
+	box-shadow: inset 0 0 4px red;
+}
+
 .btn--secondary,
 .cookie-consent__agree {
 	background-color: #f1f1f1;
 	border-color: #999;
 	box-shadow: inset 0 0 4px #999;
+}
+
+.cookie-consent__agree {
 	font-size: .8rem;
 	padding: 4px 8px;
 }
@@ -110,6 +119,30 @@ a:hover, a:focus
 .modal-header .close {
 	min-width: 40px;
 	padding-bottom: 5px;
+}
+
+.item__give-info {
+	color: #666;
+	line-height: 30px;
+}
+
+.item__give-info .fa-check {
+	color: #4db503;
+}
+
+.form--give {
+	float: right;
+}
+
+.form--give input[type="number"] {
+	border: 1px solid #999;
+	width: 70px;
+	padding: 2px 3px;
+}
+
+.form--give button[type="submit"] {
+	padding: 3px 8px;
+	vertical-align: baseline;
 }
 
 .cookie-consent {
@@ -322,6 +355,7 @@ header {
 .list__actions {
 	border-top: 1px solid #e5e5e5;
 	padding-top: 5px;
+	overflow: auto;
 }
 
 .list__actions--public {

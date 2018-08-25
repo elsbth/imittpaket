@@ -73,6 +73,8 @@ Route::get('/items/{hid}/delete', 'ItemController@delete')->name('item.delete')-
 Route::post('/item/add', 'ItemController@create')->name('item.create')->middleware('auth');
 Route::post('/item/addtolist', 'ItemController@addToList')->name('item.addtolist')->middleware('auth');
 
+Route::post('/item/mark','MarkedItemController@create')->name('item.mark');
+
 Route::get('/account', 'ProfileController@index')->name('profile');
 Route::get('/account/edit', 'ProfileController@edit')->name('profile.edit');
 Route::post('/account/store/{hid}', 'ProfileController@store')->name('profile.store');

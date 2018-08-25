@@ -153,7 +153,8 @@ class ItemController extends Controller
         return redirect('/items')->with('message', $message);
     }
 
-    public function addToList(Request $request) {
+    public function addToList(Request $request)
+    {
         $data = $request->validate([
             'item_id' => 'required',
             'wishlist_id' => 'required',

@@ -19,6 +19,15 @@
 
 	<p style="font-style: italic">Re-building the site from scratch with Laravel to make it easier to maintain the code. Read all about the changes released to the site in this changelog.</p>
 
+	<h2>0.2.0 <span class="h6">2018-08-26</span> </h2>
+	<p>Cookie notice.</p>
+	<p>Terms &amp; conditions when registering for an account and as a giver</p>
+	<p>Public list view has new styling.</p>
+	<p>You can register as a Giver for a public list. As a giver you can select the items that you intend to give and see what others have already selected.</p>
+
+	<h2>0.1.2 <span class="h6">2018-08-23</span></h2>
+	<p>New logo saying this is a test site.</p>
+
 	<h2>0.1.1 <span class="h6">2018-08-20</span></h2>
 	<p>Fixed mobile styilng.</p>
 
