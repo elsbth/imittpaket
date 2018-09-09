@@ -157,7 +157,7 @@ class ItemController extends Controller
     {
         $data = $request->validate([
             'item_id' => 'required',
-            'wishlist_id' => 'required',
+            'wishlist_id' => 'nullable',
         ]);
 
         $message = '';
@@ -167,10 +167,10 @@ class ItemController extends Controller
 
         $item = Item::find($itemId);
 
-        $lists = $item->wishlists()->get(['wishlist_id'])->toArray();
+        $wishlistIds = (isset($data['wishlist_id'])) ? $data['wishlist_id'] : array();
 
         //TODO: Mask the wishlist ids to not use the db id
-        $result = $item->wishlists()->sync($data['wishlist_id']);
+        $result = $item->wishlists()->sync($wishlistIds);
         $addedCount = count($result['attached']);
         $removedCount = count($result['detached']);
 
