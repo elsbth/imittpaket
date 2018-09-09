@@ -56,7 +56,7 @@ Route::get('/admin/invites/{hid}/delete', 'Admin\InviteController@delete')->name
 Route::get('/admin/users','AdminController@users')->name('admin.users')->middleware('admin');
 Route::get('/admin/users/{hid}','AdminController@users')->name('admin.users.userid')->middleware('admin');
 
-Route::get('/lists/{hid?}', 'WishlistController@index')->name('lists')->middleware('auth');
+Route::get('/lists', 'WishlistController@index')->name('lists')->middleware('auth');
 Route::get('/lists/edit/{hid}', 'WishlistController@edit')->name('list.edit')->middleware('auth');
 Route::post('/lists/store/{hid}', 'WishlistController@store')->name('list.store')->middleware('auth');
 Route::get('/lists/{hid}/delete', 'WishlistController@delete')->name('list.delete')->middleware('auth');

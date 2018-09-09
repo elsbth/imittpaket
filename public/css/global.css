@@ -373,9 +373,6 @@ header {
 	padding: 0 15px 5px;
 }
 
-.reorder__container {
-}
-
 .reorder__actions {
 	margin-bottom: 15px;
 }
@@ -385,8 +382,23 @@ header {
 }
 
 .reorder__item {
-	margin-bottom: 5px;
+	border-bottom: 1px solid #e5e5e5;
+	margin: 0 0 5px 10px;
 	overflow: auto;
+	padding: 5px 0;
+}
+
+.reorder__item:last-child {
+	border-bottom: none;
+}
+
+.reorder__item-name {
+	float: left;
+}
+
+.reorder__item-actions {
+	float: left;
+	margin-left: 15px;
 }
 
 .reorder__field {

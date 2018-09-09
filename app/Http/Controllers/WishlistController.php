@@ -30,6 +30,11 @@ class WishlistController extends Controller
     {
         $user = Auth::user();
         $lists = $user->lists;
+
+        if ($hid) {
+            return redirect(route('list.edit', $hid));
+        }
+
         $id = Wishlist::decodeHid($hid);
 
         $currentList = ($id) ? Wishlist::find($id) : null;
@@ -58,19 +63,20 @@ class WishlistController extends Controller
             $list->addPublicHash($list->id, $list->title);
         }
 
-        return redirect('/lists/' . $list->hid());
+        return redirect(route('lists', $list->hid()));
     }
 
     public function edit($hid)
     {
         $id = Wishlist::decodeHid($hid);
         $currentList = ($id) ? Wishlist::find($id) : null;
+        $publicLink = ($currentList) ? $currentList->getPublicLink() : null;
 
-        $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
+        $itemsOnList = ($currentList) ? $currentList->items()->orderBy('item_wishlist.position')->get() : null;
         $user = Auth::user();
         $lists = $user->lists;
 
-        return view('list.edit', compact('currentList', 'itemsOnList', 'lists'));
+        return view('list.edit', compact('currentList', 'itemsOnList', 'lists', 'publicLink'));
     }
 
 
@@ -127,10 +133,8 @@ class WishlistController extends Controller
 
     public function storeOrder(Request $request, $hid)
     {
-        $redirectTo = 'lists';
+        $redirectTo = 'list.edit';
         $data = $request->all();
-
-        $data = $input = $request->all();
 
         $id = Wishlist::decodeHid($hid);
         $currentList = ($id) ? Wishlist::find($id) : null;
