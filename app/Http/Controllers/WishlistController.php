@@ -146,7 +146,7 @@ class WishlistController extends Controller
                 foreach ($listItems as $listItem) {
                     $itemHid = $listItem->hid();
                     $newItemPosition = (isset($itemHid, $newPositions)) ? $newPositions[$itemHid] : null;
-                    if ($newItemPosition) {
+                    if ($newItemPosition !== null) {
                         $currentList->items()->updateExistingPivot($listItem->id, ['position' => $newItemPosition]);
                     }
                 }
