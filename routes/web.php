@@ -62,6 +62,8 @@ Route::post('/lists/store/{hid}', 'WishlistController@store')->name('list.store'
 Route::get('/lists/{hid}/delete', 'WishlistController@delete')->name('list.delete')->middleware('auth');
 Route::post('/lists', 'WishlistController@create')->name('lists.create')->middleware('auth');
 
+Route::post('/lists/storeorder/{hid}', 'WishlistController@storeOrder')->name('lists.store.order')->middleware('auth');
+
 Route::get('/list/give/{list_token}/{giver_token?}', 'GiverController@index')->name('list.giver');
 Route::post('/list/give/add','GiverController@create')->name('list.giver.create');
 

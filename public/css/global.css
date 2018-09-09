@@ -29,7 +29,11 @@ h2,
 	font-size: 1.6rem;
 }
 
-a { color: #50acc0; }
+a,
+a:not([href])[role="button"]{
+	color: #50acc0;
+	cursor: pointer;
+}
 .nav__list--user a { color: #c09; }
 a:hover, a:focus
 .nav__list--user a:hover, .nav__list--user a:focus { color: #000; }
@@ -367,6 +371,31 @@ header {
 	border-bottom: 1px solid #e5e5e5;
 	margin: -5px 0 0;
 	padding: 0 15px 5px;
+}
+
+.reorder__container {
+}
+
+.reorder__actions {
+	margin-bottom: 15px;
+}
+
+.reorder__actions button + p {
+	margin-top: 5px;
+}
+
+.reorder__item {
+	margin-bottom: 5px;
+	overflow: auto;
+}
+
+.reorder__field {
+	float: left;
+	margin-right: 10px;
+}
+
+.reorder__input {
+	width: 40px;
 }
 
 .dashboard-links__wrapper {

@@ -45,31 +45,37 @@
 
         @if ($itemsOnList)
             <h2>{{ __('Items on this list') }}</h2>
-            @foreach ($itemsOnList as $item)
-                <div class="item item--card">
-                    <h2>{{ $item->name }}</h2>
-
-                    @if ($item->qty || $item->price)
-                        <div class="item__details space-children">
-                            @if ($item->qty)
-                                <span class="item__detail">{{ $item->qty ? __('Quantity:') . ' ' . $item->qty : '' }}</span>
-                            @endif
-                            @if ($item->price)
-                                <span class="item__detail">{{ $item->price ? __('Price:') . ' ' . $item->price : '' }}</span>
-                            @endif
+            <div class="reorder__container js-reorder-container">
+                <div class="reorder__actions">
+                    <a role="button" class="js-reorder-enable">{{ __('Reorder items') }} <i class="fas fa-chevron-down"></i> </a>
+                    <p class="js-reorder-toggle-el" style="display: none"><i class="fas fa-info-circle"></i> {{ __('Reorder items by entering the position on the list for each item. When done, Save the new positions.') }}</p>
+                </div>
+                <form action="{{ route('lists.store.order', $currentList->hid()) }}" method="post">
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            Please fix the following errors
                         </div>
                     @endif
 
-                    @if($item->description)
-                        <p>{{ $item->description }}</p>
-                    @endif
+                    {!! csrf_field() !!}
+                    @foreach ($itemsOnList as $item)
+                        <div class="item reorder__item js-reorder-item">
+                            <div class="reorder__field js-reorder-toggle-el" style="display: none">
+                                <input type="number" class="reorder__input" name="item-position[{{ $item->hid() }}]" value="{{ $item->pivot->position }}" min="0" />
+                            </div>
+                            <h3 class="h5">{{ $item->name }}</h3>
+                            <div style="display: none">
+                                <div class="item__actions"><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></div>
+                            </div>
+                        </div>
+                    @endforeach
 
-                    @if($item->link)
-                        <p class="item__link link--long"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
-                    @endif
-                    <div class="item__actions"><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></div>
-                </div>
-            @endforeach
+                    <button type="submit"
+                            class="btn btn--primary js-reorder-submit js-reorder-toggle-el"
+                            disabled
+                            style="display: none">{{ __('Save positions') }}</button>
+                </form>
+            </div>
         @endif
 
     @else
@@ -130,7 +136,7 @@
                         <span class="help-block">{{ $errors->first('date') }}</span>
                     @endif
                 </div>
-                <button type="submit" class="btn btn--primary">Submit</button>
+                <button type="submit" class="btn btn--primary">{{ __('Submit') }}</button>
             </div>
         </form>
 

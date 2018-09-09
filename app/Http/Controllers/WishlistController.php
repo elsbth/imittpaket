@@ -35,7 +35,7 @@ class WishlistController extends Controller
         $currentList = ($id) ? Wishlist::find($id) : null;
         $publicLink = ($currentList) ? $currentList->getPublicLink() : null;
 
-        $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
+        $itemsOnList = ($currentList) ? $currentList->items()->orderBy('item_wishlist.position')->get() : null;
 
         return view('lists', compact('lists', 'currentList', 'itemsOnList', 'publicLink'));
     }
@@ -125,6 +125,45 @@ class WishlistController extends Controller
             ->with('message', $message);
     }
 
+    public function storeOrder(Request $request, $hid)
+    {
+        $redirectTo = 'lists';
+        $data = $request->all();
+
+        $data = $input = $request->all();
+
+        $id = Wishlist::decodeHid($hid);
+        $currentList = ($id) ? Wishlist::find($id) : null;
+
+        if ($currentList) {
+            $currentUser = Auth::user();
+
+            if ($currentList->user_id == $currentUser->id) {
+
+                $newPositions = $data['item-position'];
+                $listItems = $currentList->items;
+
+                foreach ($listItems as $listItem) {
+                    $itemHid = $listItem->hid();
+                    $newItemPosition = (isset($itemHid, $newPositions)) ? $newPositions[$itemHid] : null;
+                    if ($newItemPosition) {
+                        $currentList->items()->updateExistingPivot($listItem->id, ['position' => $newItemPosition]);
+                    }
+                }
+
+                $message = 'Item positions saved.';
+            } else {
+                $message = 'You are not allowed to edit this list.';
+            }
+        } else {
+            $message = 'List could not be found.';
+        }
+
+        return redirect(route($redirectTo, $currentList->hid()))
+            ->with('message', $message);
+    }
+
+
     public function delete($hid) {
 
         $id = Wishlist::decodeHid($hid);
@@ -151,7 +190,7 @@ class WishlistController extends Controller
 
     public function view($hash) {
         $currentList = Wishlist::wherePublicHash($hash)->first();
-        $itemsOnList = ($currentList) ? $currentList->items()->get() : null;
+        $itemsOnList = ($currentList) ? $currentList->items()->orderBy('item_wishlist.position')->get() : null;
         $currentUser = Auth::user();
         $ownerUserId = ($currentList) ? $currentList->user_id : null;
 

@@ -28,7 +28,7 @@ class Item extends Model
 
     public function wishlists()
     {
-        return $this->belongsToMany('App\Wishlist')->withTimestamps();
+        return $this->belongsToMany('App\Wishlist')->withPivot('position')->withTimestamps();
     }
 
     public function isAllMarked()
