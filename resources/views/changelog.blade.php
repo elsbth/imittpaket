@@ -19,6 +19,11 @@
 
 	<p style="font-style: italic">Re-building the site from scratch with Laravel to make it easier to maintain the code. Read all about the changes released to the site in this changelog.</p>
 
+	<h2>0.3.0 <span class="h6">2018-09-09</span> </h2>
+	<p>Possible to change position of the items on the lists.</p>
+	<p>Only list view is the public list. Edit list view is updated.</p>
+	<p>Fix: Unselecting all lists for one item is now saved correctly.</p>
+
 	<h2>0.2.0 <span class="h6">2018-08-26</span> </h2>
 	<p>Cookie notice.</p>
 	<p>Public list view has new styling.</p>
