@@ -138,6 +138,9 @@
 
                     @if ($item->qty || $item->price)
                         <div class="item__details space-children">
+                            @if ($item->category)
+                                <span class="item__detail"><i class="fas fa-{{ $item->category->icon }}"></i> {{ $item->category->name }}</span>
+                            @endif
                             @if ($item->qty)
                                 <span class="item__detail">{{ $item->qty ? __('Quantity:') . ' ' . $item->qty : '' }}</span>
                             @endif

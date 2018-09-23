@@ -50,6 +50,22 @@
                     <span class="help-block">{{ $errors->store->first('name') }}</span>
                 @endif
             </div>
+
+            @if ($categories)
+                <div class="form__field {{ $errors->store->has('category') ? ' has-error' : '' }}">
+                    <label for="category">Category</label>
+                    <select name="category" class="form-control">
+                        <option value="">-- {{ __('Select category') }} --</option>
+                        @foreach($categories as $key => $category)
+                            <option value="{{ $category->hid() }}" {{ ($currentItem->category && $category->id == $currentItem->category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->store->has('category'))
+                        <span class="help-block">{{ $errors->store->first('category') }}</span>
+                    @endif
+                </div>
+            @endif
+
             <div class="form__field {{ $errors->store->has('description') ? ' has-error' : '' }}">
                 <label for="description">Description</label>
                 <input type="text"

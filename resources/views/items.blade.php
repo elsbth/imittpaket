@@ -47,6 +47,21 @@
             </div>
 
             <div class="js-toggle-when-triggered" data-toggle-trigger="name" style="{{ $errors->any() ? '' : 'display: none' }}">
+                @if ($categories)
+                    <div class="form__field {{ $errors->has('category') ? ' has-error' : '' }}">
+                        <label for="category">{{ __('Category') }}</label>
+                        <select name="category" class="form-control">
+                            <option value="">-- {{ __('Select category') }} --</option>
+                            @foreach($categories as $key => $category)
+                                <option value="{{ $category->hid() }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->store->has('category'))
+                            <span class="help-block">{{ $errors->first('category') }}</span>
+                        @endif
+                    </div>
+                @endif
+
                 <div class="form__field {{ $errors->has('description') ? ' has-error' : '' }}">
                     <label for="description">{{ __('Description') }}</label>
                     <input type="text"
@@ -117,6 +132,9 @@
 
                         @if ($item->qty || $item->price)
                             <div class="item__details space-children">
+                                @if ($item->category)
+                                    <span class="item__detail"><i class="fas fa-{{ $item->category->icon }}"></i> {{ $item->category->name }}</span>
+                                @endif
                                 @if ($item->qty)
                                     <span class="item__detail">{{ $item->qty ? __('Quantity:') . ' ' . $item->qty : '' }}</span>
                                 @endif

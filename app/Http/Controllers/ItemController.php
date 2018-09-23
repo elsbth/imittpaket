@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\ItemCategory;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -36,12 +37,13 @@ class ItemController extends Controller
         $currentItem = ($id) ? Item::find($id) : null;
         $currentItemOnLists = ($currentItem) ? $currentItem->wishlists()->get(['wishlist_id'])->toArray() : null;
         $itemListIds = ($currentItemOnLists) ? array_unique(array_column($currentItemOnLists, 'wishlist_id')) : null;
+        $categories = ItemCategory::getAll();
 
-        return view('items', compact('items', 'currentItem', 'lists', 'itemListIds'));
+        return view('items', compact('items', 'currentItem', 'lists', 'itemListIds', 'categories'));
     }
 
     public function create(Request $request) {
-        $data = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'description' => 'max:255',
             'link' => 'url|max:400|nullable',
@@ -49,7 +51,17 @@ class ItemController extends Controller
             'qty' => 'integer|nullable'
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $request->all();
+
         $data['user_id'] = Auth::user()->id;
+        $categoryHid = $data['category'];
+        $data['category_id'] = ItemCategory::decodeHid($categoryHid);
 
         $item = Item::create($data);
 
@@ -68,12 +80,12 @@ class ItemController extends Controller
 
         $items = $currentUser->items;
         $lists = $currentUser->lists;
-
+        $categories = ItemCategory::getAll();
 
         $currentItemOnLists = ($currentItem) ? $currentItem->wishlists()->get(['wishlist_id'])->toArray() : null;
         $itemListIds = ($currentItemOnLists) ? array_unique(array_column($currentItemOnLists, 'wishlist_id')) : null;
 
-        return view('item.edit', compact('items', 'currentItem', 'lists', 'itemListIds'));
+        return view('item.edit', compact('items', 'currentItem', 'lists', 'itemListIds', 'categories'));
     }
 
 
@@ -98,6 +110,9 @@ class ItemController extends Controller
 
         $hid = $data['item_id'];
         $id = Item::decodeHid($hid);
+
+        $categoryHid = $data['category'];
+        $data['category_id'] = ItemCategory::decodeHid($categoryHid);
 
         $currentItem = ($id) ? Item::find($id) : null;
 

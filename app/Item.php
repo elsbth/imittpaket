@@ -15,7 +15,8 @@ class Item extends Model
         'link',
         'price',
         'qty',
-        'user_id'
+        'user_id',
+        'category_id'
     ];
 
     /**
@@ -28,7 +29,7 @@ class Item extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\ItemCategory');
+        return $this->belongsTo('App\ItemCategory', 'category_id');
     }
 
     public function wishlists()

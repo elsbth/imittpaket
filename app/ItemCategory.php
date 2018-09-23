@@ -14,7 +14,7 @@ class ItemCategory extends Model
 
     public function items()
     {
-        return $this->belongsToMany('App\Item');
+        return $this->hasMany('App\Item');
     }
 
     public function hid() {
@@ -25,6 +25,11 @@ class ItemCategory extends Model
         $decoded = $hid ? Hashids::connection('itemcategory')->decode($hid) : null;
 
         return is_array($decoded) && !empty($decoded) ? $decoded[0] : null;
+    }
+
+    public static function getAll()
+    {
+        return ItemCategory::orderBy('name')->get();
     }
 
 }

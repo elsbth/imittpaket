@@ -20,11 +20,10 @@ class ItemCategoryController extends Controller
     {
         $id = ItemCategory::decodeHid($hid);
         $currentCategory = ($id) ? ItemCategory::find($id) : null;
-        $categories = ItemCategory::orderBy('name')->get();
+        $categories = ItemCategory::getAll();
 
         return view('admin/itemcategories', compact('categories', 'currentCategory'));
     }
-
 
     public function create(Request $request) {
         $data = $request->validate([
