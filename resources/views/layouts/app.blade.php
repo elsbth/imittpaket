@@ -28,6 +28,7 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/utilities.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/global.js') }}"></script>
     @stack('styles')
 

@@ -21,5 +21,21 @@
             $submit.prop('disabled', function(i, v) { return !v; });
             $reorderEls.toggle();
         });
+
+
+        $('.js-copy-trigger').on('click', function() {
+            var copyFromSelector = $(this).data('copy-from'),
+                copyWrapperSelector = $(this).data('copy-wrapper'),
+                $copyFrom;
+
+            if (copyWrapperSelector) {
+                $copyFrom = $(copyFromSelector, $(this).closest(copyWrapperSelector));
+            } else {
+                $copyFrom = $(copyFromSelector);
+            }
+
+            copyToClipboard($copyFrom[0]);
+        });
+
     });
 })(jQuery);

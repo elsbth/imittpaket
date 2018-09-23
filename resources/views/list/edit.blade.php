@@ -17,7 +17,9 @@
         <h1><i class="fas fa-list"></i> {{ $currentList->title }}</h1>
         <p>
             {{ __('Created') }}: {{ $currentList->created_at->format('Y-m-d') }}
-            <br /><span class="link--long">{{ __('Public link') }}: <a href="{{ $publicLink }}">{{ $publicLink }}</a></span>
+            <br /><span class="link--long">{{ __('Public link') }}: <a href="{{ $publicLink }}" id="public-link">{{ $publicLink }}</a></span>
+            <br /><button class="js-copy-trigger btn btn--tertiary btn--size-small" data-copy-from="#public-link"><i class="fas fa-copy"></i> {{ __('Copy public link to clipboard') }}</button>
+
         </p>
 
         <hr />
