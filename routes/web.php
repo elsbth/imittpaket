@@ -53,6 +53,13 @@ Route::get('/admin/invites/{hid?}','Admin\InviteController@index')->name('admin.
 Route::post('/admin/invites','Admin\InviteController@create')->name('admin.invites.create')->middleware('admin');
 Route::get('/admin/invites/{hid}/delete', 'Admin\InviteController@delete')->name('admin.invite.delete')->middleware('admin');
 
+Route::get('/admin/itemcategories/{hid?}','Admin\ItemCategoryController@index')->name('admin.itemcategories')->middleware('admin');
+Route::post('/admin/itemcategories','Admin\ItemCategoryController@create')->name('admin.itemcategories.create')->middleware('admin');
+Route::get('/admin/itemcategories/{hid}/delete', 'Admin\ItemCategoryController@delete')->name('admin.itemcategory.delete')->middleware('admin');
+
+Route::get('/admin/itemcategories/edit/{hid}','Admin\ItemCategoryController@edit')->name('admin.itemcategory.edit')->middleware('admin');
+Route::post('/admin/itemcategories/store/{hid}','Admin\ItemCategoryController@store')->name('admin.itemcategory.store')->middleware('admin');
+
 Route::get('/admin/users','AdminController@users')->name('admin.users')->middleware('admin');
 Route::get('/admin/users/{hid}','AdminController@users')->name('admin.users.userid')->middleware('admin');
 

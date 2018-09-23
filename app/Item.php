@@ -26,6 +26,11 @@ class Item extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function category()
+    {
+        return $this->belongsTo('App\ItemCategory');
+    }
+
     public function wishlists()
     {
         return $this->belongsToMany('App\Wishlist')->withPivot('position')->withTimestamps();

@@ -211,7 +211,7 @@ header {
 	justify-content: space-between;
 	margin: 10px auto 20px;
 	text-align: center;
-	max-width: 440px;
+	max-width: 550px;
 }
 
 .header--public {
@@ -625,6 +625,16 @@ footer:hover {
 
 	.form--narrow {
 		max-width: 300px;
+	}
+
+	.form--2-col {
+		display: flex;
+		flex-flow: wrap;
+	}
+
+	.form--2-col .form__field {
+		padding-right: 15px;
+		width: 50%;
 	}
 }
 

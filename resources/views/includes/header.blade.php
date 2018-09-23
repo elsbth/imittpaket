@@ -35,6 +35,7 @@ $adminNavItems = array(
 	route('admin.users') => __('Users'),
 	route('admin.givers') => __('Givers'),
 	route('admin.invites') => __('Invites'),
+	route('admin.itemcategories') => __('Item categories'),
 );
 ?>
 
