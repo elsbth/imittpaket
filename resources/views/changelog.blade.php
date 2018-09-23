@@ -24,6 +24,7 @@
 	<p>Only list view is the public list. Edit list view is updated.</p>
 	<p>Fix: Unselecting all lists for one item is now saved correctly.</p>
 
+	<hr />
 	<h2>0.2.0 <span class="h6">2018-08-26</span> </h2>
 	<p>Cookie notice.</p>
 	<p>Public list view has new styling.</p>
