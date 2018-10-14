@@ -84,5 +84,5 @@ $isAuth = auth()->check();
     @endguest
 
     <hr />
-    <p>{{ __('See updates to the site in the') }} <a href="{{ route('changelog') }}">{{ __('changelog') }}</a>. Last updated: 2018-09-09.</p>
+    <p>{{ __('See updates to the site in the') }} <a href="{{ route('changelog') }}">{{ __('changelog') }}</a>. Last updated: 2018-09-23.</p>
 @endsection
