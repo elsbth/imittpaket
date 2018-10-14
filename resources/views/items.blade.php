@@ -151,12 +151,31 @@
                         @if($item->link)
                             <p class="item__link link--long"><a href="{{ $item->link }}">{{ $item->link }}</a></p>
                         @endif
-                        <div class="item__actions"><a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a></div>
+                        <div class="item__actions">
+                            <a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit') }}</a>
+                            <div class="item-actions__right">
+                                @if($item->got_date)
+                                    {{ __('Got it') }} <i class="fas fa-check"></i>
+                                @else
+                                    <button type="button"
+                                            class="btn btn--tertiary btn--size-small"
+                                            data-toggle="modal"
+                                            data-target="#got-item"
+                                            data-item-id="{{ $item->hid() }}"
+                                            data-item-name="{{ $item->name }}">
+                                        {{ __('Got it!') }}
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
         @endif
     @endif
+
+    @include('item.modal-got')
+
 @endsection
 
 

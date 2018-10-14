@@ -1,6 +1,7 @@
 (function($) {
 
     $(document).ready(function() {
+
         $('input.js-toggle-trigger').on('focus', function() {
             var triggerName = $(this).data('toggle-trigger');
 
@@ -35,6 +36,25 @@
             }
 
             copyToClipboard($copyFrom[0]);
+        });
+
+
+        // Got item - - - - - - - - - - - - - - - - - -
+
+        var $gotItemModal = $('.js-got-item-modal');
+
+        $gotItemModal
+        .on('show.bs.modal', function(e) {
+            var $invoker = $(e.relatedTarget),
+                itemId = $invoker.data('item-id'),
+                itemName = $invoker.data('item-name');
+
+            $gotItemModal.find('[type="hidden"][name="item_id"]').val(itemId);
+            $gotItemModal.find('.js-got-item-name').text(itemName);
+        })
+        .on('hidden.bs.modal', function() {
+            $gotItemModal.find('[type="hidden"][name="item_id"]').val('');
+            $gotItemModal.find('.js-got-item-name').text('');
         });
 
     });

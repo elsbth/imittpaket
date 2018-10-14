@@ -202,4 +202,55 @@ class ItemController extends Controller
             ->with('message', $message)
             ->withErrors([], 'addToList');
     }
+
+
+    public function got(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'item_id' => 'required',
+            'got_date' => 'date_format:Y-m-d|nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $request->all();
+
+        if (!isset($data['got_date']) || $data['got_date'] == null) {
+            $data['got_date'] = Item::ZERO_DATE;
+        }
+
+        $hid = $data['item_id'];
+        $id = Item::decodeHid($hid);
+
+        $currentItem = ($id) ? Item::find($id) : null;
+
+        if ($currentItem) {
+            $currentUser = Auth::user();
+
+            if ($currentItem->user_id == $currentUser->id) {
+
+                $currentItem->fill($data);
+                $changes = $currentItem->getDirty();
+
+                if ($changes) {
+                    $currentItem->save();
+
+                    $message = 'Item got: ' . $currentItem->name;
+                } else {
+                    $message = 'No changes detected.';
+                }
+            } else {
+                $message = 'You are not allowed to edit this item.';
+            }
+        } else {
+            $message = 'Item could not be found.';
+        }
+
+        return redirect()->back()
+            ->with('message', $message);
+    }
 }

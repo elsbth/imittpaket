@@ -134,7 +134,7 @@
         @if ($itemsOnList)
             @foreach ($itemsOnList as $item)
                 <div class="item item--card">
-                    <h2>{{ $item->name }}</h2>
+                    <h2 class="{{ $item->got_date ? 'item__name--got' : '' }}">{{ $item->name }}</h2>
 
                     @if ($item->qty || $item->price)
                         <div class="item__details space-children">
@@ -159,9 +159,23 @@
                     @endif
 
                     @if ($isOwner || $giver)
-                        <div class="item__actions">
+                        <div class="item__actions space-children">
                             @if ($isOwner)
                                 <a href="{{ route('item.edit', array($item->hid())) }}">{{ __('Edit item') }}</a>
+                                <div class="item-actions__right">
+                                    @if($item->got_date)
+                                        {{ __('Got it') }} <i class="fas fa-check"></i>
+                                    @else
+                                        <button type="button"
+                                                class="btn btn--tertiary btn--size-small"
+                                                data-toggle="modal"
+                                                data-target="#got-item"
+                                                data-item-id="{{ $item->hid() }}"
+                                                data-item-name="{{ $item->name }}">
+                                            {{ __('Got it!') }}
+                                        </button>
+                                    @endif
+                                </div>
                             @endif
 
                             @if (!$isOwner && $giver)
@@ -180,31 +194,39 @@
                                                 <i class="fas fa-check"></i> You are giving {{ $qtyByGiver }}. None left.
                                             </span>
 
-                                            <form method="POST" action="{{ route('item.mark') }}" class="form--give">
-                                                @csrf
+                                            @if(!$item->got_date)
+                                                <div class="item-actions__right">
+                                                    <form method="POST" action="{{ route('item.mark') }}" class="form--give">
+                                                        @csrf
 
-                                                <input type="number" name="marked_qty" value="{{ $qtyByGiver }}" min="0" max="{{ $qtyByGiver }}" />
-                                                <input type="hidden" name="item" value="{{ $item->hid() }}" />
-                                                <input type="hidden" name="giver" value="{{ $giver->token }}" />
-                                                <button type="submit" class="btn btn--secondary">
-                                                    <i class="fas fa-sync"></i> <span class="d-none d-sm-inline">{{ __('Update') }}</span>
-                                                </button>
-                                            </form>
+                                                        <input type="number" name="marked_qty" value="{{ $qtyByGiver }}" min="0" max="{{ $qtyByGiver }}" />
+                                                        <input type="hidden" name="item" value="{{ $item->hid() }}" />
+                                                        <input type="hidden" name="giver" value="{{ $giver->token }}" />
+                                                        <button type="submit" class="btn btn--secondary">
+                                                            <i class="fas fa-sync"></i> <span class="d-none d-sm-inline">{{ __('Update') }}</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
                                         @else
                                             <span class="item__give-info">
                                                 <i class="fas fa-check"></i> You are giving this
                                             </span>
 
-                                            <form method="POST" action="{{ route('item.mark') }}" class="form--give">
-                                                @csrf
+                                            @if(!$item->got_date)
+                                                <div class="item-actions__right">
+                                                    <form method="POST" action="{{ route('item.mark') }}" class="form--give">
+                                                        @csrf
 
-                                                <input type="hidden" name="marked_qty" value="0" />
-                                                <input type="hidden" name="item" value="{{ $item->hid() }}" />
-                                                <input type="hidden" name="giver" value="{{ $giver->token }}" />
-                                                <button type="submit" class="btn btn--cancel">
-                                                    <i class="fas fa-ban"></i> <span class="d-none d-sm-inline">{{ __('Cancel') }}</span>
-                                                </button>
-                                            </form>
+                                                        <input type="hidden" name="marked_qty" value="0" />
+                                                        <input type="hidden" name="item" value="{{ $item->hid() }}" />
+                                                        <input type="hidden" name="giver" value="{{ $giver->token }}" />
+                                                        <button type="submit" class="btn btn--cancel">
+                                                            <i class="fas fa-ban"></i> <span class="d-none d-sm-inline">{{ __('Cancel') }}</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
                                         @endif
                                     @endif
                                 @else
@@ -221,31 +243,45 @@
 
                                         </span>
                                     @endif
-                                    <form method="POST" action="{{ route('item.mark') }}" class="form--give">
-                                        @csrf
 
-                                        @if ($item->qty)
-                                            <input type="number" name="marked_qty" value="{{ $giveStartValue }}" min="0" max="{{ $item->qty - (int)$allMarked + $qtyByGiver }}" />
-                                        @endif
+                                    @if(!$item->got_date)
+                                        <div class="item-actions__right">
+                                            <form method="POST" action="{{ route('item.mark') }}" class="form--give">
+                                                @csrf
 
-                                        <input type="hidden" name="item" value="{{ $item->hid() }}" />
-                                        <input type="hidden" name="giver" value="{{ $giver->token }}" />
-                                        @if ($qtyByGiver === false)
-                                            <button type="submit" class="btn btn--primary">
-                                                <i class="fas fa-gift"></i> <span class="d-none d-sm-inline">{{ __('Give this') }}</span>
-                                            </button>
-                                        @else
-                                            <button type="submit" class="btn btn--secondary">
-                                                <i class="fas fa-sync"></i> <span class="d-none d-sm-inline">{{ __('Update') }}</span>
-                                            </button>
-                                        @endif
-                                    </form>
+                                                @if ($item->qty)
+                                                    <input type="number" name="marked_qty" value="{{ $giveStartValue }}" min="0" max="{{ $item->qty - (int)$allMarked + $qtyByGiver }}" />
+                                                @endif
+
+                                                <input type="hidden" name="item" value="{{ $item->hid() }}" />
+                                                <input type="hidden" name="giver" value="{{ $giver->token }}" />
+                                                @if ($qtyByGiver === false)
+                                                    <button type="submit" class="btn btn--primary">
+                                                        <i class="fas fa-gift"></i> <span class="d-none d-sm-inline">{{ __('Give this') }}</span>
+                                                    </button>
+                                                @else
+                                                    <button type="submit" class="btn btn--secondary">
+                                                        <i class="fas fa-sync"></i> <span class="d-none d-sm-inline">{{ __('Update') }}</span>
+                                                    </button>
+                                                @endif
+                                            </form>
+                                        </div>
+                                    @endif
+                                @endif
+
+                                @if($item->got_date)
+                                    <div class="item-actions__right">
+                                        {{ __('Got it') }} <i class="fas fa-check"></i>
+                                    </div>
                                 @endif
                             @endif
                         </div>
                     @endif
                 </div>
             @endforeach
+
+            @include('item.modal-got')
+
         @endif
 
     @else

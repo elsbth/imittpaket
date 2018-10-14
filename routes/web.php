@@ -83,6 +83,7 @@ Route::get('/items/{hid}/delete', 'ItemController@delete')->name('item.delete')-
 
 Route::post('/item/add', 'ItemController@create')->name('item.create')->middleware('auth');
 Route::post('/item/addtolist', 'ItemController@addToList')->name('item.addtolist')->middleware('auth');
+Route::post('/item/got', 'ItemController@got')->name('item.got')->middleware('auth');
 
 Route::post('/item/mark','MarkedItemController@create')->name('item.mark');
 

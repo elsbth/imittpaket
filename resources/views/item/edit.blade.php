@@ -15,7 +15,21 @@
     @if($currentItem)
 
         <h1><i class="fas fa-gift"></i> {{ $currentItem->name }}</h1>
-        <p>{{ __('Created') }}: {{ $currentItem->created_at->format('Y-m-d') }}</p>
+        <p>
+            {{ __('Created') }}: {{ $currentItem->created_at->format('Y-m-d') }}
+            @if($currentItem->got_date)
+                <br /><i class="fas fa-check"></i> {{ __('Got it') }}{{ $currentItem->got_date == '1000-01-01' ? '' : ': ' . $currentItem->got_date }}
+            @else
+                <br /><button type="button"
+                        class="btn btn--tertiary btn--size-small"
+                        data-toggle="modal"
+                        data-target="#got-item"
+                        data-item-id="{{ $currentItem->hid() }}"
+                        data-item-name="{{ $currentItem->name }}">
+                    {{ __('Got it!') }}
+                </button>
+            @endif
+        </p>
 
         <hr />
         <p> {{ __('Scroll down to select which list(s) the item should be added to.') }}</p>
@@ -164,6 +178,8 @@
         @else
             <p>{{ __('To add items to a list, start with Creating a list') }}</p>
         @endif
+
+        @include('item.modal-got')
 
     @else
         <p>{{ __('No item here') }}</p>

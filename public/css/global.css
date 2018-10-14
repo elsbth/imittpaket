@@ -149,6 +149,10 @@ a:hover, a:focus
 	padding-bottom: 5px;
 }
 
+.got-modal__name {
+	font-weight: bold;
+}
+
 .item__give-info {
 	color: #666;
 	line-height: 30px;
@@ -156,10 +160,6 @@ a:hover, a:focus
 
 .item__give-info .fa-check {
 	color: #4db503;
-}
-
-.form--give {
-	float: right;
 }
 
 .form--give input[type="number"] {
@@ -330,6 +330,11 @@ header {
 	padding: 0;
 }
 
+input[type=date]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	display: none;
+}
+
 .form__field {
 	margin-bottom: 15px;
 }
@@ -357,6 +362,10 @@ header {
 .item--card:hover,
 .list--card:hover {
 	border-color: #000;
+}
+
+.item__name--got {
+	text-decoration: line-through;
 }
 
 .item__link {
@@ -395,6 +404,12 @@ header {
 	border-bottom: 1px solid #e5e5e5;
 	margin: -5px 0 0;
 	padding: 0 15px 5px;
+}
+
+.item-actions__right {
+	float: right;
+	margin-right: 0;
+	padding-right: 0;
 }
 
 .reorder__actions {

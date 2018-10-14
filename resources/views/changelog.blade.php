@@ -19,6 +19,12 @@
 
 	<p style="font-style: italic">Re-building the site from scratch with Laravel to make it easier to maintain the code. Read all about the changes released to the site in this changelog.</p>
 
+	<h2>0.5.0 <span class="h6">2018-10-14</span> </h2>
+	<p>Item can now be marked as "Got it!". Optional to add date when item was received.</p>
+	<p>Fixed item order on list when viewing as giver.</p>
+
+	<hr />
+
 	<h2>0.4.0 <span class="h6">2018-09-23</span> </h2>
 	<p>Select a category for your items. Category is shown with an icon in the list.</p>
 	<p>Copy public link to clipboard. In edit list view.</p>

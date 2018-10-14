@@ -41,7 +41,11 @@ class GiverController extends Controller
             return redirect(route('list.view', $listToken));
         }
 
-        $itemsOnList = $currentList->items()->get();
+        $itemsOnList = $currentList->items()
+            ->orderBy('item_wishlist.position', 'asc')
+            ->orderBy('item_wishlist.created_at', 'asc')
+            ->get();
+
         $ownerUserId = $currentList->user_id;
 
         $owner = User::whereId($ownerUserId)->first();

@@ -194,7 +194,15 @@ class WishlistController extends Controller
 
     public function view($hash) {
         $currentList = Wishlist::wherePublicHash($hash)->first();
-        $itemsOnList = ($currentList) ? $currentList->items()->orderBy('item_wishlist.position')->get() : null;
+        $itemsOnList = null;
+
+        if ($currentList) {
+            $itemsOnList = $currentList->items()
+                ->orderBy('item_wishlist.position', 'asc')
+                ->orderBy('item_wishlist.created_at', 'asc')
+                ->get();
+        }
+
         $currentUser = Auth::user();
         $ownerUserId = ($currentList) ? $currentList->user_id : null;
 

@@ -70,7 +70,7 @@
             </div>
             <div class="form-group{{ $errors->store->has('date') ? ' has-error' : '' }}">
                 <label for="date">Date (YYYY-MM-DD)</label>
-                <input type="text"
+                <input type="date"
                        class="form-control"
                        id="date"
                        name="date"

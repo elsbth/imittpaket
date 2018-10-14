@@ -9,6 +9,8 @@ use Vinkla\Hashids\Facades\Hashids;
 class Item extends Model
 {
 
+    const ZERO_DATE = '1000-01-01';
+
     protected $fillable = [
         'name',
         'description',
@@ -16,7 +18,8 @@ class Item extends Model
         'price',
         'qty',
         'user_id',
-        'category_id'
+        'category_id',
+        'got_date'
     ];
 
     /**
